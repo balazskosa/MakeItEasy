@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.makeiteasy.ViewController">
+   <children>
+      <SplitPane dividerPositions="0.29797979797979796" layoutX="168.0" layoutY="190.0" prefHeight="580.0" prefWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <VBox prefHeight="578.0" prefWidth="282.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#summary" prefHeight="160.0" prefWidth="282.0" style="-fx-background-color: #1b5359; -fx-border-color: #18737d;" text="Summary" textFill="WHITE">
+                           <font>
+                              <Font name="Calibri" size="32.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#result" prefHeight="160.0" prefWidth="282.0" style="-fx-background-color: #1b5359; -fx-border-color: #18737d;" text="Result" textFill="WHITE">
+                           <font>
+                              <Font name="Calibri" size="32.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#profile" prefHeight="160.0" prefWidth="282.0" style="-fx-background-color: #1b5359; -fx-border-color: #18737d;" text="Profile" textFill="WHITE">
+                           <font>
+                              <Font name="Calibri" size="32.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#foods" prefHeight="160.0" prefWidth="282.0" style="-fx-background-color: #1b5359; -fx-border-color: #18737d;" text="Foods" textFill="WHITE">
+                           <font>
+                              <Font name="Calibri" size="32.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#exit" prefHeight="160.0" prefWidth="282.0" style="-fx-background-color: #1b5359; -fx-border-color: #18737d;" text="Exit" textFill="WHITE">
+                           <font>
+                              <Font name="Calibri" size="32.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #18737d;">
+               <children>
+                  <Rectangle arcHeight="100.0" arcWidth="100.0" fill="DODGERBLUE" height="218.0" layoutX="126.0" layoutY="-124.0" opacity="0.5" rotate="30.0" stroke="BLACK" strokeType="INSIDE" width="465.0" />
+                  <Rectangle arcHeight="100.0" arcWidth="100.0" fill="DODGERBLUE" height="218.0" layoutX="46.0" layoutY="552.0" opacity="0.5" rotate="30.0" stroke="BLACK" strokeType="INSIDE" width="465.0" />
+                  <Pane fx:id="summaryPane" prefHeight="578.0" prefWidth="670.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="228.0" layoutY="263.0" prefHeight="53.0" prefWidth="214.0" text="Summary">
+                           <font>
+                              <Font size="36.0" />
+                           </font></Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="resultPane" disable="true" prefHeight="578.0" prefWidth="670.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="228.0" layoutY="263.0" prefHeight="53.0" prefWidth="214.0" text="Result">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="profilePane" disable="true" layoutX="23.0" layoutY="55.0" prefHeight="578.0" prefWidth="670.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="228.0" layoutY="263.0" prefHeight="53.0" prefWidth="214.0" text="Profile">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="foodsPane" disable="true" prefHeight="578.0" prefWidth="670.0" visible="false">
+                     <children>
+                        <TableView fx:id="table" editable="true" layoutX="50.0" layoutY="47.0" opacity="0.6" prefHeight="484.0" prefWidth="570.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="C1" />
+                            <TableColumn prefWidth="75.0" text="C2" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
