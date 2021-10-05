@@ -1,53 +1,67 @@
 package com.example.makeiteasy;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.Pane;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 
-public class ViewController {
+public class ViewController implements Initializable {
 
     @FXML
-    private Pane summaryPane;
-
-    @FXML
-    private Pane profilePane;
-
-    @FXML
-    private Pane resultPane;
-
-    @FXML
-    private Pane foodsPane;
+    private BorderPane borderPane;
 
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    @FXML
-    protected void summary() {setPanes(summaryPane);};
-    @FXML
-    protected void result() {setPanes(resultPane);}
-    @FXML
-    protected void profile() {setPanes(profilePane);}
-    @FXML
-    protected void foods() {setPanes(foodsPane);}
-    @FXML
-    protected void exit() {
-        System.exit(0);
     }
 
-    private void setPanes(Pane actualPane) {
-        summaryPane.setDisable(true);
-        summaryPane.setVisible(false);
+    @FXML
+    private void summary() {
+        loadPane("Summary");
+    }
 
-        profilePane.setDisable(true);
-        profilePane.setVisible(false);
+    @FXML
+    private void result() {
+        loadPane("Result");
+    }
 
-        resultPane.setDisable(true);
-        resultPane.setVisible(false);
+    @FXML
+    private void profile() {
+        loadPane("Profile");
+    }
 
-        foodsPane.setDisable(true);
-        foodsPane.setVisible(false);
+    @FXML
+    private void foods() {
+        loadPane("Food");
+    }
 
-        actualPane.setDisable(false);
-        actualPane.setVisible(true);
+    @FXML
+    private void exit() {
+           Stage stage = (Stage) borderPane.getScene().getWindow();
+           stage.close();
+    }
+
+    private void loadPane(String fileName) {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource(fileName + ".fxml"))));
+        } catch (IOException e) {
+            System.out.println("" + e);
+        }
+        borderPane.setCenter(root);
 
     }
+
+
 }
