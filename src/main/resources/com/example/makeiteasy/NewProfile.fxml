@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="mainPane" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #176E77;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.makeiteasy.controller.NewProfileScreenController">
+   <children>
+      <Pane fx:id="namePage" layoutY="29.0" prefHeight="408.0" prefWidth="500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="CENTER" layoutY="73.0" prefHeight="224.0" prefWidth="500.0" spacing="60.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to MakeItEasy!" textAlignment="CENTER" wrappingWidth="500.0">
+                     <font>
+                        <Font name="Calibri" size="37.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="To calculate your daily calorie intake, we need to know some basic information about you." wrappingWidth="284.970703125">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="What's your name?">
+                     <font>
+                        <Font name="Calibri Light" size="15.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" focusTraversable="true" layoutX="148.0" layoutY="291.0" prefHeight="102.0" prefWidth="206.0" spacing="20.0">
+               <children>
+                  <TextField fx:id="firstName" prefHeight="25.0" prefWidth="181.0" promptText="Enter your first name..." style="-fx-background-color: #1b5359; -fx-text-inner-color: white;">
+                     <font>
+                        <Font name="Calibri Light" size="12.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="lastName" prefHeight="25.0" prefWidth="181.0" promptText="Enter your last name..." style="-fx-background-color: #1b5359; -fx-text-inner-color: white;">
+                     <font>
+                        <Font name="Calibri Light" size="12.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="36.0" layoutY="291.0" prefHeight="102.0" prefWidth="100.0" spacing="30.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="First name:" wrappingWidth="74.13671875">
+                     <font>
+                        <Font name="Calibri Light" size="16.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Last name:" wrappingWidth="74.13671875">
+                     <font>
+                        <Font name="Calibri Light" size="16.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane fx:id="weightPage" prefHeight="408.0" prefWidth="500.0" visible="false">
+         <children>
+            <Text fill="WHITE" layoutX="89.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What's your current weight?">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <HBox alignment="CENTER" layoutX="-26.0" layoutY="276.0" prefHeight="77.0" prefWidth="500.0" spacing="10.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight: ">
+                     <font>
+                        <Font name="Calibri Light" size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="weight" alignment="CENTER" prefHeight="37.0" prefWidth="74.0" style="-fx-background-color: #1b5359; -fx-text-inner-color: white;">
+                     <font>
+                        <Font name="Calibri Light" size="12.0" />
+                     </font></TextField>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="kg">
+                     <font>
+                        <Font name="Calibri Light" size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+      <HBox prefHeight="48.0" prefWidth="500.0">
+         <children>
+            <Button fx:id="nameButton" alignment="CENTER" layoutX="15.0" layoutY="20.0" minWidth="67.0" mnemonicParsing="false" prefHeight="6.0" prefWidth="110.0" style="-fx-background-color: #1b5359;" text="Name" textFill="WHITE">
+               <font>
+                  <Font name="Calibri" size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="weightButton" alignment="CENTER" minWidth="67.0" mnemonicParsing="false" prefHeight="6.0" prefWidth="110.0" style="-fx-background-color: transparent;" text="Weight" textFill="#a1a1a19d">
+               <font>
+                  <Font name="Calibri" size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="genderButton" alignment="BASELINE_CENTER" minWidth="45.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="110.0" style="-fx-background-color: transparent;" text="Sex" textFill="#a3a3a39e">
+               <font>
+                  <Font name="Calibri" size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="birthButton" alignment="BASELINE_CENTER" mnemonicParsing="false" prefHeight="28.0" prefWidth="110.0" style="-fx-background-color: transparent;" text="Date of Birth" textFill="#a3a3a39d">
+               <font>
+                  <Font name="Calibri" size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="heightButton" alignment="BASELINE_CENTER" mnemonicParsing="false" prefHeight="28.0" prefWidth="110.0" style="-fx-background-color: transparent;" text="Height" textFill="#a3a3a39d">
+               <font>
+                  <Font name="Calibri" size="15.0" />
+               </font>
+            </Button>
+         </children>
+         <padding>
+            <Insets left="5.0" right="5.0" top="10.0" />
+         </padding>
+      </HBox>
+      <Button fx:id="backArrow" alignment="TOP_LEFT" layoutX="14.0" layoutY="415.0" mnemonicParsing="false" onAction="#onBackArrowAction" prefHeight="71.0" prefWidth="59.0" style="-fx-background-color: transparent;" text="&lt;" textFill="#ffffffe1" visible="false">
+         <font>
+            <Font name="Calibri Bold" size="39.0" />
+         </font>
+      </Button>
+      <Button fx:id="nextArrow" alignment="TOP_RIGHT" layoutX="414.0" layoutY="415.0" mnemonicParsing="false" onAction="#onNextArrowAction" prefHeight="71.0" prefWidth="59.0" style="-fx-background-color: transparent;" text="&gt;" textFill="#ffffffe1">
+         <font>
+            <Font name="Calibri Bold" size="39.0" />
+         </font>
+      </Button>
+      <Pane fx:id="genderPage" layoutX="10.0" layoutY="10.0" prefHeight="408.0" prefWidth="500.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fill="WHITE" layoutX="154.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What's your sex?">
+               <font>
+                  <Font name="Calibri Light" size="26.0" />
+               </font>
+            </Text>
+            <VBox alignment="CENTER" layoutX="200.0" layoutY="194.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+               <children>
+                  <Button fx:id="maleButton" mnemonicParsing="false" onAction="#setMaleGender" prefHeight="39.0" prefWidth="113.0" style="-fx-background-color: #1b5359;" text="Male" textFill="WHITE" />
+                  <Button fx:id="femaleButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#setFemaleGender" prefHeight="39.0" prefWidth="113.0" style="-fx-background-color: #1b5359;" text="Female" textFill="WHITE" />
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane fx:id="birthPage" prefHeight="408.0" prefWidth="500.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fill="WHITE" layoutX="117.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="When is your birthday?" wrappingWidth="265.13671875">
+               <font>
+                  <Font name="Calibri Light" size="27.0" />
+               </font>
+            </Text>
+            <DatePicker fx:id="birthDate" editable="false" layoutX="163.0" layoutY="247.0" promptText="Pick a date..." style="-fx-background-color: #1b5359;" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+         </children>
+      </Pane>
+      <Pane fx:id="heightPage" prefHeight="426.0" prefWidth="500.0" visible="false">
+         <children>
+            <Text fill="WHITE" layoutX="155.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How tall are you?">
+               <font>
+                  <Font name="Calibri Light" size="27.0" />
+               </font>
+            </Text>
+            <HBox alignment="CENTER" layoutX="150.0" layoutY="237.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Height: ">
+                     <font>
+                        <Font name="Calibri Light" size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="height" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: #1b5359; -fx-text-inner-color: white;" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="cm">
+                     <font>
+                        <Font name="Calibri Light" size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <Button fx:id="calculateButton" layoutX="178.0" layoutY="368.0" mnemonicParsing="false" onAction="#createUser" prefHeight="44.0" prefWidth="144.0" style="-fx-background-color: #1b5359;" text="Calculate" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Light" size="21.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

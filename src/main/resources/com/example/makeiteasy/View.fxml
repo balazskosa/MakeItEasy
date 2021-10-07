@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.makeiteasy.ViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.makeiteasy.ViewController">
    <children>
-      <SplitPane dividerPositions="0.22233820459290188" layoutX="168.0" layoutY="190.0" prefHeight="580.0" prefWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.2223" layoutX="168.0" layoutY="190.0" prefHeight="580.0" prefWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #18737d;">
                <children>
                   <VBox prefHeight="578.0" prefWidth="282.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#summary" prefHeight="160.0" prefWidth="282.0" style="-fx-background-color: #1b5359; -fx-border-color: #18737d;" text="Summary" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#summary" prefHeight="160.0" prefWidth="282.0" style="-fx-background-color: #1b5359; -fx-border-color: #18737d;" text="Summary" textAlignment="CENTER" textFill="WHITE">
                            <font>
-                              <Font name="Calibri" size="32.0" />
+                              <Font name="Calibri Light" size="32.0" />
                            </font>
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
