@@ -104,12 +104,12 @@ public class NewProfileScreenController implements Initializable {
     private void createUser() {
         //Empty fields and string to int field are not checked yet, but with accurate data it works
 
-        User user = new User (  firstName.getText(),
-                                lastName.getText(),
-                                Integer.parseInt(weight.getText()),
+        User user = new User (  firstName.getText().trim(),
+                                lastName.getText().trim(),
+                                Integer.parseInt(weight.getText().trim()),
                                 gender,
                                 birthDate.getValue(),
-                                Integer.parseInt(height.getText())
+                                Integer.parseInt(height.getText().trim())
                                 );
 
         //Printing the calorie result in User, it has a calculateCalories method (only prints on console)
