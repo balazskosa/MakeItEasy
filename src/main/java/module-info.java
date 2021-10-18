@@ -1,6 +1,7 @@
 module com.example.makeiteasy {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens com.example.makeiteasy to javafx.fxml;

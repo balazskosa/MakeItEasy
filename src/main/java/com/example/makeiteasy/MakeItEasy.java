@@ -34,7 +34,7 @@ public class MakeItEasy extends Application {
     }
 
     private int getCurrentUserID() {
-        int userID = 0;
+        int userID = 1;
         // Get user information (e.g. id) from database...
         return userID;
     }
