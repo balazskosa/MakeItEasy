@@ -1,7 +1,6 @@
 package com.example.makeiteasy.database;
 
 import com.example.makeiteasy.database.pojo.Food;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -56,10 +55,10 @@ public class FoodDatabase {
             ResultSetMetaData rsmd = rs.getMetaData();
 
             while (rs.next()) {
-                Food actualFood = new Food(rs.getString(rsmd.getColumnName(1)),
-                        rs.getInt(rsmd.getColumnName(2)),
-                        rs.getInt(rsmd.getColumnName(3)),
-                        rs.getInt(rsmd.getColumnName(4)));
+                Food actualFood = new Food(rs.getString("name"),
+                        rs.getInt("protein"),
+                        rs.getInt("carbohydrate"),
+                        rs.getInt("fat"));
                 foods.add(actualFood);
             }
         } catch (SQLException e) {

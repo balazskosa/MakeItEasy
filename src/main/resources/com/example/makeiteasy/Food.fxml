@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="578.0" prefWidth="742.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.makeiteasy.controller.FoodController">
    <children>
-      <TableView layoutX="123.0" layoutY="51.0" prefHeight="580.0" prefWidth="980.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-        </columns>
-      </TableView>
+      <TableView id="table" fx:id="table" editable="true" layoutX="123.0" layoutY="51.0" prefHeight="580.0" prefWidth="980.0" style="-fx-background-color: #6a9beb;" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0">
+         <columns>
+            <TableColumn id="nameCol" fx:id="nameCol" minWidth="150.0" prefWidth="150.0" text="name" />
+            <TableColumn id="proteinCol" fx:id="proteinCol" minWidth="100.0" prefWidth="100.0" text="protein" />
+            <TableColumn id="carbCol" fx:id="carbCol" minWidth="100.0" prefWidth="100.0" text="carbohydrate" />
+            <TableColumn id="fatCol" fx:id="fatCol" minWidth="100.0" prefWidth="100.0" text="fat" />
+         </columns>
+         <effect>
+            <DropShadow color="#223b86" />
+         </effect></TableView>
    </children>
 </AnchorPane>
