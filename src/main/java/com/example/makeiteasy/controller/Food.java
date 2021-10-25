@@ -16,8 +16,9 @@ public class Food {
         this.name = new SimpleStringProperty(name);
         this.protein = new SimpleIntegerProperty(protein);
         this.carbohydrate = new SimpleIntegerProperty(carbohydrate);
-        this.fat = new SimpleIntegerProperty(fat);
+        this.fat = new SimpleIntegerProperty(carbohydrate);
     }
+
 
     public int getProtein() {
         return protein.get();
@@ -42,6 +43,7 @@ public class Food {
     public void setName(String name) {
         this.name.set(name);
     }
+
 
     public int getCarbohydrate() {
         return carbohydrate.get();

@@ -2,17 +2,16 @@ package com.example.makeiteasy.database;
 
 import java.sql.*;
 
-public class DB {
+public final class DB {
 
-    final String JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-    final String URL = "jdbc:derby:Database;create=true";
+    final static String JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+    final static String URL = "jdbc:derby:Database;create=true";
 
-    private  Connection conn = null;
-    private  Statement createStatement = null;
-    private  DatabaseMetaData dmbd = null;
+    private static Connection conn = null;
+    private static Statement createStatement = null;
+    private static DatabaseMetaData dmbd = null;
 
-
-    public DB() {
+    private DB() {
         try {
             conn = DriverManager.getConnection(URL);
             System.out.println("Bridge is open");
@@ -38,18 +37,22 @@ public class DB {
             System.out.println("" + e);
         }
 
-
     }
 
-    public Connection getConn() {
+    static {
+        new DB();
+        FoodTable.getData().addAll(FoodTable.getAllFoods());
+    }
+
+    public static Connection getConn() {
         return conn;
     }
 
-    public Statement getCreateStatement() {
+    public static Statement getCreateStatement() {
         return createStatement;
     }
 
-    public DatabaseMetaData getDmbd() {
+    public static DatabaseMetaData getDmbd() {
         return dmbd;
     }
 
