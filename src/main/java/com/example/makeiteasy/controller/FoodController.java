@@ -1,10 +1,7 @@
 package com.example.makeiteasy.controller;
 
 import com.example.makeiteasy.database.DB;
-import com.example.makeiteasy.database.FoodTable;
 import com.example.makeiteasy.database.pojo.Food;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -58,7 +55,7 @@ public class FoodController implements Initializable {
         int carbs = Integer.parseInt(inputCarbs.getText());
         int fat = Integer.parseInt(inputFat.getText());
         Food food = new Food(name, protein, carbs, fat);
-        FoodTable.addFood(food);
+        DB.addFood(food);
         setTable();
     }
 
@@ -70,13 +67,12 @@ public class FoodController implements Initializable {
     }
 
     public void setTable() {
-
         nameCol.setCellValueFactory(new PropertyValueFactory<Food, String>("name"));
         proteinCol.setCellValueFactory(new PropertyValueFactory<Food, Integer>("protein"));
         carbCol.setCellValueFactory(new PropertyValueFactory<Food, Integer>("carbohydrate"));
         fatCol.setCellValueFactory(new PropertyValueFactory<Food, Integer>("fat"));
 
-        table.setItems(FoodTable.getData());
+        table.setItems(DB.getData());
 
     }
 

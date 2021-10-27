@@ -1,4 +1,4 @@
-package com.example.makeiteasy.controller;
+package com.example.makeiteasy;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,7 +53,7 @@ public class ViewController implements Initializable {
     private void loadPane(String fileName) {
         Parent root = null;
         try {
-            root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("..//" + fileName + ".fxml"))));
+            root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource(fileName + ".fxml"))));
         } catch (IOException e) {
             System.out.println("" + e);
         }
