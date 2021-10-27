@@ -1,6 +1,7 @@
 package com.example.makeiteasy.database;
 
 import com.example.makeiteasy.database.pojo.Food;
+import com.example.makeiteasy.database.pojo.Meal;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 
 public final class DB {
 
+    //<editor-fold desc="object variables">
     final static String JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     final static String URL = "jdbc:derby:Database;create=true";
 
@@ -16,13 +18,15 @@ public final class DB {
     private static Statement createStatement = null;
     private static DatabaseMetaData dmbd = null;
 
-    private static ObservableList<Food> data = FXCollections.observableArrayList();
+    private static ObservableList<Food> foods = FXCollections.observableArrayList();
+    private static ObservableList<Meal> meals = FXCollections.observableArrayList();
+    //</editor-fold">
 
     static {
         new DB();
-        data.addAll(DB.getAllFoods());
+        foods.addAll(DB.getAllFoods());
+        meals.addAll(DB.getAllMealByUserID(0));
     }
-
     private DB() {
         try {
             conn = DriverManager.getConnection(URL);
@@ -49,13 +53,14 @@ public final class DB {
             System.out.println("" + e);
         }
 
+        //FoodTable
         try {
             ResultSet rs1 = dmbd.getTables(null, "APP", "FOOD", null);
 
             if (!rs1.next()) {
                 createStatement.execute("create table food(" +
                         "id int not null primary key generated always as identity (START WITH 1, INCREMENT BY 1)," +
-                        "name varchar(20)," +
+                        " name varchar(20)," +
                         " protein int," +
                         " carbohydrate int," +
                         " fat int)");
@@ -65,8 +70,27 @@ public final class DB {
             System.out.println("" + e);
         }
 
+        //MealTable
+
+        try {
+            ResultSet rs1 = dmbd.getTables(null, "APP", "MEAL", null);
+
+            if (!rs1.next()) {
+                createStatement.execute("create table meal(" +
+                        "userId int, " +
+                        " foodId int," +
+                        " date DATE FORMAT 'dd.mm.yyyy'," +
+                        " whichMeal int," +
+                        " weight int)");
+            }
+        } catch (SQLException e) {
+            System.out.println("Something wrong with the creating of the table(s)");
+            System.out.println("" + e);
+        }
+
     }
 
+    //<editor-fold desc="all methods to food table">
     public static void addFood(Food food) {
         String sql = "insert into food (name, protein, carbohydrate, fat) values(?, ?, ?, ?)";
         try {
@@ -81,7 +105,7 @@ public final class DB {
             System.out.println("Something wrong with the addFood method");
             System.out.println("" + e);
         }
-        data.add(food);
+        foods.add(food);
 
     }
 
@@ -120,14 +144,61 @@ public final class DB {
             pstm.setInt(4, food.getFat());
             pstm.setInt(5, food.getId());
 
-            System.out.println("updateFood method already ran");
-
         } catch (SQLException e) {
             System.out.println("Something wrong with the updateFood method");
         }
     }
 
-    public static ObservableList<Food> getData() {
-        return data;
+    public static ObservableList<Food> getFoods() {
+        return foods;
     }
+    //</editor-fold">
+
+    //<editor-fold desc="all methods to meal table">
+    public void addMeal(Meal meal) {
+        String sql = "insert into meal values(?, ?, ?, ?, ?)";
+
+        try {
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, meal.getUserId());
+            pstm.setInt(2, meal.getFoodId());
+            pstm.setDate(3, (Date) meal.getDate());
+            pstm.setInt(4, meal.getWhichMeal());
+            pstm.setInt(5, meal.getWeight());
+
+        } catch (SQLException e) {
+            System.out.println("Something wrong with the addMeal method");
+        }
+    }
+
+    public static ArrayList<Meal> getAllMealByUserID(int userID) {
+        String sql ="select * from meal where userID = " + userID;
+        ArrayList<Meal> meals = null;
+
+        try {
+            meals = new ArrayList<>();
+            ResultSet rs = createStatement.executeQuery(sql);
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            while (rs.next()) {
+                Meal actualMeal = new Meal(rs.getInt("userId"),
+                        rs.getInt("foodId"),
+                        rs.getDate("date"),
+                        rs.getInt("whichMeal"),
+                        rs.getInt("weight"));
+                meals.add(actualMeal);
+            }
+        } catch (SQLException e) {
+            System.out.println("Something wrong with the getAllMealByUserID method");
+            System.out.println("" + e);
+        }
+
+        return meals;
+    }
+    
+    public static ObservableList<Meal> getMeals() {
+        return meals;
+    }
+
+    //</editor-fold">
 }
