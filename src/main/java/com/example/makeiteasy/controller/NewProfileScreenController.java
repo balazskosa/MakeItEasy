@@ -2,13 +2,18 @@ package com.example.makeiteasy.controller;
 
 import com.example.makeiteasy.User;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -112,12 +117,27 @@ public class NewProfileScreenController implements Initializable {
                                 Integer.parseInt(height.getText().trim())
                                 );
 
+
+        try {
+            replaceSceneContent();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //Printing the calorie result in User, it has a calculateCalories method (only prints on console)
 
         //TO-DO jump to View.fxml
         //TO-DO open NewProfile.fxml when click in View.fxml the profile menu
     }
 
+    private void replaceSceneContent() throws IOException {
+        URL url = new File("src/main/resources/com/example/makeiteasy/View.fxml").toURI().toURL();
+        Parent page = FXMLLoader.load(url);
+        stage.getScene().setRoot(page);
+        stage.sizeToScene();
+        stage.centerOnScreen();
+    }
 
-
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.makeiteasy;
 
+import com.example.makeiteasy.controller.NewProfileScreenController;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,10 @@ public class MakeItEasy extends Application {
         stage.setTitle("MakeItEasy");
         stage.setResizable(false);
         stage.setScene(scene);
+
+        NewProfileScreenController newProfileScreenController = fxmlLoader.getController();
+        newProfileScreenController.setStage(stage);
+
         stage.show();
     }
 
