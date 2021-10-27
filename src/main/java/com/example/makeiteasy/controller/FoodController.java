@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 public class FoodController implements Initializable {
 
-
+    //<editor-fold desc="object variables">
     @FXML
     private TableView<Food> table;
 
@@ -47,6 +47,7 @@ public class FoodController implements Initializable {
 
     private final List<TextField> inputs = new ArrayList<>();
 
+    //</editor-fold">
 
     @FXML
     private void addButton(ActionEvent event) {
@@ -72,7 +73,7 @@ public class FoodController implements Initializable {
         carbCol.setCellValueFactory(new PropertyValueFactory<Food, Integer>("carbohydrate"));
         fatCol.setCellValueFactory(new PropertyValueFactory<Food, Integer>("fat"));
 
-        table.setItems(DB.getData());
+        table.setItems(DB.getFoods());
 
     }
 
