@@ -5,68 +5,77 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class NewProfileScreenController implements Initializable {
 
+    private Stage stage;
+
+    //Top buttons
     @FXML private Button[] topButtons;
     @FXML private Button nameButton;
     @FXML private Button weightButton;
     @FXML private Button genderButton;
     @FXML private Button birthButton;
     @FXML private Button heightButton;
-    @FXML private Button maleButton;
-    @FXML private Button femaleButton;
+    @FXML private Button activityButton;
 
-    @FXML private Button nextArrow;
-    @FXML private Button backArrow;
-
-    @FXML private Text emptyFirstNameMsg;
-    @FXML private Text emptyLastNameMsg;
-    @FXML private Text positiveWeightMsg;
-    @FXML private Text chooseOneMsg;
-    @FXML private Text positiveHeightMsg;
-
+    //Profile creation pages
     @FXML private Pane[] pages;
     @FXML private Pane namePage;
     @FXML private Pane weightPage;
     @FXML private Pane genderPage;
     @FXML private Pane birthPage;
     @FXML private Pane heightPage;
-    private int currentPage = -1;
+    @FXML private Pane activityPage;
+    private int currentPage;
 
+    //Gender buttons
+    @FXML private Button maleButton;
+    @FXML private Button femaleButton;
+
+    //Navigation buttons
+    @FXML private Button nextArrow;
+    @FXML private Button backArrow;
+    @FXML private Button calculateButton;
+
+    //Alert messages for data type checking
+    @FXML private Text emptyFirstNameMsg;
+    @FXML private Text emptyLastNameMsg;
+    @FXML private Text positiveWeightMsg;
+    @FXML private Text chooseOneGenderMsg;
+    @FXML private Text positiveHeightMsg;
+    @FXML private Text chooseOneActivityMsg;
+
+    //Fields for get profile data
     @FXML private TextField firstName;
     @FXML private TextField lastName;
     @FXML private TextField weight;
-    private int gender = -1;
+    private String gender;
     @FXML private DatePicker birthDate;
     @FXML private TextField height;
-
-    private Stage stage;
+    @FXML private ToggleGroup activityRadioGroup;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        pages = new Pane[]{namePage, weightPage, genderPage, birthPage, heightPage};
-        topButtons = new Button[]{nameButton, weightButton, genderButton, birthButton, heightButton};
+        pages = new Pane[]{namePage, weightPage, genderPage, birthPage, heightPage, activityPage};
+        topButtons = new Button[]{nameButton, weightButton, genderButton, birthButton, heightButton, activityButton};
         currentPage = 0;
         birthDate.setValue(LocalDate.parse("2000-01-01"));
     }
 
     @FXML
     public void onNextArrowAction() {
-        if(checkDataIsCorrect(currentPage)) {
+        if(checkData(currentPage)) {
             ++currentPage;
             topButtons[currentPage].setStyle("-fx-background-color: #1b5359;" +
                     "-fx-text-fill: white");
@@ -75,8 +84,11 @@ public class NewProfileScreenController implements Initializable {
 
             pages[currentPage].toFront();
 
-            if (currentPage == pages.length-1)
+            if (currentPage == pages.length-1) {
                 nextArrow.setVisible(false);
+                calculateButton.setVisible(true);
+            }
+
 
             pages[currentPage-1].setVisible(false);
             pages[currentPage].setVisible(true);
@@ -100,48 +112,24 @@ public class NewProfileScreenController implements Initializable {
         pages[currentPage+1].setVisible(false);
         pages[currentPage].setVisible(true);
         nextArrow.setVisible(true);
+        calculateButton.setVisible(false);
     }
 
     @FXML
     private void setMaleGender() {
-        gender = 1;
+        gender = "Male";
         maleButton.setStyle("-fx-background-color: #74C2BA;");
         femaleButton.setStyle("-fx-background-color: #1b5359;");
     }
 
     @FXML
     private void setFemaleGender() {
-        gender = 2;
+        gender = "Female";
         femaleButton.setStyle("-fx-background-color: #74C2BA;");
         maleButton.setStyle("-fx-background-color: #1b5359;");
     }
 
-    @FXML
-    private void createUser() {
-        //Empty fields and string to int field are not checked yet, but with accurate data it works
-        if(checkDataIsCorrect(currentPage)) {
-            User user = new User (  firstName.getText().trim(),
-                    lastName.getText().trim(),
-                    Integer.parseInt(weight.getText().trim()),
-                    gender,
-                    birthDate.getValue(),
-                    Integer.parseInt(height.getText().trim())
-            );
-
-
-            try {
-                replaceSceneContent();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        //Printing the calorie result in User, it has a calculateCalories method (only prints on console)
-
-        //TO-DO jump to View.fxml
-        //TO-DO open NewProfile.fxml when click in View.fxml the profile menu
-    }
-
-    private boolean checkDataIsCorrect(int currentPage) {
+    private boolean checkData(int currentPage) {
         boolean isCorrect = true;
         switch(currentPage) {
             case 0:
@@ -168,11 +156,11 @@ public class NewProfileScreenController implements Initializable {
                 }
                 break;
             case 2:
-                if(gender == -1) {
-                    chooseOneMsg.setVisible(true);
+                if(gender == null) {
+                    chooseOneGenderMsg.setVisible(true);
                     isCorrect = false;
                 } else {
-                    chooseOneMsg.setVisible(false);
+                    chooseOneGenderMsg.setVisible(false);
                 }
                 break;
             case 4:
@@ -183,22 +171,64 @@ public class NewProfileScreenController implements Initializable {
                     positiveHeightMsg.setVisible(false);
                 }
                 break;
+            case 5:
+                if(activityRadioGroup.getSelectedToggle() == null){
+                    chooseOneActivityMsg.setVisible(true);
+                    isCorrect = false;
+                } else {
+                    chooseOneActivityMsg.setVisible(false);
+                }
+                break;
         }
         return isCorrect;
     }
 
     private boolean isNumeric(String string) {
-        int intValue;
-
         if(string == null || string.equals(""))
             return false;
 
         try {
-            intValue = Integer.parseInt(string);
+            int intValue = Integer.parseInt(string);
             return true;
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    @FXML
+    private void calculateAndCreate() {
+        if(checkData(currentPage)) {
+            User user = new User (
+                    firstName.getText().trim(),
+                    lastName.getText().trim(),
+                    Integer.parseInt(weight.getText().trim()),
+                    gender,
+                    birthDate.getValue(),
+                    Integer.parseInt(height.getText().trim()),
+                    getActivityMultiplier()
+            );
+
+            try {
+                replaceSceneContent();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        //Printing the user data in User class from calculateCalories method
+    }
+
+    private double getActivityMultiplier() {
+        RadioButton selectedButton = (RadioButton) activityRadioGroup.getSelectedToggle();
+        String buttonText = selectedButton.getText().split(":")[0];
+        return switch (buttonText) {
+            case "Sedentary" -> 1.2;
+            case "Lightly active" -> 1.375;
+            case "Moderately active" -> 1.465;
+            case "Active" -> 1.55;
+            case "Very active" -> 1.725;
+            case "Extra active" -> 1.9;
+            default -> 1;
+        };
     }
 
     private void replaceSceneContent() throws IOException {

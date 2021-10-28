@@ -1,37 +1,47 @@
 package com.example.makeiteasy;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class User {
 
     public String firstName;
     public String lastName;
     public int weight;
-    public int gender;
+    public String gender;
     public int age;
     public int height;
-    public int dailyCalories;
+    public double activityMultiplier;
+    public int dailyCaloriesForMaintain;
+    public int dailyCaloriesForMildLoss;
+    public int dailyCaloriesForLoss;
 
     public User(String firstName, String lastName, int weight,
-                int gender, LocalDate birthDay, int height) {
+                String gender, LocalDate birthDay, int height, double activityMultiplier) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.weight = weight;
         this.gender = gender;
         this.height = height;
+        this.activityMultiplier = activityMultiplier;
 
         age = LocalDate.now().getYear() - birthDay.getYear();
         calculateCalories();
     }
 
-    public void calculateCalories() {
-        // Miffin-St Jeor Equation (probably the most accurate)
-        // Male
-        if(gender == 1)
-            dailyCalories = (int) (10 * weight + 6.25 * height - 5 * age + 5);
+    private void calculateCalories() {
+        // Algorithms from calculator.net/calorie-calculator
+
+        // Miffin-St Jeor Equation (probably the most accurate BMR algorithm without body fat %)
+        if(gender.equals("Male"))
+            dailyCaloriesForMaintain = (int) ((10 * weight + 6.25 * height - 5 * age + 5) * activityMultiplier);
         else
-            dailyCalories = (int) (10 * weight + 6.25 * height - 5 * age - 161);
+            dailyCaloriesForMaintain = (int) ((10 * weight + 6.25 * height - 5 * age - 161) * activityMultiplier);
+
+        //approximately -0.25 kg / week
+        dailyCaloriesForMildLoss = dailyCaloriesForMaintain - 250;
+
+        //approximately -0.5kg / week
+        dailyCaloriesForLoss = dailyCaloriesForMaintain - 500;
 
         System.out.println(this);
     }
@@ -42,10 +52,13 @@ public class User {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", weight=" + weight +
-                ", gender=" + gender +
+                ", gender='" + gender + '\'' +
                 ", age=" + age +
                 ", height=" + height +
-                ", dailyCalories=" + dailyCalories +
+                ", activityMultiplier=" + activityMultiplier +
+                ",\ndailyCaloriesForMaintain=" + dailyCaloriesForMaintain +
+                ", dailyCaloriesForMildLoss(approx. -0.25kg/week)=" + dailyCaloriesForMildLoss +
+                ", dailyCaloriesForLoss(approx. -0.5kg/week)=" + dailyCaloriesForLoss +
                 '}';
     }
 }

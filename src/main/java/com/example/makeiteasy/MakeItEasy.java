@@ -2,7 +2,6 @@ package com.example.makeiteasy;
 
 import com.example.makeiteasy.controller.NewProfileScreenController;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -17,7 +16,8 @@ public class MakeItEasy extends Application {
         FXMLLoader fxmlLoader;
 
         // write 1 instead of 0 to work without the new profile fxml
-        // here we will get from the 'database' the user id
+        // later we will get the user id from database
+
         if(getCurrentUserID() == 0)
             fxmlLoader = new FXMLLoader(MakeItEasy.class.getResource("NewProfile.fxml"));
         else
