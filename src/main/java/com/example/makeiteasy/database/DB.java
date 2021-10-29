@@ -7,7 +7,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public final class DB {
@@ -28,6 +27,7 @@ public final class DB {
         new DB();
         foods.addAll(DB.getAllFoods());
     }
+
     private DB() {
         try {
             conn = DriverManager.getConnection(URL);
@@ -193,7 +193,7 @@ public final class DB {
     }
 
     public static ArrayList<Meal> getAllMealByUserID(int userID) {
-        String sql ="select * from meal where userID = " + userID;
+        String sql = "select * from meal where userID = " + userID;
         ArrayList<Meal> meals = null;
 
         try {
@@ -231,7 +231,7 @@ public final class DB {
             }
             System.out.println();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 int userId = rs.getInt(rsmd.getColumnName(1));
                 int foodId = rs.getInt(rsmd.getColumnName(2));
                 Date date = rs.getDate(rsmd.getColumnName(3));
@@ -286,7 +286,7 @@ public final class DB {
             }
             System.out.println();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 String firstName = rs.getString(rsmd.getColumnName(1));
                 String lastName = rs.getString(rsmd.getColumnName(2));
                 int weight = rs.getInt(rsmd.getColumnName(3));
