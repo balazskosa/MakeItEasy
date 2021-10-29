@@ -39,7 +39,7 @@ public class MakeItEasy extends Application {
     }
 
     private int getCurrentUserID() {
-        int userID = 1;
+        int userID = 0;
         // Get user information (e.g. id) from database...
         return userID;
     }
