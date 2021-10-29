@@ -1,4 +1,6 @@
 # Default ignored files
+Database
+derby.log
 .idea/
 *.iml
 target/

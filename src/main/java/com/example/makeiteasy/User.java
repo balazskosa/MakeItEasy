@@ -14,6 +14,7 @@ public class User {
     public int dailyCaloriesForMaintain;
     public int dailyCaloriesForMildLoss;
     public int dailyCaloriesForLoss;
+    public LocalDate birthday;
 
     public User(String firstName, String lastName, int weight,
                 String gender, LocalDate birthDay, int height, double activityMultiplier) {
@@ -22,6 +23,7 @@ public class User {
         this.weight = weight;
         this.gender = gender;
         this.height = height;
+        this.birthday = birthDay;
         this.activityMultiplier = activityMultiplier;
 
         age = LocalDate.now().getYear() - birthDay.getYear();
