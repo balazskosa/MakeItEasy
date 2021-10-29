@@ -1,11 +1,13 @@
 package com.example.makeiteasy.database;
 
+import com.example.makeiteasy.User;
 import com.example.makeiteasy.database.pojo.Food;
 import com.example.makeiteasy.database.pojo.Meal;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public final class DB {
@@ -25,7 +27,6 @@ public final class DB {
     static {
         new DB();
         foods.addAll(DB.getAllFoods());
-        meals.addAll(DB.getAllMealByUserID(0));
     }
     private DB() {
         try {
@@ -85,6 +86,24 @@ public final class DB {
             }
         } catch (SQLException e) {
             System.out.println("Something wrong with the creating of the MEAL table");
+            System.out.println("" + e);
+        }
+
+        //User table
+        try {
+            ResultSet rs1 = dmbd.getTables(null, "APP", "USER2", null);
+            if (!rs1.next()) {
+                createStatement.execute("create table user2(" +
+                        " firstName varchar(20)," +
+                        " lastName varchar(20)," +
+                        " weight int," +
+                        " gender int," +
+                        " birthday date," +
+                        " height int)");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Something wrong with the creating of the USER2 table");
             System.out.println("" + e);
         }
 
@@ -233,4 +252,55 @@ public final class DB {
     }
 
     //</editor-fold">
+
+    //<editor-fold desc="all methods to user table">
+    public static void addUser(User user) {
+        String sql = "insert into user2 (firstname, lastname, weight, gender, birthday, height) values(?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, user.firstName);
+            pstm.setString(2, user.lastName);
+            pstm.setInt(3, user.weight);
+            pstm.setInt(4, user.gender);
+            pstm.setDate(5, Date.valueOf(user.birthday));
+            pstm.setInt(6, user.height);
+            pstm.execute();
+
+        } catch (SQLException e) {
+            System.out.println("Something wrong with the addUser method");
+            System.out.println("" + e);
+        }
+
+    }
+
+    public static void getAllUserWithMeta() {
+        String sql = "select * from user2";
+        ResultSet rs = null;
+        ResultSetMetaData rsmd = null;
+        try {
+            rs = createStatement.executeQuery(sql);
+            rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            for (int i = 1; i < columnCount + 1; i++) {
+                System.out.print(rsmd.getColumnName(i) + " | ");
+            }
+            System.out.println();
+
+            while(rs.next()) {
+                String firstName = rs.getString(rsmd.getColumnName(1));
+                String lastName = rs.getString(rsmd.getColumnName(2));
+                int weight = rs.getInt(rsmd.getColumnName(3));
+                int gender = rs.getInt(rsmd.getColumnName(4));
+                Date date = rs.getDate(rsmd.getColumnName(5));
+                int height = rs.getInt(rsmd.getColumnName(6));
+                System.out.println(firstName + " | " + lastName + " | " + weight + " | " + gender + " | " + date + " | " + height);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println("Something wrong with the reading of the data");
+            System.out.println("" + e);
+        }
+    }
+    //</editor-fold>
 }

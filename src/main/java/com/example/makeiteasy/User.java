@@ -12,6 +12,7 @@ public class User {
     public int age;
     public int height;
     public int dailyCalories;
+    public LocalDate birthday;
 
     public User(String firstName, String lastName, int weight,
                 int gender, LocalDate birthDay, int height) {
@@ -20,6 +21,7 @@ public class User {
         this.weight = weight;
         this.gender = gender;
         this.height = height;
+        this.birthday = birthDay;
 
         age = LocalDate.now().getYear() - birthDay.getYear();
         calculateCalories();
