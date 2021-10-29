@@ -79,12 +79,12 @@ public final class DB {
                 createStatement.execute("create table meal(" +
                         "userId int, " +
                         " foodId int," +
-                        " date DATE FORMAT 'dd.mm.yyyy'," +
+                        " date date," +
                         " whichMeal int," +
                         " weight int)");
             }
         } catch (SQLException e) {
-            System.out.println("Something wrong with the creating of the table(s)");
+            System.out.println("Something wrong with the creating of the MEAL table");
             System.out.println("" + e);
         }
 
@@ -143,6 +143,7 @@ public final class DB {
             pstm.setInt(3, food.getCarbohydrate());
             pstm.setInt(4, food.getFat());
             pstm.setInt(5, food.getId());
+            pstm.execute();
 
         } catch (SQLException e) {
             System.out.println("Something wrong with the updateFood method");
@@ -155,20 +156,21 @@ public final class DB {
     //</editor-fold">
 
     //<editor-fold desc="all methods to meal table">
-    public void addMeal(Meal meal) {
-        String sql = "insert into meal values(?, ?, ?, ?, ?)";
-
+    public static void addMeal(Meal meal) {
         try {
+            String sql = "insert into meal (userId, foodId, date, whichMeal, weight) values(?, ?, ?, ?, ?)";
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setInt(1, meal.getUserId());
             pstm.setInt(2, meal.getFoodId());
-            pstm.setDate(3, (Date) meal.getDate());
+            pstm.setDate(3, meal.getDate());
             pstm.setInt(4, meal.getWhichMeal());
             pstm.setInt(5, meal.getWeight());
+            pstm.execute();
 
         } catch (SQLException e) {
             System.out.println("Something wrong with the addMeal method");
         }
+
     }
 
     public static ArrayList<Meal> getAllMealByUserID(int userID) {
@@ -195,7 +197,37 @@ public final class DB {
 
         return meals;
     }
-    
+
+    public static void getAllMealWithMeta() {
+        String sql = "select * from meal";
+        ResultSet rs = null;
+        ResultSetMetaData rsmd = null;
+        try {
+            rs = createStatement.executeQuery(sql);
+            rsmd = rs.getMetaData();
+
+            int columnCount = rsmd.getColumnCount();
+            for (int i = 1; i < columnCount + 1; i++) {
+                System.out.print(rsmd.getColumnName(i) + " | ");
+            }
+            System.out.println();
+
+            while(rs.next()) {
+                int userId = rs.getInt(rsmd.getColumnName(1));
+                int foodId = rs.getInt(rsmd.getColumnName(2));
+                Date date = rs.getDate(rsmd.getColumnName(3));
+                int whichMeal = rs.getInt(rsmd.getColumnName(4));
+                int weight = rs.getInt(rsmd.getColumnName(5));
+                System.out.println(userId + " | " + foodId + " | " + date + " | " + whichMeal + " | " + weight);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println("Something wrong with the reading of the data");
+            System.out.println("" + e);
+        }
+    }
+
     public static ObservableList<Meal> getMeals() {
         return meals;
     }

@@ -2,8 +2,7 @@ package com.example.makeiteasy.database.pojo;
 
 import javafx.beans.property.IntegerProperty;
 
-import java.util.Date;
-
+import java.sql.Date;
 public class Meal {
 
     private Integer userId = 0;
