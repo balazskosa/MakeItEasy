@@ -1,6 +1,6 @@
 package com.example.makeiteasy.controller;
 
-import com.example.makeiteasy.User;
+import com.example.makeiteasy.database.pojo.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
