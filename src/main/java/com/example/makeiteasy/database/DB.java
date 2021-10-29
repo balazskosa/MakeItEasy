@@ -1,6 +1,6 @@
 package com.example.makeiteasy.database;
 
-import com.example.makeiteasy.User;
+import com.example.makeiteasy.database.pojo.User;
 import com.example.makeiteasy.database.pojo.Food;
 import com.example.makeiteasy.database.pojo.Meal;
 import javafx.collections.FXCollections;
@@ -261,7 +261,7 @@ public final class DB {
             pstm.setString(1, user.firstName);
             pstm.setString(2, user.lastName);
             pstm.setInt(3, user.weight);
-            pstm.setInt(4, user.gender);
+            pstm.setString(4, user.gender);
             pstm.setDate(5, Date.valueOf(user.birthday));
             pstm.setInt(6, user.height);
             pstm.execute();
@@ -290,7 +290,7 @@ public final class DB {
                 String firstName = rs.getString(rsmd.getColumnName(1));
                 String lastName = rs.getString(rsmd.getColumnName(2));
                 int weight = rs.getInt(rsmd.getColumnName(3));
-                int gender = rs.getInt(rsmd.getColumnName(4));
+                String gender = rs.getString(rsmd.getColumnName(4));
                 Date date = rs.getDate(rsmd.getColumnName(5));
                 int height = rs.getInt(rsmd.getColumnName(6));
                 System.out.println(firstName + " | " + lastName + " | " + weight + " | " + gender + " | " + date + " | " + height);
