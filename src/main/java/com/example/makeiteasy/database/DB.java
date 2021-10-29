@@ -97,7 +97,7 @@ public final class DB {
                         " firstName varchar(20)," +
                         " lastName varchar(20)," +
                         " weight int," +
-                        " gender int," +
+                        " gender varchar(6)," +
                         " birthday date," +
                         " height int)");
             }
