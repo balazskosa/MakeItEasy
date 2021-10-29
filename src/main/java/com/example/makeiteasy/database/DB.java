@@ -1,8 +1,8 @@
 package com.example.makeiteasy.database;
 
+import com.example.makeiteasy.database.pojo.User;
 import com.example.makeiteasy.database.pojo.Food;
 import com.example.makeiteasy.database.pojo.Meal;
-import com.example.makeiteasy.database.pojo.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

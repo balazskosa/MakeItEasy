@@ -1,6 +1,8 @@
 package com.example.makeiteasy.controller;
 
 import com.example.makeiteasy.database.pojo.User;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,12 +18,12 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class NewProfileScreenController implements Initializable {
+public class NewProfileController implements Initializable {
 
-    private Stage stage;
+    public Stage stage;
 
     //Top buttons
-    @FXML private Button[] topButtons;
+    @FXML public Button[] topButtons;
     @FXML private Button nameButton;
     @FXML private Button weightButton;
     @FXML private Button genderButton;
@@ -30,22 +32,22 @@ public class NewProfileScreenController implements Initializable {
     @FXML private Button activityButton;
 
     //Profile creation pages
-    @FXML private Pane[] pages;
+    @FXML public Pane[] pages;
     @FXML private Pane namePage;
     @FXML private Pane weightPage;
     @FXML private Pane genderPage;
     @FXML private Pane birthPage;
     @FXML private Pane heightPage;
     @FXML private Pane activityPage;
-    private int currentPage;
+    public int currentPage;
 
     //Gender buttons
     @FXML private Button maleButton;
     @FXML private Button femaleButton;
 
     //Navigation buttons
-    @FXML private Button nextArrow;
-    @FXML private Button backArrow;
+    @FXML public Button nextArrow;
+    @FXML public Button backArrow;
     @FXML private Button calculateButton;
 
     //Alert messages for data type checking
@@ -74,7 +76,7 @@ public class NewProfileScreenController implements Initializable {
     }
 
     @FXML
-    public void onNextArrowAction() {
+    public EventHandler<ActionEvent> onNextArrowAction() {
         if(checkData(currentPage)) {
             ++currentPage;
             topButtons[currentPage].setStyle("-fx-background-color: #1b5359;" +
@@ -94,10 +96,11 @@ public class NewProfileScreenController implements Initializable {
             pages[currentPage].setVisible(true);
             backArrow.setVisible(true);
         }
+        return null;
     }
 
     @FXML
-    private void onBackArrowAction() {
+    public EventHandler<ActionEvent> onBackArrowAction() {
         --currentPage;
         topButtons[currentPage].setStyle("-fx-background-color: #1b5359;" +
                 "-fx-text-fill: white;");
@@ -113,6 +116,7 @@ public class NewProfileScreenController implements Initializable {
         pages[currentPage].setVisible(true);
         nextArrow.setVisible(true);
         calculateButton.setVisible(false);
+        return null;
     }
 
     @FXML
@@ -183,7 +187,7 @@ public class NewProfileScreenController implements Initializable {
         return isCorrect;
     }
 
-    private boolean isNumeric(String string) {
+    public boolean isNumeric(String string) {
         if(string == null || string.equals(""))
             return false;
 
@@ -198,6 +202,9 @@ public class NewProfileScreenController implements Initializable {
     @FXML
     private void calculateAndCreate() {
         if(checkData(currentPage)) {
+            //int age = LocalDate.now().getYear() - birthDate.getValue().getYear();
+            RadioButton selectedActivity = (RadioButton) activityRadioGroup.getSelectedToggle();
+
             User user = new User (
                     firstName.getText().trim(),
                     lastName.getText().trim(),
@@ -205,8 +212,10 @@ public class NewProfileScreenController implements Initializable {
                     gender,
                     birthDate.getValue(),
                     Integer.parseInt(height.getText().trim()),
-                    getActivityMultiplier()
+                    getActivityMultiplier(selectedActivity)
             );
+
+            System.out.println(user);
 
             try {
                 replaceSceneContent();
@@ -214,11 +223,9 @@ public class NewProfileScreenController implements Initializable {
                 e.printStackTrace();
             }
         }
-        //Printing the user data in User class from calculateCalories method
     }
 
-    private double getActivityMultiplier() {
-        RadioButton selectedButton = (RadioButton) activityRadioGroup.getSelectedToggle();
+    public double getActivityMultiplier(RadioButton selectedButton) {
         String buttonText = selectedButton.getText().split(":")[0];
         return switch (buttonText) {
             case "Sedentary" -> 1.2;

@@ -1,6 +1,6 @@
 package com.example.makeiteasy;
 
-import com.example.makeiteasy.controller.NewProfileScreenController;
+import com.example.makeiteasy.controller.NewProfileController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MakeItEasy extends Application {
+
+    public NewProfileController newProfileController;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -28,8 +30,8 @@ public class MakeItEasy extends Application {
         stage.setResizable(false);
         stage.setScene(scene);
 
-        NewProfileScreenController newProfileScreenController = fxmlLoader.getController();
-        newProfileScreenController.setStage(stage);
+        newProfileController = fxmlLoader.getController();
+        newProfileController.setStage(stage);
 
         stage.show();
     }
