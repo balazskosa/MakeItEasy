@@ -1,6 +1,5 @@
 package com.example.makeiteasy.controller;
 
-import com.example.makeiteasy.User;
 import com.example.makeiteasy.database.DB;
 import com.example.makeiteasy.database.pojo.Food;
 import javafx.event.ActionEvent;
@@ -12,9 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 
