@@ -21,6 +21,7 @@ public final class DB {
 
     private static ObservableList<Food> foods = FXCollections.observableArrayList();
     private static ObservableList<Meal> meals = FXCollections.observableArrayList();
+    private static ObservableList<User> users = FXCollections.observableArrayList();
     //</editor-fold">
 
     static {
@@ -62,6 +63,7 @@ public final class DB {
                 createStatement.execute("create table food(" +
                         "id int not null primary key generated always as identity (START WITH 1, INCREMENT BY 1)," +
                         " name varchar(20)," +
+                        " calories int, " +
                         " protein int," +
                         " carbohydrate int," +
                         " fat int)");
@@ -78,7 +80,6 @@ public final class DB {
 
             if (!rs1.next()) {
                 createStatement.execute("create table meal(" +
-                        "userId int, " +
                         " foodId int," +
                         " date date," +
                         " whichMeal int," +
@@ -111,13 +112,14 @@ public final class DB {
 
     //<editor-fold desc="all methods to food table">
     public static void addFood(Food food) {
-        String sql = "insert into food (name, protein, carbohydrate, fat) values(?, ?, ?, ?)";
+        String sql = "insert into food (name, calories, protein, carbohydrate, fat) values(?, ?, ?, ?, ?)";
         try {
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, food.getName());
-            pstm.setInt(2, food.getProtein());
-            pstm.setInt(3, food.getCarbohydrate());
-            pstm.setInt(4, food.getFat());
+            pstm.setInt(2, food.getCalories());
+            pstm.setInt(3, food.getProtein());
+            pstm.setInt(4, food.getCarbohydrate());
+            pstm.setInt(5, food.getFat());
             pstm.execute();
 
         } catch (SQLException e) {
@@ -140,6 +142,7 @@ public final class DB {
 
             while (rs.next()) {
                 Food actualFood = new Food(rs.getString("name"),
+                        rs.getInt("calories"),
                         rs.getInt("protein"),
                         rs.getInt("carbohydrate"),
                         rs.getInt("fat"));
@@ -154,14 +157,15 @@ public final class DB {
     }
 
     public static void updateFood(Food food) {
-        String sql = "update food set name = ?, protein = ?, carbohydrate = ?, fat = ? where id = ?";
+        String sql = "update food set name = ?, calories = ?, protein = ?, carbohydrate = ?, fat = ? where id = ?";
         try {
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, food.getName());
-            pstm.setInt(2, food.getProtein());
-            pstm.setInt(3, food.getCarbohydrate());
-            pstm.setInt(4, food.getFat());
-            pstm.setInt(5, food.getId());
+            pstm.setInt(2, food.getCalories());
+            pstm.setInt(3, food.getProtein());
+            pstm.setInt(4, food.getCarbohydrate());
+            pstm.setInt(5, food.getFat());
+            //pstm.setInt(5, food.getId());
             pstm.execute();
 
         } catch (SQLException e) {

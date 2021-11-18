@@ -28,6 +28,9 @@ public class FoodController implements Initializable {
     private TableColumn<Food, String> nameCol;
 
     @FXML
+    private TableColumn<Food, Integer> caloriesCol;
+
+    @FXML
     private TableColumn<Food, Integer> proteinCol;
 
     @FXML
@@ -35,6 +38,9 @@ public class FoodController implements Initializable {
 
     @FXML
     private TextField inputName;
+
+    @FXML
+    private TextField inputCalories;
 
     @FXML
     private TextField inputProtein;
@@ -52,10 +58,11 @@ public class FoodController implements Initializable {
     @FXML
     private void addButton(ActionEvent event) {
         String name = inputName.getText();
+        int calories = Integer.parseInt(inputCalories.getText());
         int protein = Integer.parseInt(inputProtein.getText());
         int carbs = Integer.parseInt(inputCarbs.getText());
         int fat = Integer.parseInt(inputFat.getText());
-        Food food = new Food(name, protein, carbs, fat);
+        Food food = new Food(name, calories, protein, carbs, fat);
         DB.addFood(food);
         setTable();
     }
@@ -69,6 +76,7 @@ public class FoodController implements Initializable {
 
     public void setTable() {
         nameCol.setCellValueFactory(new PropertyValueFactory<Food, String>("name"));
+        caloriesCol.setCellValueFactory(new PropertyValueFactory<Food, Integer>("calories"));
         proteinCol.setCellValueFactory(new PropertyValueFactory<Food, Integer>("protein"));
         carbCol.setCellValueFactory(new PropertyValueFactory<Food, Integer>("carbohydrate"));
         fatCol.setCellValueFactory(new PropertyValueFactory<Food, Integer>("fat"));
@@ -79,6 +87,7 @@ public class FoodController implements Initializable {
 
     public void setInputs() {
         inputs.add(inputName);
+        inputs.add(inputCalories);
         inputs.add(inputProtein);
         inputs.add(inputCarbs);
         inputs.add(inputFat);

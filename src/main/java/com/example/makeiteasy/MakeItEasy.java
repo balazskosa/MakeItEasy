@@ -20,7 +20,7 @@ public class MakeItEasy extends Application {
         // write 1 instead of 0 to work without the new profile fxml
         // later we will get the user id from database
 
-        if(getCurrentUserID() == 0)
+        if(getCurrentUserID() == 1)
             fxmlLoader = new FXMLLoader(MakeItEasy.class.getResource("NewProfile.fxml"));
         else
             fxmlLoader = new FXMLLoader(MakeItEasy.class.getResource("View.fxml"));
@@ -30,8 +30,8 @@ public class MakeItEasy extends Application {
         stage.setResizable(false);
         stage.setScene(scene);
 
-        newProfileController = fxmlLoader.getController();
-        newProfileController.setStage(stage);
+//        newProfileController = fxmlLoader.getController();
+//        newProfileController.setStage(stage);
 
         stage.show();
     }

@@ -5,7 +5,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 <AnchorPane opacity="0.75" prefHeight="578.0" prefWidth="742.0" xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.makeiteasy.controller.FoodController">
     <children>
@@ -16,11 +16,12 @@
                            BorderPane.alignment="CENTER">
                     <columns>
                         <TableColumn id="nameCol" fx:id="nameCol" minWidth="148.0" prefWidth="148.0" text="name"/>
-                        <TableColumn id="proteinCol" fx:id="proteinCol" minWidth="148.0" prefWidth="148.0"
+                        <TableColumn id="caloriesCol" fx:id="caloriesCol" minWidth="0.0" prefWidth="123.0"
+                                     text="calories"/>
+                        <TableColumn id="proteinCol" fx:id="proteinCol" minWidth="0.0" prefWidth="123.0"
                                      text="protein"/>
-                        <TableColumn id="carbCol" fx:id="carbCol" minWidth="148.0" prefWidth="148.0"
-                                     text="carbohydrate"/>
-                        <TableColumn id="fatCol" fx:id="fatCol" minWidth="148.0" prefWidth="148.0" text="fat"/>
+                        <TableColumn id="carbCol" fx:id="carbCol" minWidth="0.0" prefWidth="123.0" text="carbohydrate"/>
+                        <TableColumn id="fatCol" fx:id="fatCol" minWidth="0.0" prefWidth="123.0" text="fat"/>
                     </columns>
                     <effect>
                         <DropShadow color="#223b86"/>
@@ -32,25 +33,31 @@
                     <children>
                         <HBox prefHeight="76.0" prefWidth="742.0">
                             <children>
-                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="75.0" prefWidth="150.0"
+                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="150.0"
                                        text="Name:" textAlignment="CENTER">
                                     <font>
                                         <Font name="System Bold" size="12.0"/>
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="75.0" prefWidth="150.0"
+                                <Label alignment="CENTER" prefHeight="50.0" prefWidth="150.0" text="Calories:"
+                                       textAlignment="CENTER">
+                                    <font>
+                                        <Font name="System Bold" size="12.0"/>
+                                    </font>
+                                </Label>
+                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="150.0"
                                        text="Protein:" textAlignment="CENTER">
                                     <font>
                                         <Font name="System Bold" size="12.0"/>
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="75.0" prefWidth="150.0"
+                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="150.0"
                                        text="Carbohydrate:" textAlignment="CENTER">
                                     <font>
                                         <Font name="System Bold" size="12.0"/>
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="75.0" prefWidth="150.0"
+                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="150.0"
                                        text="Fat:" textAlignment="CENTER">
                                     <font>
                                         <Font name="System Bold" size="12.0"/>
@@ -71,6 +78,11 @@
                                         <DropShadow/>
                                     </effect>
                                 </TextField>
+                                <TextField id="inputCalories" fx:id="inputCalories" prefHeight="75.0" prefWidth="150.0">
+                                    <effect>
+                                        <DropShadow/>
+                                    </effect>
+                                </TextField>
                                 <TextField id="inputProtein" fx:id="inputProtein" prefHeight="75.0" prefWidth="150.0">
                                     <effect>
                                         <DropShadow/>
@@ -86,7 +98,7 @@
                                         <DropShadow/>
                                     </effect>
                                 </TextField>
-                                <Button id="addButton" onAction="#addButton" mnemonicParsing="false" prefHeight="75.0"
+                                <Button id="addButton" mnemonicParsing="false" onAction="#addButton" prefHeight="75.0"
                                         prefWidth="150.0" text="Add">
                                     <effect>
                                         <DropShadow/>

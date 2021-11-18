@@ -9,6 +9,7 @@ public class Food {
 
     private final IntegerProperty id;
     private final StringProperty name;
+    private final IntegerProperty calories;
     private final IntegerProperty protein;
     private final IntegerProperty carbohydrate;
     private final IntegerProperty fat;
@@ -33,7 +34,8 @@ public class Food {
         return fat;
     }
 
-    public Food(String name, int protein, int carbohydrate, int fat) {
+    public Food(String name, int calories, int protein, int carbohydrate, int fat) {
+        this.calories = new SimpleIntegerProperty(calories);
         this.id = new SimpleIntegerProperty();
         this.name = new SimpleStringProperty(name);
         this.protein = new SimpleIntegerProperty(protein);
@@ -41,9 +43,13 @@ public class Food {
         this.fat = new SimpleIntegerProperty(fat);
     }
 
-    public int getId() { return id.get();}
+    public int getId() {
+        return id.get();
+    }
 
-    public void setId(int id) { this.id.set(id);}
+    public void setId(int id) {
+        this.id.set(id);
+    }
 
     public int getProtein() {
         return protein.get();
@@ -76,6 +82,11 @@ public class Food {
     public void setFat(int fat) {
         this.fat.set(fat);
     }
+
+    public int getCalories() { return calories.get(); }
+    public IntegerProperty caloriesProperty() { return calories; }
+
+    public void setCalories(int calories) { this.calories.set(calories);}
 
 
 }
