@@ -3,7 +3,6 @@ package com.example.makeiteasy.controller;
 import com.example.makeiteasy.database.DB;
 import com.example.makeiteasy.database.pojo.Food;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -54,6 +53,9 @@ public class FoodController implements Initializable {
     @FXML
     private TextField inputFat;
 
+    @FXML
+    private TextField inputSearchFood;
+
     private final List<TextField> inputs = new ArrayList<>(
 
     );
@@ -70,6 +72,17 @@ public class FoodController implements Initializable {
         Food food = new Food(name, calories, protein, carbs, fat);
         DB.addFood(food);
         setTable();
+    }
+
+    @FXML
+    private void searchFood(ActionEvent event) {
+        DB.searchFoodByName(inputSearchFood.getText());
+    }
+
+    @FXML
+    private void resetSearchFood(ActionEvent event) {
+        DB.resetSearchFood();
+        inputSearchFood.clear();
     }
 
     @FXML
@@ -113,7 +126,7 @@ public class FoodController implements Initializable {
                 }
         );
 
-       proteinCol.setOnEditCommit(
+        proteinCol.setOnEditCommit(
                 t -> {
                     Food actualFood = (Food) t.getTableView().getItems().get(t.getTablePosition().getRow());
                     actualFood.setProtein(t.getNewValue());

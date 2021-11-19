@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public final class DB {
 
@@ -183,9 +184,21 @@ public final class DB {
             System.out.println("Something wrong with the clearFoodTable method");
             System.out.println("" + e);
         }
-
         foods.clear();
     }
+
+    public static void searchFoodByName(String name) {
+        foods.clear();
+        foods.addAll(getAllFoods());
+        foods.removeIf(f -> !f.getName().contains(name));
+    }
+
+    public static void resetSearchFood() {
+        foods.clear();
+        foods.addAll(getAllFoods());
+    }
+
+
 
     public static ObservableList<Food> getFoods() {
         return foods;

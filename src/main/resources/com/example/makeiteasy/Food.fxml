@@ -4,7 +4,6 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.AmbientLight?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
@@ -105,7 +104,13 @@
             <right>
                 <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Label prefHeight="150.0" prefWidth="300.0" />
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button id="searchFood" mnemonicParsing="false" onAction="#searchFood" prefHeight="25.0" prefWidth="52.0" text="Search Food" />
+                        <Button id="resetSearchFood" mnemonicParsing="false" onAction="#resetSearchFood" text="Reset" />
+                     </children>
+                  </HBox>
+                  <TextField id="inputSearchFood" fx:id="inputSearchFood" />
                         <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="300.0" text="Load Data">
                             <cursor>
                                 <Cursor fx:constant="DEFAULT" />
