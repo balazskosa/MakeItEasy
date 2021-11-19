@@ -165,11 +165,12 @@ public final class DB {
             pstm.setInt(3, food.getProtein());
             pstm.setInt(4, food.getCarbohydrate());
             pstm.setInt(5, food.getFat());
-            //pstm.setInt(5, food.getId());
+            pstm.setInt(6, food.getId());
             pstm.execute();
 
         } catch (SQLException e) {
             System.out.println("Something wrong with the updateFood method");
+            System.out.println("" + e);
         }
     }
 

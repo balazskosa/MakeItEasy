@@ -2,29 +2,25 @@
 
 <?import javafx.scene.AmbientLight?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane opacity="0.75" prefHeight="578.0" prefWidth="742.0" xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.makeiteasy.controller.FoodController">
+<AnchorPane opacity="0.75" prefHeight="578.0" prefWidth="742.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.makeiteasy.controller.FoodController">
     <children>
-        <BorderPane prefHeight="578.0" prefWidth="742.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <BorderPane prefHeight="578.0" prefWidth="742.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <center>
-                <TableView id="table" fx:id="table" editable="true" prefHeight="450.0" prefWidth="742.0"
-                           BorderPane.alignment="CENTER">
+                <TableView id="table" fx:id="table" editable="true" prefHeight="450.0" prefWidth="742.0" BorderPane.alignment="CENTER">
                     <columns>
-                        <TableColumn id="nameCol" fx:id="nameCol" minWidth="148.0" prefWidth="148.0" text="name"/>
-                        <TableColumn id="caloriesCol" fx:id="caloriesCol" minWidth="0.0" prefWidth="123.0"
-                                     text="calories"/>
-                        <TableColumn id="proteinCol" fx:id="proteinCol" minWidth="0.0" prefWidth="123.0"
-                                     text="protein"/>
-                        <TableColumn id="carbCol" fx:id="carbCol" minWidth="0.0" prefWidth="123.0" text="carbohydrate"/>
-                        <TableColumn id="fatCol" fx:id="fatCol" minWidth="0.0" prefWidth="123.0" text="fat"/>
+                        <TableColumn id="nameCol" fx:id="nameCol" minWidth="148.0" prefWidth="148.0" text="name" />
+                        <TableColumn id="caloriesCol" fx:id="caloriesCol" minWidth="0.0" prefWidth="123.0" text="calories" />
+                        <TableColumn id="proteinCol" fx:id="proteinCol" minWidth="0.0" prefWidth="123.0" text="protein" />
+                        <TableColumn id="carbCol" fx:id="carbCol" minWidth="0.0" prefWidth="123.0" text="carbohydrate" />
+                        <TableColumn id="fatCol" fx:id="fatCol" minWidth="0.0" prefWidth="123.0" text="fat" />
                     </columns>
                     <effect>
-                        <DropShadow color="#223b86"/>
+                        <DropShadow color="#223b86" />
                     </effect>
                 </TableView>
             </center>
@@ -33,40 +29,34 @@
                     <children>
                         <HBox prefHeight="76.0" prefWidth="742.0">
                             <children>
-                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="150.0"
-                                       text="Name:" textAlignment="CENTER">
+                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="150.0" text="Name:" textAlignment="CENTER">
                                     <font>
-                                        <Font name="System Bold" size="12.0"/>
+                                        <Font name="System Bold" size="12.0" />
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" prefHeight="50.0" prefWidth="150.0" text="Calories:"
-                                       textAlignment="CENTER">
+                                <Label alignment="CENTER" prefHeight="50.0" prefWidth="150.0" text="Calories:" textAlignment="CENTER">
                                     <font>
-                                        <Font name="System Bold" size="12.0"/>
+                                        <Font name="System Bold" size="12.0" />
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="150.0"
-                                       text="Protein:" textAlignment="CENTER">
+                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="150.0" text="Protein:" textAlignment="CENTER">
                                     <font>
-                                        <Font name="System Bold" size="12.0"/>
+                                        <Font name="System Bold" size="12.0" />
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="150.0"
-                                       text="Carbohydrate:" textAlignment="CENTER">
+                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="150.0" text="Carbohydrate:" textAlignment="CENTER">
                                     <font>
-                                        <Font name="System Bold" size="12.0"/>
+                                        <Font name="System Bold" size="12.0" />
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="150.0"
-                                       text="Fat:" textAlignment="CENTER">
+                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="150.0" text="Fat:" textAlignment="CENTER">
                                     <font>
-                                        <Font name="System Bold" size="12.0"/>
+                                        <Font name="System Bold" size="12.0" />
                                     </font>
                                 </Label>
-                                <Button id="clearButton" mnemonicParsing="false" onAction="#clearButton"
-                                        prefHeight="75.0" prefWidth="150.0" text="Clear">
+                                <Button id="clearButton" mnemonicParsing="false" onAction="#clearButton" prefHeight="75.0" prefWidth="150.0" text="Clear">
                                     <effect>
-                                        <DropShadow/>
+                                        <DropShadow />
                                     </effect>
                                 </Button>
                             </children>
@@ -75,61 +65,58 @@
                             <children>
                                 <TextField id="inputName" fx:id="inputName" prefHeight="75.0" prefWidth="150.0">
                                     <effect>
-                                        <DropShadow/>
+                                        <DropShadow />
                                     </effect>
                                 </TextField>
                                 <TextField id="inputCalories" fx:id="inputCalories" prefHeight="75.0" prefWidth="150.0">
                                     <effect>
-                                        <DropShadow/>
+                                        <DropShadow />
                                     </effect>
                                 </TextField>
                                 <TextField id="inputProtein" fx:id="inputProtein" prefHeight="75.0" prefWidth="150.0">
                                     <effect>
-                                        <DropShadow/>
+                                        <DropShadow />
                                     </effect>
                                 </TextField>
                                 <TextField id="inputCarbs" fx:id="inputCarbs" prefHeight="75.0" prefWidth="150.0">
                                     <effect>
-                                        <DropShadow/>
+                                        <DropShadow />
                                     </effect>
                                 </TextField>
                                 <TextField id="inputFat" fx:id="inputFat" prefHeight="75.0" prefWidth="150.0">
                                     <effect>
-                                        <DropShadow/>
+                                        <DropShadow />
                                     </effect>
                                 </TextField>
-                                <Button id="addButton" mnemonicParsing="false" onAction="#addButton" prefHeight="75.0"
-                                        prefWidth="150.0" text="Add">
+                                <Button id="addButton" mnemonicParsing="false" onAction="#addButton" prefHeight="75.0" prefWidth="150.0" text="Add">
                                     <effect>
-                                        <DropShadow/>
+                                        <DropShadow />
                                     </effect>
                                 </Button>
                             </children>
                         </HBox>
-                        <AmbientLight color="CHARTREUSE" lightOn="true"/>
+                        <AmbientLight color="CHARTREUSE" lightOn="true" />
                     </children>
                 </VBox>
             </bottom>
             <right>
                 <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Label prefHeight="150.0" prefWidth="300.0"/>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                mnemonicParsing="false" prefHeight="300.0" text="Load Data">
+                        <Label prefHeight="150.0" prefWidth="300.0" />
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="300.0" text="Load Data">
                             <cursor>
-                                <Cursor fx:constant="DEFAULT"/>
+                                <Cursor fx:constant="DEFAULT" />
                             </cursor>
                             <effect>
-                                <DropShadow/>
+                                <DropShadow />
                             </effect>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                mnemonicParsing="false" prefHeight="300.0" text="Clear Data">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="300.0" text="Clear Data">
                             <cursor>
-                                <Cursor fx:constant="DEFAULT"/>
+                                <Cursor fx:constant="DEFAULT" />
                             </cursor>
                             <effect>
-                                <DropShadow/>
+                                <DropShadow />
                             </effect>
                         </Button>
                     </children>
