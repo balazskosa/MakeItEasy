@@ -73,7 +73,12 @@ public class FoodController implements Initializable {
     }
 
     @FXML
-    private void clearButton(ActionEvent event) {
+    private void clearDatabaseButton(ActionEvent event) {
+        DB.clearFoodTable();
+    }
+
+    @FXML
+    private void clearInputButton(ActionEvent event) {
         for (TextField input : inputs) {
             input.clear();
         }

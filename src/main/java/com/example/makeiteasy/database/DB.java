@@ -174,6 +174,19 @@ public final class DB {
         }
     }
 
+    public static void clearFoodTable() {
+        String sql = "delete from food";
+        try {
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.execute();
+        } catch (SQLException e) {
+            System.out.println("Something wrong with the clearFoodTable method");
+            System.out.println("" + e);
+        }
+
+        foods.clear();
+    }
+
     public static ObservableList<Food> getFoods() {
         return foods;
     }
