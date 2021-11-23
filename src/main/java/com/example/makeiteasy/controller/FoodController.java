@@ -10,8 +10,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +91,53 @@ public class FoodController implements Initializable {
     @FXML
     private void clearDatabaseButton(ActionEvent event) {
         DB.clearFoodTable();
+    }
+
+    @FXML
+    private void loadDatabaseButton(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        Stage stage = new Stage();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if(selectedFile != null)  loadDatabase(selectedFile);
+    }
+
+    private void loadDatabase(File file) {
+        DB.clearFoodTable();
+        FileReader fileReader = null;
+        try {
+            fileReader = new FileReader(file);
+        } catch (FileNotFoundException e) {
+            System.out.println("Something wrong with the reading file");
+            e.printStackTrace();
+        }
+        assert fileReader != null;
+        BufferedReader reader = new BufferedReader(fileReader);
+        try {
+            String line;
+            String name;
+            int calories;
+            int protein;
+            int carbs;
+            int fat;
+            String[] array = new String[5];
+            Food newFood;
+            while((line = reader.readLine()) != null) {
+                array = line.split("\t");
+                name = array[0];
+                calories = Integer.parseInt(array[1]);
+                protein = Integer.parseInt(array[2]);
+                carbs = Integer.parseInt(array[3]);
+                fat = Integer.parseInt(array[4]);
+                newFood = new Food(name, calories, protein, carbs, fat);
+                DB.addFood(newFood);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
