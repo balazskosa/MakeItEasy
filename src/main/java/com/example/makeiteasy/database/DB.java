@@ -142,7 +142,9 @@ public final class DB {
             ResultSetMetaData rsmd = rs.getMetaData();
 
             while (rs.next()) {
-                Food actualFood = new Food(rs.getString("name"),
+                Food actualFood = new Food(
+                        rs.getInt("id"),
+                        rs.getString("name"),
                         rs.getInt("calories"),
                         rs.getInt("protein"),
                         rs.getInt("carbohydrate"),
@@ -196,6 +198,37 @@ public final class DB {
     public static void resetSearchFood() {
         foods.clear();
         foods.addAll(getAllFoods());
+    }
+
+    public static void getAllFoodsWithMeta() {
+        String sql = "select * from food";
+        ResultSet rs = null;
+        ResultSetMetaData rsmd = null;
+        try {
+            rs = createStatement.executeQuery(sql);
+            rsmd = rs.getMetaData();
+
+            int columnCount = rsmd.getColumnCount();
+            for (int i = 1; i < columnCount + 1; i++) {
+                System.out.print(rsmd.getColumnName(i) + " | ");
+            }
+            System.out.println();
+
+            while (rs.next()) {
+                int foodId = rs.getInt(rsmd.getColumnName(1));
+                String foodName = rs.getString(rsmd.getColumnName(2));
+                int calories = rs.getInt(rsmd.getColumnName(3));
+                int protein = rs.getInt(rsmd.getColumnName(4));
+                int carbs = rs.getInt(rsmd.getColumnName(5));
+                int fat = rs.getInt(rsmd.getColumnName(5));
+                System.out.println(foodId + " | " + foodName + " | " + calories + " | " + protein + " | " + carbs + " |" + fat);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println("Something wrong with the reading of the data");
+            System.out.println("" + e);
+        }
     }
 
 

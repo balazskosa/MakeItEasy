@@ -111,7 +111,7 @@ public class FoodController implements Initializable {
             fileReader = new FileReader(file);
         } catch (FileNotFoundException e) {
             System.out.println("Something wrong with the reading file");
-            e.printStackTrace();
+            System.out.println("" + e);
         }
         assert fileReader != null;
         BufferedReader reader = new BufferedReader(fileReader);
@@ -125,7 +125,7 @@ public class FoodController implements Initializable {
             String[] array = new String[5];
             Food newFood;
             while((line = reader.readLine()) != null) {
-                array = line.split("\t");
+                array = line.split("-");
                 name = array[0];
                 calories = Integer.parseInt(array[1]);
                 protein = Integer.parseInt(array[2]);
@@ -135,7 +135,8 @@ public class FoodController implements Initializable {
                 DB.addFood(newFood);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Something wrong with the data");
+            System.out.println("" + e);
         }
 
     }
@@ -145,6 +146,7 @@ public class FoodController implements Initializable {
         for (TextField input : inputs) {
             input.clear();
         }
+        DB.getAllFoodsWithMeta();
     }
 
     public void setTable() {
