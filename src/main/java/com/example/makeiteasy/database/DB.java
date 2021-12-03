@@ -115,13 +115,23 @@ public final class DB {
     public static void addFood(Food food) {
         String sql = "insert into food (name, calories, protein, carbohydrate, fat) values(?, ?, ?, ?, ?)";
         try {
-            PreparedStatement pstm = conn.prepareStatement(sql);
+            PreparedStatement pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pstm.setString(1, food.getName());
             pstm.setInt(2, food.getCalories());
             pstm.setInt(3, food.getProtein());
             pstm.setInt(4, food.getCarbohydrate());
             pstm.setInt(5, food.getFat());
-            pstm.execute();
+
+
+            int updated = pstm.executeUpdate();
+            if (updated == 1) {
+                ResultSet generatedKeys = pstm.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int key = generatedKeys.getInt(1);
+                    food.setId(key);
+                }
+            }
+
 
         } catch (SQLException e) {
             System.out.println("Something wrong with the addFood method");
