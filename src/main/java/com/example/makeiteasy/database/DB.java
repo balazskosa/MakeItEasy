@@ -56,6 +56,7 @@ public final class DB {
             System.out.println("" + e);
         }
 
+
         //FoodTable
         try {
             ResultSet rs1 = dmbd.getTables(null, "APP", "FOOD", null);
@@ -251,13 +252,12 @@ public final class DB {
     //<editor-fold desc="all methods to meal table">
     public static void addMeal(Meal meal) {
         try {
-            String sql = "insert into meal (userId, foodId, date, whichMeal, weight) values(?, ?, ?, ?, ?)";
+            String sql = "insert into meal (foodId, date, whichMeal, weight) values(?, ?, ?, ?)";
             PreparedStatement pstm = conn.prepareStatement(sql);
-            pstm.setInt(1, meal.getUserId());
-            pstm.setInt(2, meal.getFoodId());
-            pstm.setDate(3, meal.getDate());
-            pstm.setInt(4, meal.getWhichMeal());
-            pstm.setInt(5, meal.getWeight());
+            pstm.setInt(1, meal.getFoodId());
+            pstm.setDate(2, meal.getDate());
+            pstm.setInt(3, meal.getWhichMeal());
+            pstm.setInt(4, meal.getWeight());
             pstm.execute();
 
         } catch (SQLException e) {
@@ -276,7 +276,7 @@ public final class DB {
             ResultSetMetaData rsmd = rs.getMetaData();
 
             while (rs.next()) {
-                Meal actualMeal = new Meal(rs.getInt("userId"),
+                Meal actualMeal = new Meal(
                         rs.getInt("foodId"),
                         rs.getDate("date"),
                         rs.getInt("whichMeal"),
@@ -306,12 +306,11 @@ public final class DB {
             System.out.println();
 
             while (rs.next()) {
-                int userId = rs.getInt(rsmd.getColumnName(1));
-                int foodId = rs.getInt(rsmd.getColumnName(2));
-                Date date = rs.getDate(rsmd.getColumnName(3));
-                int whichMeal = rs.getInt(rsmd.getColumnName(4));
-                int weight = rs.getInt(rsmd.getColumnName(5));
-                System.out.println(userId + " | " + foodId + " | " + date + " | " + whichMeal + " | " + weight);
+                int foodId = rs.getInt(rsmd.getColumnName(1));
+                Date date = rs.getDate(rsmd.getColumnName(2));
+                int whichMeal = rs.getInt(rsmd.getColumnName(3));
+                int weight = rs.getInt(rsmd.getColumnName(4));
+                System.out.println(foodId + " | " + date + " | " + whichMeal + " | " + weight);
             }
 
 
