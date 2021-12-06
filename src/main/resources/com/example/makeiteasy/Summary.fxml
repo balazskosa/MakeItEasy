@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="578.0" prefWidth="742.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.makeiteasy.controller.SummaryController">
     <children>
-        <Label layoutX="304.0" layoutY="266.0" text="Summary">
-            <font>
-                <Font size="32.0" />
-            </font>
-        </Label>
-        <ListView id="listView1" fx:id="listView1" layoutX="57.0" layoutY="30.0" prefHeight="200.0" prefWidth="200.0" />
-        <ListView id="listView2" fx:id="listView2" layoutX="304.0" layoutY="30.0" prefHeight="200.0" prefWidth="200.0" />
+        <PieChart id="nutrimentChart" fx:id="nutrimentChart" layoutX="28.0" layoutY="361.0" prefHeight="158.0" prefWidth="189.0" />
+        <ListView id="mealList" fx:id="mealList" layoutX="28.0" layoutY="104.0" opacity="0.95" prefHeight="240.0" prefWidth="160.0" style="-fx-fixed-cell-size: 60; -fx-padding: 0; -fx-background-color: #141414;">
+            <cursor>
+                <Cursor fx:constant="DEFAULT" />
+            </cursor>
+        </ListView>
+        <ListView id="foodList" fx:id="foodList" layoutX="238.0" layoutY="104.0" prefHeight="336.0" prefWidth="188.0" style="-fx-background-radius: 5;" />
     </children>
 </AnchorPane>
