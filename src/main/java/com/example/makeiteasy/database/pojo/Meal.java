@@ -1,5 +1,6 @@
 package com.example.makeiteasy.database.pojo;
 
+import com.example.makeiteasy.database.DB;
 import javafx.beans.property.IntegerProperty;
 
 import java.sql.Date;
@@ -36,6 +37,6 @@ public class Meal {
 
     @Override
     public String toString() {
-        return foodId + " " + date + " " +  " " + whichMeal + " " + weight;
+        return DB.getFoodNameByID(foodId) + " | " + weight;
     }
 }

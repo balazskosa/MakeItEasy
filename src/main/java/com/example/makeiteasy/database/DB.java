@@ -28,6 +28,7 @@ public final class DB {
     static {
         new DB();
         foods.addAll(DB.getAllFoods());
+        meals.addAll(DB.getAllMeals());
     }
 
     private DB() {
@@ -140,6 +141,22 @@ public final class DB {
         }
         foods.add(food);
 
+    }
+
+    public static String getFoodNameByID(int foodID) {
+        String sql = "select name from food where id = " + foodID;
+        String name = null;
+        try {
+           ResultSet rs = createStatement.executeQuery(sql);
+           if(rs.next()) {
+               name = rs.getString("name");
+           }
+        } catch (SQLException e) {
+            System.out.println("Something wrong with te getFoodByNameID method");
+            System.out.println("" + e);
+        }
+
+        return name;
     }
 
     public static ArrayList<Food> getAllFoods() {
@@ -260,14 +277,16 @@ public final class DB {
             pstm.setInt(4, meal.getWeight());
             pstm.execute();
 
+
         } catch (SQLException e) {
             System.out.println("Something wrong with the addMeal method");
         }
+        meals.add(meal);
 
     }
 
-    public static ArrayList<Meal> getAllMealByUserID(int userID) {
-        String sql = "select * from meal where userID = " + userID;
+    public static ArrayList<Meal> getAllMeals() {
+        String sql = "select * from meal";
         ArrayList<Meal> meals = null;
 
         try {
@@ -291,7 +310,7 @@ public final class DB {
         return meals;
     }
 
-    public static void getAllMealWithMeta() {
+    public static void getAllMealsWithMeta() {
         String sql = "select * from meal";
         ResultSet rs = null;
         ResultSetMetaData rsmd = null;

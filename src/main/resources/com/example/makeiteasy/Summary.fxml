@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.chart.*?>
@@ -19,5 +20,13 @@
             </cursor>
         </ListView>
         <ListView id="foodList" fx:id="foodList" layoutX="238.0" layoutY="104.0" prefHeight="336.0" prefWidth="188.0" style="-fx-background-radius: 5;" />
+      <ListView id="foodIntakeList" fx:id="foodIntakeList" layoutX="476.0" layoutY="104.0" prefHeight="336.0" prefWidth="188.0" style="-fx-background-radius: 5;" />
+      <Label id="test" fx:id="test" alignment="CENTER" layoutX="476.0" layoutY="41.0" prefHeight="38.0" prefWidth="188.0" text="Label">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField id="amount" fx:id="amount" layoutX="177.0" layoutY="494.0" />
+      <Button id="addMeal" layoutX="365.0" layoutY="494.0" mnemonicParsing="false" onAction="#addMeal" prefHeight="25.0" prefWidth="111.0" text="Button" />
     </children>
 </AnchorPane>
