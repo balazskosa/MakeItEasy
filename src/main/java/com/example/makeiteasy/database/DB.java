@@ -1,14 +1,13 @@
 package com.example.makeiteasy.database;
 
-import com.example.makeiteasy.database.pojo.User;
 import com.example.makeiteasy.database.pojo.Food;
 import com.example.makeiteasy.database.pojo.Meal;
+import com.example.makeiteasy.database.pojo.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public final class DB {
 
@@ -83,6 +82,7 @@ public final class DB {
 
             if (!rs1.next()) {
                 createStatement.execute("create table meal(" +
+                        "id int not null primary key generated always as identity (START WITH 1, INCREMENT BY 1)," +
                         " foodId int," +
                         " date date," +
                         " whichMeal int," +
@@ -133,8 +133,6 @@ public final class DB {
                     food.setId(key);
                 }
             }
-
-
         } catch (SQLException e) {
             System.out.println("Something wrong with the addFood method");
             System.out.println("" + e);
@@ -146,11 +144,12 @@ public final class DB {
     public static String getFoodNameByID(int foodID) {
         String sql = "select name from food where id = " + foodID;
         String name = null;
+        ResultSet rs = null;
         try {
-           ResultSet rs = createStatement.executeQuery(sql);
-           if(rs.next()) {
-               name = rs.getString("name");
-           }
+            rs = createStatement.executeQuery(sql);
+            if (rs.next()) {
+                name = rs.getString("name");
+            }
         } catch (SQLException e) {
             System.out.println("Something wrong with te getFoodByNameID method");
             System.out.println("" + e);
@@ -167,7 +166,6 @@ public final class DB {
         try {
             foods = new ArrayList<>();
             ResultSet rs = createStatement.executeQuery(sql);
-            ResultSetMetaData rsmd = rs.getMetaData();
 
             while (rs.next()) {
                 Food actualFood = new Food(
@@ -260,7 +258,6 @@ public final class DB {
     }
 
 
-
     public static ObservableList<Food> getFoods() {
         return foods;
     }
@@ -270,16 +267,23 @@ public final class DB {
     public static void addMeal(Meal meal) {
         try {
             String sql = "insert into meal (foodId, date, whichMeal, weight) values(?, ?, ?, ?)";
-            PreparedStatement pstm = conn.prepareStatement(sql);
+            PreparedStatement pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pstm.setInt(1, meal.getFoodId());
             pstm.setDate(2, meal.getDate());
             pstm.setInt(3, meal.getWhichMeal());
             pstm.setInt(4, meal.getWeight());
-            pstm.execute();
 
-
+            int updated = pstm.executeUpdate();
+            if (updated == 1) {
+                ResultSet generatedKeys = pstm.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int key = generatedKeys.getInt(1);
+                    meal.setId(key);
+                }
+            }
         } catch (SQLException e) {
             System.out.println("Something wrong with the addMeal method");
+            System.out.println("" + e);
         }
         meals.add(meal);
 
@@ -287,15 +291,17 @@ public final class DB {
 
     public static ArrayList<Meal> getAllMeals() {
         String sql = "select * from meal";
+        ResultSet rs = null;
+        ResultSetMetaData rsmd = null;
         ArrayList<Meal> meals = null;
 
         try {
             meals = new ArrayList<>();
-            ResultSet rs = createStatement.executeQuery(sql);
-            ResultSetMetaData rsmd = rs.getMetaData();
-
+            rs = createStatement.executeQuery(sql);
+            rsmd = rs.getMetaData();
             while (rs.next()) {
                 Meal actualMeal = new Meal(
+                        rs.getInt("id"),
                         rs.getInt("foodId"),
                         rs.getDate("date"),
                         rs.getInt("whichMeal"),
@@ -303,7 +309,7 @@ public final class DB {
                 meals.add(actualMeal);
             }
         } catch (SQLException e) {
-            System.out.println("Something wrong with the getAllMealByUserID method");
+            System.out.println("Something wrong with the getAllMeals method");
             System.out.println("" + e);
         }
 
@@ -325,11 +331,12 @@ public final class DB {
             System.out.println();
 
             while (rs.next()) {
-                int foodId = rs.getInt(rsmd.getColumnName(1));
-                Date date = rs.getDate(rsmd.getColumnName(2));
-                int whichMeal = rs.getInt(rsmd.getColumnName(3));
-                int weight = rs.getInt(rsmd.getColumnName(4));
-                System.out.println(foodId + " | " + date + " | " + whichMeal + " | " + weight);
+                int id = rs.getInt(rsmd.getColumnName(1));
+                int foodId = rs.getInt(rsmd.getColumnName(2));
+                Date date = rs.getDate(rsmd.getColumnName(3));
+                int whichMeal = rs.getInt(rsmd.getColumnName(4));
+                int weight = rs.getInt(rsmd.getColumnName(5));
+                System.out.println(id + " | " + foodId + " | " + date + " | " + whichMeal + " | " + weight);
             }
 
 

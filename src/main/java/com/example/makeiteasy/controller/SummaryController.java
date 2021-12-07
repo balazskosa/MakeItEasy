@@ -15,7 +15,6 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -59,6 +58,7 @@ public class SummaryController implements Initializable {
         int amount = Integer.parseInt(this.amount.getText());
         Meal meal = new Meal(foodId, Date.valueOf(localDate), whichMeal, amount);
         DB.addMeal(meal);
+        System.out.println(meal.getId());
         this.amount.clear();
     }
 
@@ -105,6 +105,7 @@ public class SummaryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         setWhichMeal();
         setFoodIntakeList();
         setMealList();
