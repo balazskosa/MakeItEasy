@@ -59,13 +59,14 @@ public class SummaryController implements Initializable {
         int amount = Integer.parseInt(this.amount.getText());
         Meal meal = new Meal(foodId, Date.valueOf(localDate), whichMeal, amount);
         DB.addMeal(meal);
-        System.out.println(meal.getId());
         this.amount.clear();
     }
 
     public void setMealList() {
         mealList.getItems().addAll("Breakfast", "Lunch", "Dinner", "Snacks");
-
+        int partOfTheDay = 0;
+        mealList.getSelectionModel().select(partOfTheDay);
+        DB.searchMealsByWhichMeal(partOfTheDay+1);
         mealList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -103,6 +104,7 @@ public class SummaryController implements Initializable {
 
     public void setFoodIntakeList() {
         foodIntakeList.setItems(DB.getMeals());
+
 
     }
 
