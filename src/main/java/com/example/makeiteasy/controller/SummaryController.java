@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class SummaryController implements Initializable {
 
@@ -70,6 +71,7 @@ public class SummaryController implements Initializable {
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 String currentMeal = mealList.getSelectionModel().getSelectedItem();
                 whichMeal = mealTime.get(currentMeal);
+                DB.searchMealsByWhichMeal(whichMeal);
             }
         });
     }
@@ -101,15 +103,18 @@ public class SummaryController implements Initializable {
 
     public void setFoodIntakeList() {
         foodIntakeList.setItems(DB.getMeals());
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        setWhichMeal();
         setFoodIntakeList();
+        setWhichMeal();
         setMealList();
         setFoodList();
+        setFoodIntakeList();
         setNutrimentChart();
+
+
     }
 }

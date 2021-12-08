@@ -226,6 +226,12 @@ public final class DB {
         foods.addAll(getAllFoods());
     }
 
+    public static void searchMealsByWhichMeal(int whichMeal) {
+        meals.clear();
+        meals.addAll(getAllMeals());
+        meals.removeIf(f -> !(f.getWhichMeal() == whichMeal));
+    }
+
     public static void getAllFoodsWithMeta() {
         String sql = "select * from food";
         ResultSet rs = null;
@@ -310,6 +316,33 @@ public final class DB {
             }
         } catch (SQLException e) {
             System.out.println("Something wrong with the getAllMeals method");
+            System.out.println("" + e);
+        }
+
+        return meals;
+    }
+
+    public static ArrayList<Meal> getAllMealsByWhichMeal(int whichMeal) {
+        String sql = "select * from meal where whicmeal = " + whichMeal;
+        ResultSet rs = null;
+        ResultSetMetaData rsmd = null;
+        ArrayList<Meal> meals = null;
+
+        try {
+            meals = new ArrayList<>();
+            rs = createStatement.executeQuery(sql);
+            rsmd = rs.getMetaData();
+            while (rs.next()) {
+                Meal actualMeal = new Meal(
+                        rs.getInt("id"),
+                        rs.getInt("foodId"),
+                        rs.getDate("date"),
+                        rs.getInt("whichMeal"),
+                        rs.getInt("weight"));
+                meals.add(actualMeal);
+            }
+        } catch (SQLException e) {
+            System.out.println("Something wrong with the getAllMealsByWhichMeal method");
             System.out.println("" + e);
         }
 
