@@ -47,6 +47,30 @@ public class SummaryController implements Initializable {
 
     Map<String, Integer> mealTime = new HashMap<>();
 
+    @FXML
+    public void  changeIntakeFood() {
+
+    }
+
+    @FXML
+    public void delIntakeFood() {
+
+    }
+
+    @FXML
+    public void prevDay() {
+
+    }
+
+    @FXML
+    public void nextDay() {
+
+    }
+
+    @FXML
+    public void resetDay() {
+
+    }
 
     public void setWhichMeal() {
         mealTime.put("Breakfast", 1);
