@@ -46,6 +46,8 @@ public class SummaryController implements Initializable {
 
     private int foodId;
     private int whichMeal;
+    private Meal selectedMeal;
+
     private final LocalDate localDate = LocalDate.now();
 
     LocalDate currentDay = LocalDate.now();
@@ -59,7 +61,9 @@ public class SummaryController implements Initializable {
 
     @FXML
     public void delIntakeFood() {
-
+        if(selectedMeal != null) {
+            DB.deleteMealById(selectedMeal);
+        }
     }
 
     @FXML
@@ -135,6 +139,22 @@ public class SummaryController implements Initializable {
 
     }
 
+    public void setFoodIntakeList() {
+        foodIntakeList.setItems(DB.getMeals());
+
+        foodIntakeList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Meal>() {
+            @Override
+            public void changed(ObservableValue<? extends Meal> observableValue, Meal meal, Meal t1) {
+                Meal tmp = foodIntakeList.getSelectionModel().getSelectedItem();
+                if(tmp!= null) {
+                    selectedMeal = tmp;
+                } else {
+                    selectedMeal = null;
+                }
+            }
+        });
+    }
+
     public void setNutrimentChart() {
         int protein = 50;
         int carbs = 50;
@@ -148,12 +168,6 @@ public class SummaryController implements Initializable {
         //nutrimentChart.setLabelsVisible(false);
     }
 
-    public void setFoodIntakeList() {
-        foodIntakeList.setItems(DB.getMeals());
-
-
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setDayLabel();
@@ -161,7 +175,6 @@ public class SummaryController implements Initializable {
         setWhichMeal();
         setMealList();
         setFoodList();
-        setFoodIntakeList();
         setNutrimentChart();
     }
 }

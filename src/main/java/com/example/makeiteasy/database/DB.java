@@ -437,5 +437,19 @@ public final class DB {
             System.out.println("" + e);
         }
     }
+
+    public static void deleteMealById(Meal meal) {
+        String sql = "delete from meal where id = " + meal.getId();
+
+        try {
+            createStatement.execute(sql);
+        } catch (SQLException e) {
+            System.out.println("Something wrong with te deleteMealByID method");
+            System.out.println("" + e);
+        }
+
+        meals.remove(meal);
+
+    }
     //</editor-fold>
 }
