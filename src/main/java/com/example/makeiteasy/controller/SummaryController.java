@@ -56,13 +56,17 @@ public class SummaryController implements Initializable {
 
     @FXML
     public void  changeIntakeFood() {
+        int amount = Integer.parseInt(changeAmount.getText());
+        DB.updateMeal(selectedMeal, amount);
+        changeAmount.clear();
+
 
     }
 
     @FXML
     public void delIntakeFood() {
         if(selectedMeal != null) {
-            DB.deleteMealById(selectedMeal);
+            DB.deleteMeal(selectedMeal);
         }
     }
 

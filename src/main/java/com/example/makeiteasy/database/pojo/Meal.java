@@ -10,7 +10,7 @@ public class Meal {
     private final Integer foodId;
     private final Date date;
     private final Integer whichMeal;
-    private final Integer weight;
+    private Integer weight;
 
 
 
@@ -52,6 +52,10 @@ public class Meal {
 
     public Integer getWeight() {
         return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     @Override

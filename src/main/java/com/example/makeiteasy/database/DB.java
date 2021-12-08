@@ -438,7 +438,7 @@ public final class DB {
         }
     }
 
-    public static void deleteMealById(Meal meal) {
+    public static void deleteMeal(Meal meal) {
         String sql = "delete from meal where id = " + meal.getId();
 
         try {
@@ -449,6 +449,22 @@ public final class DB {
         }
 
         meals.remove(meal);
+    }
+
+    public static void updateMeal(Meal meal, int weight) {
+        String sql = "update meal set weight = " + weight + " where id = " + meal.getId();
+
+        try {
+            createStatement.execute(sql);
+        } catch (SQLException e) {
+            System.out.println("Something wrong with te deleteMealByID method");
+            System.out.println("" + e);
+        }
+
+
+        int index = meals.indexOf(meal);
+        meal.setWeight(weight);
+        meals.set(index, meal);
 
     }
     //</editor-fold>
