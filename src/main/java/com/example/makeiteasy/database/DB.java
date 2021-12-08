@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public final class DB {
@@ -226,11 +227,13 @@ public final class DB {
         foods.addAll(getAllFoods());
     }
 
-    public static void searchMealsByWhichMeal(int whichMeal) {
+    public static void searchMealsByWhichMeal(int whichMeal, LocalDate date) {
         meals.clear();
         meals.addAll(getAllMeals());
         meals.removeIf(f -> !(f.getWhichMeal() == whichMeal));
+        meals.removeIf(f -> !(f.getDate().toLocalDate().equals(date)));
     }
+
 
     public static void getAllFoodsWithMeta() {
         String sql = "select * from food";

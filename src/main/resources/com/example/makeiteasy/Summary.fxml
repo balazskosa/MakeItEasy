@@ -1,46 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.chart.PieChart?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="578.0" prefWidth="742.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.makeiteasy.controller.SummaryController">
     <children>
         <PieChart id="nutrimentChart" fx:id="nutrimentChart" layoutX="25.0" layoutY="409.0" prefHeight="158.0" prefWidth="189.0" />
-        <ListView id="mealList" fx:id="mealList" layoutX="28.0" layoutY="169.0" opacity="0.95" prefHeight="240.0" prefWidth="160.0" style="-fx-fixed-cell-size: 60; -fx-padding: 0; -fx-background-color: #141414;">
+        <ListView id="mealList" fx:id="mealList" layoutX="28.0" layoutY="169.0" opacity="0.95" prefHeight="240.0" prefWidth="160.0" style="-fx-fixed-cell-size: 60; -fx-padding: 0;">
             <cursor>
                 <Cursor fx:constant="DEFAULT" />
             </cursor>
         </ListView>
-        <ListView id="foodList" fx:id="foodList" layoutX="228.0" layoutY="121.0" prefHeight="336.0" prefWidth="188.0" style="-fx-background-radius: 5; -fx-background-color: #141414;" />
-      <ListView id="foodIntakeList" fx:id="foodIntakeList" layoutX="461.0" layoutY="121.0" prefHeight="336.0" prefWidth="188.0" style="-fx-background-radius: 5; -fx-background-color: #141414;" />
-      <TextField id="addAmount" fx:id="amount" layoutX="228.0" layoutY="83.0" prefHeight="25.0" prefWidth="94.0" />
-      <Button id="addMeal" layoutX="322.0" layoutY="83.0" mnemonicParsing="false" onAction="#addMeal" opacity="0.7" prefHeight="25.0" prefWidth="94.0" text="Add" />
-      <TextField id="changeAmount" fx:id="changeAmount" layoutX="461.0" layoutY="83.0" prefHeight="25.0" prefWidth="80.0" />
-      <Button id="changeIntakeFood" layoutX="541.0" layoutY="83.0" mnemonicParsing="false" onAction="#changeIntakeFood" opacity="0.7" prefHeight="25.0" prefWidth="63.0" text="Change" />
-      <Button id="delIntakeFood" layoutX="603.0" layoutY="83.0" mnemonicParsing="false" onAction="#delIntakeFood" opacity="0.7" prefHeight="25.0" prefWidth="46.0" text="Del" />
-      <Button id="previouslyDay" layoutX="40.0" layoutY="531.0" mnemonicParsing="false" onAction="#prevDay" opacity="0.7" text="&lt;" />
-      <Button id="nextDay" layoutX="90.0" layoutY="531.0" mnemonicParsing="false" onAction="#nextDay" opacity="0.7" text="&gt;" />
-      <Button id="resetDay" layoutX="65.0" layoutY="531.0" mnemonicParsing="false" onAction="#resetDay" opacity="0.7" text="--" />
-      <Label layoutX="31.0" layoutY="556.0" opacity="0.25" prefHeight="17.0" prefWidth="94.0" text="Change the date" />
-      <Label layoutX="461.0" layoutY="21.0" opacity="0.25" prefHeight="62.0" prefWidth="188.0" text="Select the item and change the amount or just deleting it" textAlignment="CENTER" wrapText="true" />
-      <Label layoutX="228.0" layoutY="21.0" opacity="0.25" prefHeight="62.0" prefWidth="188.0" text="Select part of the day and a food, then give the amount and click to add" textAlignment="CENTER" wrapText="true" />
-      <Label id="maxCal" fx:id="maxCal" layoutX="103.0" layoutY="45.0" prefHeight="51.0" prefWidth="118.0" text="/2000">
+        <ListView id="foodList" fx:id="foodList" layoutX="228.0" layoutY="121.0" prefHeight="336.0" prefWidth="188.0" style="-fx-background-radius: 5;" />
+        <ListView id="foodIntakeList" fx:id="foodIntakeList" layoutX="461.0" layoutY="121.0" prefHeight="336.0" prefWidth="188.0" style="-fx-background-radius: 5;">
+            <placeholder>
+                <Label text="Nothing found" />
+            </placeholder>
+        </ListView>
+
+        <TextField id="addAmount" fx:id="amount" layoutX="228.0" layoutY="83.0" prefHeight="25.0" prefWidth="94.0" />
+        <Button id="addMeal" layoutX="322.0" layoutY="83.0" mnemonicParsing="false" onAction="#addMeal" opacity="0.7" prefHeight="25.0" prefWidth="94.0" text="Add" />
+        <TextField id="changeAmount" fx:id="changeAmount" layoutX="461.0" layoutY="83.0" prefHeight="25.0" prefWidth="80.0" />
+        <Button id="changeIntakeFood" layoutX="541.0" layoutY="83.0" mnemonicParsing="false" onAction="#changeIntakeFood" opacity="0.7" prefHeight="25.0" prefWidth="63.0" text="Change" />
+        <Button id="delIntakeFood" layoutX="603.0" layoutY="83.0" mnemonicParsing="false" onAction="#delIntakeFood" opacity="0.7" prefHeight="25.0" prefWidth="46.0" text="Del" />
+        <Button id="previouslyDay" layoutX="40.0" layoutY="531.0" mnemonicParsing="false" onAction="#prevDay" opacity="0.7" text="&lt;" />
+        <Button id="nextDay" layoutX="90.0" layoutY="531.0" mnemonicParsing="false" onAction="#nextDay" opacity="0.7" text="&gt;" />
+        <Button id="resetDay" layoutX="65.0" layoutY="531.0" mnemonicParsing="false" onAction="#resetDay" opacity="0.7" text="--" />
+        <Label id="dayLabel" fx:id="dayLabel" alignment="CENTER" layoutX="31.0" layoutY="556.0" prefHeight="17.0" prefWidth="94.0">
          <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-      </Label>
-      <Label id="consumedCal" fx:id="consumedCal" layoutX="42.0" layoutY="27.0" prefHeight="51.0" prefWidth="72.0" text="1500">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-      </Label>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+        <Label layoutX="461.0" layoutY="21.0" opacity="0.25" prefHeight="62.0" prefWidth="188.0" text="Select the item and change the amount or just deleting it" textAlignment="CENTER" wrapText="true" />
+        <Label layoutX="228.0" layoutY="21.0" opacity="0.25" prefHeight="62.0" prefWidth="188.0" text="Select part of the day and a food, then give the amount and click to add" textAlignment="CENTER" wrapText="true" />
+        <Label id="maxCal" fx:id="maxCal" layoutX="103.0" layoutY="45.0" prefHeight="51.0" prefWidth="118.0" text="/2000">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+        </Label>
+        <Label id="consumedCal" fx:id="consumedCal" layoutX="42.0" layoutY="27.0" prefHeight="51.0" prefWidth="72.0" text="1500">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+        </Label>
     </children>
 </AnchorPane>

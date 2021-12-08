@@ -36,14 +36,19 @@ public class SummaryController implements Initializable {
     PieChart nutrimentChart;
 
     @FXML
-    Label test;
+    TextField amount;
 
     @FXML
-    TextField amount;
+    TextField changeAmount;
+
+    @FXML
+    Label dayLabel;
 
     private int foodId;
     private int whichMeal;
     private final LocalDate localDate = LocalDate.now();
+
+    LocalDate currentDay = LocalDate.now();
 
     Map<String, Integer> mealTime = new HashMap<>();
 
@@ -59,16 +64,25 @@ public class SummaryController implements Initializable {
 
     @FXML
     public void prevDay() {
+        this.currentDay = this.currentDay.minusDays(1);
+        setDayLabel();
+        DB.searchMealsByWhichMeal(whichMeal, currentDay);
 
     }
 
     @FXML
     public void nextDay() {
-
+        this.currentDay = this.currentDay.plusDays(1);
+        DB.searchMealsByWhichMeal(whichMeal, currentDay);
+        setDayLabel();
     }
+
 
     @FXML
     public void resetDay() {
+        this.currentDay = LocalDate.now();
+        DB.searchMealsByWhichMeal(whichMeal, currentDay);
+        setDayLabel();
 
     }
 
@@ -77,6 +91,10 @@ public class SummaryController implements Initializable {
         mealTime.put("Lunch", 2);
         mealTime.put("Dinner", 3);
         mealTime.put("Snacks", 4);
+    }
+
+    public void setDayLabel() {
+        dayLabel.setText(currentDay.toString());
     }
 
     public void addMeal() {
@@ -88,15 +106,19 @@ public class SummaryController implements Initializable {
 
     public void setMealList() {
         mealList.getItems().addAll("Breakfast", "Lunch", "Dinner", "Snacks");
-        int partOfTheDay = 0;
-        mealList.getSelectionModel().select(partOfTheDay);
-        DB.searchMealsByWhichMeal(partOfTheDay+1);
+
+        //set part of the day
+        int partOfTheDay = 1;
+        whichMeal = partOfTheDay;
+        mealList.getSelectionModel().select(partOfTheDay-1);
+        DB.searchMealsByWhichMeal(partOfTheDay, currentDay);
+
         mealList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 String currentMeal = mealList.getSelectionModel().getSelectedItem();
                 whichMeal = mealTime.get(currentMeal);
-                DB.searchMealsByWhichMeal(whichMeal);
+                DB.searchMealsByWhichMeal(whichMeal, currentDay);
             }
         });
     }
@@ -134,13 +156,12 @@ public class SummaryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setDayLabel();
         setFoodIntakeList();
         setWhichMeal();
         setMealList();
         setFoodList();
         setFoodIntakeList();
         setNutrimentChart();
-
-
     }
 }
