@@ -25,6 +25,6 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Run SpotBugs
-      run: mvn spotbugs:check
+      run: mvn --no-transfer-progress spotbugs:check
     - name: Generate JavaDoc
-      run: mvn javadoc:javadoc
+      run: mvn --no-transfer-progress javadoc:javadoc
