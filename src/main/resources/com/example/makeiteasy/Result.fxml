@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
@@ -12,9 +13,10 @@
 
 <AnchorPane prefHeight="578.0" prefWidth="742.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.makeiteasy.controller.ResultController">
    <children>
-      <BarChart id="dailyCalorieChart" fx:id="dailyCalorieChart" layoutY="7.0" prefHeight="487.0" prefWidth="729.0" title="Daily Calorie Intake">
+      <Rectangle arcHeight="25.0" arcWidth="25.0" fill="WHITE" height="307.0" layoutY="4.0" stroke="BLACK" strokeType="INSIDE" width="429.0" />
+      <BarChart id="dailyCalorieChart" fx:id="dailyCalorieChart" layoutX="5.0" prefHeight="315.0" prefWidth="406.0" title="Daily Calorie Intake">
         <xAxis>
-          <CategoryAxis id="calorieIntakeX" fx:id="calorieIntakeX" side="BOTTOM" />
+          <CategoryAxis id="calorieIntakeX" fx:id="calorieIntakeX" prefHeight="23.0" prefWidth="329.0" side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis id="calorieIntakeX" fx:id="calorieIntakeY" side="LEFT" upperBound="2500.0" />

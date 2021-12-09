@@ -12,6 +12,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 
 import java.net.URL;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -61,14 +63,19 @@ public class ResultController implements Initializable {
 
     public void setDailyCalorieChart() {
         XYChart.Series dataSeries1 = new XYChart.Series();
+        XYChart.Series dataSeries2 = new XYChart.Series();
 
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MM.dd");
+        String date;
         for (Result result : results) {
-            dataSeries1.getData().add(new XYChart.Data(result.getDate().toString(), result.getCalories()));
-            //System.out.println(result);
+            date = outputFormat.format(Date.valueOf(result.getDate()));
+            dataSeries1.getData().add(new XYChart.Data(date, result.getCalories()));
+            dataSeries2.getData().add(new XYChart.Data(date, DB.user.dailyCaloriesForMaintain));
         }
 
         dailyCalorieChart.getData().clear();
         dailyCalorieChart.getData().add(dataSeries1);
+        dailyCalorieChart.getData().add(dataSeries2);
     }
 
     public void setResults() {
