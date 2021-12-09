@@ -1,6 +1,7 @@
 package com.example.makeiteasy.controller;
 
 import com.example.makeiteasy.database.DB;
+import com.example.makeiteasy.database.Result;
 import com.example.makeiteasy.database.pojo.Food;
 import com.example.makeiteasy.database.pojo.Meal;
 import com.example.makeiteasy.database.pojo.User;
@@ -45,6 +46,13 @@ public class SummaryController implements Initializable {
     @FXML
     Label dayLabel;
 
+    @FXML
+    private Label maxCal;
+
+    @FXML
+    private Label consumedCal;
+
+
     private int foodId;
     private int whichMeal;
     private Meal selectedMeal;
@@ -60,6 +68,7 @@ public class SummaryController implements Initializable {
             DB.updateMeal(selectedMeal, amount);
             changeAmount.clear();
         }
+        setCaloriesValues();
 
     }
 
@@ -68,6 +77,7 @@ public class SummaryController implements Initializable {
         if(selectedMeal != null) {
             DB.deleteMeal(selectedMeal);
         }
+        setCaloriesValues();
     }
 
     @FXML
@@ -75,6 +85,7 @@ public class SummaryController implements Initializable {
         this.currentDay = this.currentDay.minusDays(1);
         setDayLabel();
         DB.searchMealsByWhichMeal(whichMeal, currentDay);
+        setCaloriesValues();
 
     }
 
@@ -83,6 +94,7 @@ public class SummaryController implements Initializable {
         this.currentDay = this.currentDay.plusDays(1);
         DB.searchMealsByWhichMeal(whichMeal, currentDay);
         setDayLabel();
+        setCaloriesValues();
     }
 
 
@@ -91,6 +103,7 @@ public class SummaryController implements Initializable {
         this.currentDay = LocalDate.now();
         DB.searchMealsByWhichMeal(whichMeal, currentDay);
         setDayLabel();
+        setCaloriesValues();
 
     }
 
@@ -110,6 +123,7 @@ public class SummaryController implements Initializable {
         Meal meal = new Meal(foodId, Date.valueOf(currentDay), whichMeal, amount);
         DB.addMeal(meal);
         this.amount.clear();
+        setCaloriesValues();
     }
 
     public void setMealList() {
@@ -172,8 +186,15 @@ public class SummaryController implements Initializable {
         //nutrimentChart.setLabelsVisible(false);
     }
 
+    public void setCaloriesValues() {
+        Result result = new Result(currentDay);
+        consumedCal.setText(String.valueOf(result.getCalories()));
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        maxCal.setText("/" + DB.user.dailyCaloriesForMaintain);
+        setCaloriesValues();
         setDayLabel();
         setFoodIntakeList();
         setWhichMeal();

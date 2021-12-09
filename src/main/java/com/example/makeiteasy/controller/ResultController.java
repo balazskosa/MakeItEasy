@@ -75,7 +75,7 @@ public class ResultController implements Initializable {
         int index = 0;
         results.clear();
         for (int i = -3; i <= 3; i++) {
-            results.add(new Result(currentDay.plusDays(i), DB.getAllMeals()));
+            results.add(new Result(currentDay.plusDays(i)));
             index++;
         }
     }

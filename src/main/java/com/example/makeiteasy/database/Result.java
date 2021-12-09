@@ -13,7 +13,9 @@ public class Result {
     private Integer carbs = 0;
     private Integer fat = 0;
 
-    public Result(LocalDate date, ArrayList<Meal> meals) {
+    private ArrayList<Meal> meals = DB.getAllMeals();
+
+    public Result(LocalDate date) {
         this.date = date;
         meals.removeIf(m -> !(m.getDate().toLocalDate().equals(date)));
         for (Meal meal : meals) {
