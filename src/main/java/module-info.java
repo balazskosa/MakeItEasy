@@ -11,4 +11,6 @@ module com.example.makeiteasy {
     opens com.example.makeiteasy.controller to javafx.fxml;
     exports com.example.makeiteasy.database.pojo;
     opens com.example.makeiteasy.database.pojo to javafx.fxml;
+    exports com.example.makeiteasy.database;
+    opens com.example.makeiteasy.database to javafx.fxml;
 }

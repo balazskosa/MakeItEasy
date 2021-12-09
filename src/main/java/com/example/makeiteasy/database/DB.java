@@ -117,8 +117,10 @@ public final class DB {
             System.out.println("Something wrong with the creating of the USER2 table");
             System.out.println("" + e);
         }
-
     }
+
+
+
 
     //<editor-fold desc="all methods to food table">
     public static void addFood(Food food) {
@@ -148,21 +150,27 @@ public final class DB {
 
     }
 
-    public static String getFoodNameByID(int foodID) {
-        String sql = "select name from food where id = " + foodID;
-        String name = null;
+    public static Food getFoodByID(int foodID) {
+        String sql = "select * from food where id = " + foodID;
+        Food actualFood = null;
         ResultSet rs = null;
         try {
             rs = createStatement.executeQuery(sql);
             if (rs.next()) {
-                name = rs.getString("name");
+                actualFood = new Food(
+                        //rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getInt("calories"),
+                        rs.getInt("protein"),
+                        rs.getInt("carbohydrate"),
+                        rs.getInt("fat"));
             }
         } catch (SQLException e) {
             System.out.println("Something wrong with te getFoodByNameID method");
             System.out.println("" + e);
         }
 
-        return name;
+        return actualFood;
     }
 
     public static ArrayList<Food> getAllFoods() {

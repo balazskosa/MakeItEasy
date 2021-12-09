@@ -12,14 +12,13 @@ public class Meal {
     private final Integer whichMeal;
     private Integer weight;
 
-
-
     public Meal(Integer id, Integer foodId, Date date, Integer whichMeal, Integer weight) {
         this.id = id;
         this.foodId = foodId;
         this.date = date;
         this.whichMeal = whichMeal;
         this.weight = weight;
+
     }
 
     public Meal(Integer foodId, Date date, Integer whichMeal, Integer weight) {
@@ -27,6 +26,7 @@ public class Meal {
         this.date = date;
         this.whichMeal = whichMeal;
         this.weight = weight;
+
     }
 
     public Integer getId() {
@@ -60,7 +60,7 @@ public class Meal {
 
     @Override
     public String toString() {
-        return DB.getFoodNameByID(foodId) + " | " + weight;
+        return DB.getFoodByID(foodId).getName() + " | " + weight;
     }
 
 }
