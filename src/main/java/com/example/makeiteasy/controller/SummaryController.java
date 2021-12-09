@@ -49,8 +49,6 @@ public class SummaryController implements Initializable {
     private int whichMeal;
     private Meal selectedMeal;
 
-    private final LocalDate localDate = LocalDate.now();
-
     LocalDate currentDay = LocalDate.now();
 
     Map<String, Integer> mealTime = new HashMap<>();
@@ -109,7 +107,7 @@ public class SummaryController implements Initializable {
 
     public void addMeal() {
         int amount = Integer.parseInt(this.amount.getText());
-        Meal meal = new Meal(foodId, Date.valueOf(localDate), whichMeal, amount);
+        Meal meal = new Meal(foodId, Date.valueOf(currentDay), whichMeal, amount);
         DB.addMeal(meal);
         this.amount.clear();
     }

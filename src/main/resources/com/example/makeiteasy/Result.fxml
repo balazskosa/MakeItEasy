@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="578.0" prefWidth="742.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.makeiteasy.controller.ResultController">
    <children>
-      <BarChart id="dailyCalorieChart" fx:id="dailyCalorieChart" layoutY="7.0" prefHeight="254.0" prefWidth="366.0" title="Daily Calorie Intake">
+      <BarChart id="dailyCalorieChart" fx:id="dailyCalorieChart" layoutY="7.0" prefHeight="487.0" prefWidth="729.0" title="Daily Calorie Intake">
         <xAxis>
           <CategoryAxis id="calorieIntakeX" fx:id="calorieIntakeX" side="BOTTOM" />
         </xAxis>
@@ -20,14 +20,6 @@
           <NumberAxis id="calorieIntakeX" fx:id="calorieIntakeY" side="LEFT" upperBound="2500.0" />
         </yAxis>
       </BarChart>
-      <StackedBarChart layoutX="350.0" layoutY="7.0" prefHeight="275.0" prefWidth="392.0">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
-      </StackedBarChart>
       <Button layoutX="40.0" layoutY="531.0" mnemonicParsing="false" onAction="#prevDay" opacity="0.7" text="&lt;">
          <effect>
             <DropShadow />
