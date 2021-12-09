@@ -437,13 +437,13 @@ public final class DB {
         String sql = "insert into user2 (firstname, lastname, weight, gender, birthday, height, activityMultiplier) values(?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement pstm = conn.prepareStatement(sql);
-            pstm.setString(1, user.firstName);
-            pstm.setString(2, user.lastName);
-            pstm.setInt(3, user.weight);
-            pstm.setString(4, user.gender);
-            pstm.setDate(5, Date.valueOf(user.birthday));
-            pstm.setInt(6, user.height);
-            pstm.setDouble(7, user.activityMultiplier);
+            pstm.setString(1, newUser.firstName);
+            pstm.setString(2, newUser.lastName);
+            pstm.setInt(3, newUser.weight);
+            pstm.setString(4,newUser.gender);
+            pstm.setDate(5, Date.valueOf(newUser.birthday));
+            pstm.setInt(6, newUser.height);
+            pstm.setDouble(7, newUser.activityMultiplier);
             pstm.execute();
 
         } catch (SQLException e) {

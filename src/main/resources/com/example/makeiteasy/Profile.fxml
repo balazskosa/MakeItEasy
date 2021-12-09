@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane prefHeight="578.0" prefWidth="742.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.makeiteasy.controller.ProfileController">
+<AnchorPane prefHeight="578.0" prefWidth="742.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.makeiteasy.controller.ProfileController">
     <children>
         <Label layoutX="328.0" layoutY="266.0" text="Profile">
             <font>
-                <Font size="32.0" />
+                <Font size="32.0"/>
             </font>
         </Label>
+        <Button layoutX="263.0" layoutY="72.0" mnemonicParsing="false" onAction="#openNewProfileDialog"
+                prefHeight="148.0" prefWidth="222.0" text="Do it"/>
     </children>
 
 </AnchorPane>
