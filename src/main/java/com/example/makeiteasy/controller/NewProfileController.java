@@ -68,6 +68,7 @@ public class NewProfileController implements Initializable {
     @FXML private TextField height;
     @FXML private ToggleGroup activityRadioGroup;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         pages = new Pane[]{namePage, weightPage, genderPage, birthPage, heightPage, activityPage};
@@ -217,6 +218,7 @@ public class NewProfileController implements Initializable {
             );
 
             DB.addUser(user);
+            //ProfileController.setUserLabels(user);
 //            try {
 //                replaceSceneContent();
 //            } catch (IOException e) {
