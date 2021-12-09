@@ -3,6 +3,7 @@ package com.example.makeiteasy.controller;
 import com.example.makeiteasy.database.DB;
 import com.example.makeiteasy.database.pojo.Food;
 import com.example.makeiteasy.database.pojo.Meal;
+import com.example.makeiteasy.database.pojo.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -57,9 +58,10 @@ public class SummaryController implements Initializable {
     @FXML
     public void  changeIntakeFood() {
         int amount = Integer.parseInt(changeAmount.getText());
-        DB.updateMeal(selectedMeal, amount);
-        changeAmount.clear();
-
+        if(selectedMeal != null) {
+            DB.updateMeal(selectedMeal, amount);
+            changeAmount.clear();
+        }
 
     }
 

@@ -107,6 +107,6 @@ public class Food {
 
     @Override
     public String toString() {
-        return id.getValue() + " - " + name.getValue() + " - " + calories.getValue();
+        return name.getValue() + " - " + calories.getValue();
     }
 }
