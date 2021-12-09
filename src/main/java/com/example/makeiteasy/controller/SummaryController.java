@@ -173,33 +173,37 @@ public class SummaryController implements Initializable {
         });
     }
 
-    public void setNutrimentChart() {
-        int protein = 50;
-        int carbs = 50;
-        int fat = 50;
-        PieChart.Data proteinData = new PieChart.Data("Protein", protein);
-        PieChart.Data carbsData = new PieChart.Data("Carbs", carbs);
-        PieChart.Data fatData = new PieChart.Data("Fat", fat);
+    public void setNutrimentChart(Result result) {
+        PieChart.Data proteinData = new PieChart.Data("Protein", result.getProtein());
+        PieChart.Data carbsData = new PieChart.Data("Carbs", result.getCarbs());
+        PieChart.Data fatData = new PieChart.Data("Fat", result.getFat());
+        nutrimentChart.getData().clear();
         nutrimentChart.getData().add(proteinData);
         nutrimentChart.getData().add(carbsData);
         nutrimentChart.getData().add(fatData);
-        //nutrimentChart.setLabelsVisible(false);
+        if(result.getCalories() == 0) {
+            nutrimentChart.setLabelsVisible(false);
+        } else {
+            nutrimentChart.setLabelsVisible(true);
+        }
     }
 
     public void setCaloriesValues() {
         Result result = new Result(currentDay);
         consumedCal.setText(String.valueOf(result.getCalories()));
+        setNutrimentChart(result);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         maxCal.setText("/" + DB.user.dailyCaloriesForMaintain);
+        nutrimentChart.setLegendVisible(false);
         setCaloriesValues();
         setDayLabel();
         setFoodIntakeList();
         setWhichMeal();
         setMealList();
         setFoodList();
-        setNutrimentChart();
+
     }
 }

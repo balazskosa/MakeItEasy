@@ -14,8 +14,8 @@
 
 <AnchorPane prefHeight="578.0" prefWidth="742.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.makeiteasy.controller.SummaryController">
     <children>
-        <PieChart id="nutrimentChart" fx:id="nutrimentChart" layoutX="25.0" layoutY="409.0" prefHeight="158.0" prefWidth="189.0" />
-        <ListView id="mealList" fx:id="mealList" layoutX="28.0" layoutY="169.0" opacity="0.95" prefHeight="240.0" prefWidth="160.0" style="-fx-fixed-cell-size: 60; -fx-padding: 0;">
+        <PieChart id="nutrimentChart" fx:id="nutrimentChart" layoutX="4.0" layoutY="338.0" prefHeight="193.0" prefWidth="222.0" />
+        <ListView id="mealList" fx:id="mealList" layoutX="23.0" layoutY="121.0" opacity="0.95" prefHeight="240.0" prefWidth="160.0" style="-fx-fixed-cell-size: 60; -fx-padding: 0;">
             <cursor>
                 <Cursor fx:constant="DEFAULT" />
             </cursor>
@@ -50,12 +50,12 @@
          </font></Label>
         <Label layoutX="461.0" layoutY="21.0" opacity="0.25" prefHeight="62.0" prefWidth="188.0" text="Select the item and change the amount or just deleting it" textAlignment="CENTER" wrapText="true" />
         <Label layoutX="228.0" layoutY="21.0" opacity="0.25" prefHeight="62.0" prefWidth="188.0" text="Select part of the day and a food, then give the amount and click to add" textAlignment="CENTER" wrapText="true" />
-        <Label id="maxCal" fx:id="maxCal" layoutX="103.0" layoutY="45.0" prefHeight="51.0" prefWidth="118.0" text="/2000">
+        <Label id="maxCal" fx:id="maxCal" layoutX="103.0" layoutY="45.0" prefHeight="51.0" prefWidth="118.0">
             <font>
                 <Font name="System Bold" size="25.0" />
             </font>
         </Label>
-        <Label id="consumedCal" fx:id="consumedCal" layoutX="42.0" layoutY="27.0" prefHeight="51.0" prefWidth="72.0" text="1500">
+        <Label id="consumedCal" fx:id="consumedCal" layoutX="42.0" layoutY="27.0" prefHeight="51.0" prefWidth="72.0">
             <font>
                 <Font name="System Bold" size="25.0" />
             </font>
