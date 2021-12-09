@@ -1,17 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="578.0" prefWidth="742.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.makeiteasy.controller.ResultController">
    <children>
-      <Label layoutX="328.0" layoutY="266.0" text="Result">
+      <BarChart id="dailyCalorieChart" fx:id="dailyCalorieChart" layoutY="7.0" prefHeight="254.0" prefWidth="366.0" title="Daily Calorie Intake">
+        <xAxis>
+          <CategoryAxis id="calorieIntakeX" fx:id="calorieIntakeX" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis id="calorieIntakeX" fx:id="calorieIntakeY" side="LEFT" upperBound="2500.0" />
+        </yAxis>
+      </BarChart>
+      <StackedBarChart layoutX="350.0" layoutY="7.0" prefHeight="275.0" prefWidth="392.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </StackedBarChart>
+      <Button layoutX="40.0" layoutY="531.0" mnemonicParsing="false" onAction="#prevDay" opacity="0.7" text="&lt;">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <Button layoutX="65.0" layoutY="531.0" mnemonicParsing="false" onAction="#resetDay" opacity="0.7" prefHeight="25.0" prefWidth="25.0" text="-">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <Button layoutX="90.0" layoutY="531.0" mnemonicParsing="false" onAction="#nextDay" opacity="0.7" text="&gt;">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <Label id="dayLabel" fx:id="dayLabel" alignment="CENTER" layoutX="31.0" layoutY="556.0" prefHeight="17.0" prefWidth="94.0" textAlignment="CENTER">
          <font>
-            <Font size="32.0" />
+            <Font name="System Bold" size="12.0" />
          </font>
       </Label>
    </children>

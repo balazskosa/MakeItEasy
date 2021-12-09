@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.chart.*?>
@@ -31,10 +32,19 @@
         <TextField id="changeAmount" fx:id="changeAmount" layoutX="461.0" layoutY="83.0" prefHeight="25.0" prefWidth="80.0" />
         <Button id="changeIntakeFood" layoutX="541.0" layoutY="83.0" mnemonicParsing="false" onAction="#changeIntakeFood" opacity="0.7" prefHeight="25.0" prefWidth="63.0" text="Change" />
         <Button id="delIntakeFood" layoutX="603.0" layoutY="83.0" mnemonicParsing="false" onAction="#delIntakeFood" opacity="0.7" prefHeight="25.0" prefWidth="46.0" text="Del" />
-        <Button id="previouslyDay" layoutX="40.0" layoutY="531.0" mnemonicParsing="false" onAction="#prevDay" opacity="0.7" text="&lt;" />
-        <Button id="nextDay" layoutX="90.0" layoutY="531.0" mnemonicParsing="false" onAction="#nextDay" opacity="0.7" text="&gt;" />
-        <Button id="resetDay" layoutX="65.0" layoutY="531.0" mnemonicParsing="false" onAction="#resetDay" opacity="0.7" text="--" />
-        <Label id="dayLabel" fx:id="dayLabel" alignment="CENTER" layoutX="31.0" layoutY="556.0" prefHeight="17.0" prefWidth="94.0">
+        <Button id="previouslyDay" layoutX="40.0" layoutY="531.0" mnemonicParsing="false" onAction="#prevDay" opacity="0.7" text="&lt;">
+         <effect>
+            <DropShadow />
+         </effect></Button>
+        <Button id="nextDay" layoutX="90.0" layoutY="531.0" mnemonicParsing="false" onAction="#nextDay" opacity="0.7" text="&gt;">
+         <effect>
+            <DropShadow />
+         </effect></Button>
+        <Button id="resetDay" layoutX="65.0" layoutY="531.0" mnemonicParsing="false" onAction="#resetDay" opacity="0.7" prefHeight="25.0" prefWidth="25.0" text="-">
+         <effect>
+            <DropShadow />
+         </effect></Button>
+        <Label id="dayLabel" fx:id="dayLabel" alignment="CENTER" layoutX="31.0" layoutY="556.0" prefHeight="17.0" prefWidth="94.0" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
