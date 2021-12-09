@@ -14,6 +14,16 @@
         <junit.version>5.7.1</junit.version>
     </properties>
 
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.3.1</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -72,7 +82,6 @@
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -82,7 +91,6 @@
                     <target>15</target>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
@@ -97,7 +105,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19</version>
@@ -109,7 +116,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
@@ -119,7 +125,6 @@
                     <threshold>Low</threshold>
                     <!-- Currently we do not want to fail a build because of bugs -->
                     <failOnError>false</failOnError>
-
                     <plugins>
                         <plugin>
                             <groupId>com.h3xstream.findsecbugs</groupId>
@@ -127,10 +132,8 @@
                             <version>1.10.1</version>
                         </plugin>
                     </plugins>
-
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 </project>
