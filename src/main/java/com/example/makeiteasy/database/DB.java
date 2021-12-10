@@ -10,6 +10,9 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Database class which contains all related methods and variables
+ */
 public final class DB {
 
     //<editor-fold desc="object variables">
@@ -25,6 +28,9 @@ public final class DB {
     private static User user;
     //</editor-fold">
 
+    /**
+     * Set up all variables
+     */
     static {
         new DB();
         foods.addAll(DB.getAllFoods());
@@ -33,10 +39,18 @@ public final class DB {
         user = getUser();
 
     }
+
+    /**
+     * Return user object
+     * @return user object
+     */
     public static User user() {
         return user;
     }
 
+    /**
+     * Private Constructor to set all tables
+     */
     private DB() {
         try {
             conn = DriverManager.getConnection(URL);
@@ -121,6 +135,11 @@ public final class DB {
 
 
     //<editor-fold desc="all methods to food table">
+
+    /**
+     * Add food to the DB
+     * @param food food object
+     */
     public static void addFood(Food food) {
         String sql = "insert into food (name, calories, protein, carbohydrate, fat) values(?, ?, ?, ?, ?)";
         PreparedStatement pstm = null;
@@ -157,6 +176,11 @@ public final class DB {
 
     }
 
+    /**
+     * Return the food object from the DB which is the same as foodID
+     * @param foodID the id of the food object
+     * @return food object
+     */
     public static Food getFoodByID(int foodID) {
         String sql = "select * from food where id = " + foodID;
         Food actualFood = null;
@@ -189,6 +213,10 @@ public final class DB {
         return actualFood;
     }
 
+    /**
+     * Return all foods from the DB
+     * @return Arraylist with all foods
+     */
     public static ArrayList<Food> getAllFoods() {
         String sql = "select * from food";
         ArrayList<Food> foods = null;
@@ -224,6 +252,10 @@ public final class DB {
         return foods;
     }
 
+    /**
+     * Update the food in the DB
+     * @param food food object
+     */
     public static void updateFood(Food food) {
         String sql = "update food set name = ?, calories = ?, protein = ?, carbohydrate = ?, fat = ? where id = ?";
         PreparedStatement pstm = null;
@@ -252,6 +284,9 @@ public final class DB {
         }
     }
 
+    /**
+     * Reset food and meal table
+     */
     public static void clearFoodTable() {
         String sql = "delete from food";
         String sql2 = "delete from meal";
@@ -285,17 +320,28 @@ public final class DB {
         foods.clear();
     }
 
+    /**
+     * Return the foods which is same as name
+     * @param name the name of the food
+     */
     public static void searchFoodByName(String name) {
         foods.clear();
         foods.addAll(getAllFoods());
         foods.removeIf(f -> !f.getName().contains(name));
     }
 
+    /**
+     * Reset the searching, and set up foods from the DB
+     */
     public static void resetSearchFood() {
         foods.clear();
         foods.addAll(getAllFoods());
     }
 
+    /**
+     * Return foods which contains all foods
+     * @return ObservableList with all foods object
+     */
     public static ObservableList<Food> getFoods() {
         return foods;
     }
@@ -303,6 +349,11 @@ public final class DB {
 
     //<editor-fold desc="all methods to meal table">
 
+    /**
+     *
+     * @param whichMeal
+     * @param date
+     */
     public static void searchMealsByWhichMeal(int whichMeal, LocalDate date) {
         meals.clear();
         meals.addAll(getAllMeals());
@@ -310,6 +361,10 @@ public final class DB {
         meals.removeIf(f -> !(f.getDate().toLocalDate().equals(date)));
     }
 
+    /**
+     *
+     * @param meal
+     */
     public static void addMeal(Meal meal) {
         PreparedStatement pstm  = null;
         try {
@@ -345,6 +400,10 @@ public final class DB {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public static ArrayList<Meal> getAllMeals() {
         String sql = "select * from meal";
         ResultSet rs = null;
@@ -410,6 +469,10 @@ public final class DB {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public static ObservableList<Meal> getMeals() {
         return meals;
     }
@@ -417,6 +480,11 @@ public final class DB {
     //</editor-fold">
 
     //<editor-fold desc="all methods to user table">
+
+    /**
+     *
+     * @param newUser
+     */
     public static void addUser(User newUser) {
         String sqlDeleteData = "delete from user2";
         PreparedStatement pstm2 = null;
@@ -465,6 +533,9 @@ public final class DB {
 
     }
 
+    /**
+     *
+     */
     private static void setUserTable() {
         String sql = "select count(*) as count from user2";
         ResultSet rs = null;
@@ -497,6 +568,10 @@ public final class DB {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public static User getUser() {
         String sql = "select * from user2";
         ResultSet rs = null;
