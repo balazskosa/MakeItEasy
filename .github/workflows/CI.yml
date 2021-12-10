@@ -35,7 +35,7 @@ jobs:
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: 0.${{ github.run_number }}
+          automatic_release_tag: 1.${{ github.run_number }}
           prerelease: false
           files: |
             target/ExecutableMakeItEasy-jar-with-dependencies.jar
