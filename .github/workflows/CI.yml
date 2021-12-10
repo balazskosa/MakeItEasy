@@ -29,7 +29,7 @@ jobs:
       
       
     - name: Directory contents
-      run: dir
+      run: dir target
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
