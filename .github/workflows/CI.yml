@@ -66,7 +66,7 @@ jobs:
          run: mvn --no-transfer-progress versions:set -DnewVersion=steps.makeiteasy.outputs.tag -DgenerateBackupPoms=false
 
        - name: Uses POM Version Bump
-         uses: wlicamele-bw/pom-version-bump@v1.0
+         uses: wlicamele-bw/pom-version-bump@v0.2
          id: bump
          with:
             setVersion: ${{ steps.makeiteasy.outputs.tag }}
