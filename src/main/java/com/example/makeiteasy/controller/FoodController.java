@@ -226,6 +226,7 @@ public class FoodController implements Initializable {
         carbCol.setCellValueFactory(new PropertyValueFactory<Food, Integer>("carbohydrate"));
         fatCol.setCellValueFactory(new PropertyValueFactory<Food, Integer>("fat"));
 
+
         nameCol.setOnEditCommit(
                 t -> {
                     Food actualFood = (Food) t.getTableView().getItems().get(t.getTablePosition().getRow());
@@ -237,6 +238,7 @@ public class FoodController implements Initializable {
         caloriesCol.setOnEditCommit(
                 t -> {
                     Food actualFood = (Food) t.getTableView().getItems().get(t.getTablePosition().getRow());
+
                     actualFood.setCalories(t.getNewValue());
                     DB.updateFood(actualFood);
                 }

@@ -51,9 +51,10 @@ public class SummaryController implements Initializable {
     private Label consumedCal;
 
 
-    private int foodId;
+    private Integer foodId = null;
     private int whichMeal;
     private Meal selectedMeal;
+
 
     LocalDate currentDay = LocalDate.now();
 
@@ -61,13 +62,28 @@ public class SummaryController implements Initializable {
 
     @FXML
     public void changeIntakeFood() {
-        int amount = Integer.parseInt(changeAmount.getText());
+        int amount;
+        try {
+            amount = Integer.parseInt(changeAmount.getText());
+        } catch (Exception e) {
+            this.changeAmount.setStyle("-fx-background-color: #d98f80;");
+            return;
+        }
         if (selectedMeal != null) {
             DB.updateMeal(selectedMeal, amount);
             changeAmount.clear();
+
         }
         setCaloriesValues();
+        this.changeAmount.setStyle("-fx-background-color: white;");
 
+    }
+
+    public void clearTextFields() {
+        amount.clear();
+        amount.setStyle("-fx-background-color: white;");
+        changeAmount.clear();
+        changeAmount.setStyle("-fx-background-color: white;");
     }
 
     @FXML
@@ -84,6 +100,7 @@ public class SummaryController implements Initializable {
         setDayLabel();
         DB.searchMealsByWhichMeal(whichMeal, currentDay);
         setCaloriesValues();
+        clearTextFields();
 
     }
 
@@ -93,6 +110,7 @@ public class SummaryController implements Initializable {
         DB.searchMealsByWhichMeal(whichMeal, currentDay);
         setDayLabel();
         setCaloriesValues();
+        clearTextFields();
     }
 
 
@@ -102,6 +120,7 @@ public class SummaryController implements Initializable {
         DB.searchMealsByWhichMeal(whichMeal, currentDay);
         setDayLabel();
         setCaloriesValues();
+        clearTextFields();
 
     }
 
@@ -117,11 +136,21 @@ public class SummaryController implements Initializable {
     }
 
     public void addMeal() {
-        int amount = Integer.parseInt(this.amount.getText());
+        int amount;
+//        if(selectedFood == null) return;
+        try {
+            amount = Integer.parseInt(this.amount.getText());
+        } catch (Exception e) {
+            this.amount.setStyle("-fx-background-color: #d98f80;");
+            System.out.println("Wrong number");
+            return;
+        }
+
         Meal meal = new Meal(foodId, Date.valueOf(currentDay), whichMeal, amount);
         DB.addMeal(meal);
         this.amount.clear();
         setCaloriesValues();
+        this.amount.setStyle("-fx-background-color: white;");
     }
 
     public void setMealList() {
@@ -149,7 +178,12 @@ public class SummaryController implements Initializable {
         foodList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Food>() {
             @Override
             public void changed(ObservableValue<? extends Food> observableValue, Food food, Food t1) {
-                foodId = foodList.getSelectionModel().getSelectedItem().getId();
+                Food tmp = foodList.getSelectionModel().getSelectedItem();
+                if(tmp != null) {
+                    foodId = tmp.getId();
+                } else {
+                   foodId = null;
+                }
             }
         });
 
