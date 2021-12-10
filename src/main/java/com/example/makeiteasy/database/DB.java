@@ -40,7 +40,6 @@ public final class DB {
     private DB() {
         try {
             conn = DriverManager.getConnection(URL);
-            System.out.println("Bridge is open");
         } catch (SQLException e) {
             System.out.println("Something wrong with the bridge");
             System.out.println("" + e);
