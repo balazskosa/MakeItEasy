@@ -42,7 +42,7 @@ jobs:
       - name: Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
-          image: docker.pkg.github.com/balazskosa/MakeItEasy/build_image
+          image: MakeItEasy/build_image
           registry: docker.pkg.github.com
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
