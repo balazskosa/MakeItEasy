@@ -41,7 +41,7 @@ jobs:
             target/ExecutableMakeItEasy-jar-with-dependencies.jar
 
   version:
-    name: Set Version
+    name: Get Version
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -60,7 +60,6 @@ jobs:
       #    setVersion: ${{ steps.makeiteasy.outputs.tag }}
       #- name: Get the version number
       #  run: echo "The Version Number is ${{ steps.bump.outputs.versionNumber }}"
-      - run: mvn versions:set -DnewVersion=${{ steps.makeiteasy.outputs.tag }}
 
   packages:
     name: Deploy on GitHub Packages
@@ -76,6 +75,9 @@ jobs:
          with:
            java-version: '15'
            distribution: 'adopt'
+
+       - name: set new version
+         run: mvn --no-transfer-progress versions:set -DnewVersion=${{ steps.makeiteasy.outputs.tag }}
 
        - name: Build with Maven
          run: mvn --no-transfer-progress package --file pom.xml
