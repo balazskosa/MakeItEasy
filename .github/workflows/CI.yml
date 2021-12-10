@@ -42,7 +42,7 @@ jobs:
             target/ExecutableMakeItEasy-jar-with-dependencies.jar
 
   build-and-push-image:
-     name: "Build and Push Docker image to GitHub Packages
+     name: "Build and Push Docker image to GitHub Packages"
      runs-on: ubuntu-latest
      permissions:
        contents: read
