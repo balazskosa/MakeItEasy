@@ -27,6 +27,9 @@ jobs:
     - name: Generate JavaDoc
       run: mvn --no-transfer-progress javadoc:javadoc
       
+      
+    - name: Directory contents
+      run: dir
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -35,4 +38,4 @@ jobs:
         title: "Development Build"
         files: |
           LICENSE.txt
-          *.jar
+          target/*.jar
