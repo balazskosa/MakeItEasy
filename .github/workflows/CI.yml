@@ -64,7 +64,7 @@ jobs:
        - run: echo "MakeItEasy is at version ${{ steps.makeiteasy.outputs.tag }}"
 
        - name: set new version
-         run: mvn --no-transfer-progress versions:set -DnewVersion=${{ steps.makeiteasy.outputs.tag }}
+         run: mvn --no-transfer-progress versions:set -DnewVersion="${{ steps.makeiteasy.outputs.tag }}"
 
        - name: Build with Maven
          run: mvn --no-transfer-progress package --file pom.xml
