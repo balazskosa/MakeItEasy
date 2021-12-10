@@ -62,9 +62,6 @@ jobs:
            java-version: '15'
            distribution: 'adopt'
 
-       - name: Update version in pom.xml
-         run: mvn --no-transfer-progress versions:set -DnewVersion=steps.makeiteasy.outputs.tag -DgenerateBackupPoms=false
-
        - name: Uses POM Version Bump
          uses: wlicamele-bw/pom-version-bump@v0.2
          id: bump
