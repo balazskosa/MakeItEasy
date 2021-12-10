@@ -30,7 +30,7 @@ public class User {
         calculateCalories();
     }
 
-    public void calculateCalories() {
+    private void calculateCalories() {
         // Algorithms from calculator.net/calorie-calculator
 
         // Miffin-St Jeor Equation (probably the most accurate BMR algorithm without body fat %)
