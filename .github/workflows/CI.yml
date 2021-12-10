@@ -45,9 +45,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: makeiteasy2021/docker-build-push@v5
+      - uses: mr-smithers-excellent/docker-build-push@v5
         with:
-          image: docker-hub-repo/makeiteasy
+          image: makeiteasy2021/makeiteasy
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
