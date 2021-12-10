@@ -41,13 +41,13 @@ jobs:
 
   deploy:
     needs: build
-    name: Push Docker Image
+    name: Build & Push Docker Image
     runs-on: ubuntu-latest
 
     steps:
-      - uses: mr-smithers-excellent/docker-build-push@v5
+      - uses: makeiteasy2021/docker-build-push@v5
         with:
-          image: MakeItEasy/build_image
-          registry: docker.pkg.github.com
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          image: docker-hub-repo/makeiteasy
+          registry: docker.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
