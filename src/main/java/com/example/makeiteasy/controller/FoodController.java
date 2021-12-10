@@ -59,22 +59,71 @@ public class FoodController implements Initializable {
     @FXML
     private TextField inputSearchFood;
 
-    private final List<TextField> inputs = new ArrayList<>(
+    private final List<TextField> inputs = new ArrayList<>();
 
-    );
-
+    private final Integer MIN_NUTRIMENT_VALUE = 0;
+    private final Integer MAX_NUTRIMENT_VALUE = 100;
     //</editor-fold">
+
+
+    private void checkNumber(int number) {
+        if (number < MIN_NUTRIMENT_VALUE || number > MAX_NUTRIMENT_VALUE) {
+            throw new NumberFormatException();
+        }
+    }
 
     @FXML
     private void addButton(ActionEvent event) {
         String name = inputName.getText();
-        int calories = Integer.parseInt(inputCalories.getText());
-        int protein = Integer.parseInt(inputProtein.getText());
-        int carbs = Integer.parseInt(inputCarbs.getText());
-        int fat = Integer.parseInt(inputFat.getText());
+
+        int calories = 0;
+        int protein = 0;
+        int carbs = 0;
+        int fat = 0;
+        boolean wrongValue = false;
+
+        try {
+            calories = Integer.parseInt(inputCalories.getText());
+            if (calories < 0 || calories > MAX_NUTRIMENT_VALUE * 10) throw new NumberFormatException();
+            inputCalories.setStyle("-fx-background-color: white;");
+        } catch (NumberFormatException e) {
+            inputCalories.setStyle("-fx-background-color: #d98f80;");
+            wrongValue = true;
+        }
+        try {
+            protein = Integer.parseInt(inputProtein.getText());
+            checkNumber(protein);
+            inputProtein.setStyle("-fx-background-color: white;");
+        } catch (NumberFormatException e) {
+            inputProtein.setStyle("-fx-background-color: #d98f80;");
+            wrongValue = true;
+        }
+
+        try {
+            carbs = Integer.parseInt(inputCarbs.getText());
+            checkNumber(carbs);
+            inputCarbs.setStyle("-fx-background-color: white;");
+        } catch (NumberFormatException e) {
+            inputCarbs.setStyle("-fx-background-color: #d98f80;");
+            wrongValue = true;
+        }
+
+        try {
+            fat = Integer.parseInt(inputFat.getText());
+            checkNumber(fat);
+            inputFat.setStyle("-fx-background-color: white;");
+        } catch (NumberFormatException e) {
+            inputFat.setStyle("-fx-background-color: #d98f80;");
+            wrongValue = true;
+        }
+
+        if (wrongValue) return;
+
         Food food = new Food(name, calories, protein, carbs, fat);
         DB.addFood(food);
         setTable();
+        clearInputButton();
+
     }
 
     @FXML
@@ -106,7 +155,6 @@ public class FoodController implements Initializable {
 
     private void loadDatabase(File file) {
         DB.clearFoodTable();
-        //FileReader fileReader = null;
         InputStream inputStream = null;
         Reader fileReader = null;
         try {
@@ -131,7 +179,9 @@ public class FoodController implements Initializable {
             String[] array;
             Food newFood;
             while ((line = reader.readLine()) != null) {
+
                 array = line.split("-");
+                if (array.length != 5) throw new ArrayIndexOutOfBoundsException();
                 name = array[0];
                 calories = Integer.parseInt(array[1]);
                 protein = Integer.parseInt(array[2]);
@@ -140,7 +190,7 @@ public class FoodController implements Initializable {
                 newFood = new Food(name, calories, protein, carbs, fat);
                 DB.addFood(newFood);
             }
-        } catch (IOException e) {
+        } catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Something wrong with the data");
             System.out.println("" + e);
         } finally {
@@ -156,8 +206,9 @@ public class FoodController implements Initializable {
 
 
     @FXML
-    private void clearInputButton(ActionEvent event) {
+    private void clearInputButton() {
         for (TextField input : inputs) {
+            input.setStyle("-fx-background-color: white;");
             input.clear();
         }
     }
@@ -175,6 +226,7 @@ public class FoodController implements Initializable {
         carbCol.setCellValueFactory(new PropertyValueFactory<Food, Integer>("carbohydrate"));
         fatCol.setCellValueFactory(new PropertyValueFactory<Food, Integer>("fat"));
 
+
         nameCol.setOnEditCommit(
                 t -> {
                     Food actualFood = (Food) t.getTableView().getItems().get(t.getTablePosition().getRow());
@@ -186,6 +238,7 @@ public class FoodController implements Initializable {
         caloriesCol.setOnEditCommit(
                 t -> {
                     Food actualFood = (Food) t.getTableView().getItems().get(t.getTablePosition().getRow());
+
                     actualFood.setCalories(t.getNewValue());
                     DB.updateFood(actualFood);
                 }
