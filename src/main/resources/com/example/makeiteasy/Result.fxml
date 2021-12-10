@@ -42,5 +42,14 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
+      <Rectangle arcHeight="25.0" arcWidth="25.0" fill="WHITE" height="264.0" layoutX="322.0" layoutY="314.0" stroke="BLACK" strokeType="INSIDE" width="417.0" />
+      <StackedBarChart id="dailyNutritionChart" fx:id="dailyNutritionChart" layoutX="307.0" layoutY="314.0" prefHeight="264.0" prefWidth="435.0" title="Daily Nutrient Intake">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </StackedBarChart>
    </children>
 </AnchorPane>

@@ -5,10 +5,7 @@ import com.example.makeiteasy.database.Result;
 import com.example.makeiteasy.database.pojo.Meal;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 
 import java.net.URL;
@@ -22,10 +19,9 @@ public class ResultController implements Initializable {
 
     @FXML
     private BarChart<String, Number> dailyCalorieChart;
+
     @FXML
-    private CategoryAxis calorieIntakeX;
-    @FXML
-    private NumberAxis calorieIntakeY;
+    private StackedBarChart<String, Number> dailyNutritionChart;
 
     private LocalDate currentDay = LocalDate.now();
     private final ArrayList<Meal> meals = DB.getAllMeals();
@@ -64,18 +60,35 @@ public class ResultController implements Initializable {
     public void setDailyCalorieChart() {
         XYChart.Series dataSeries1 = new XYChart.Series();
         XYChart.Series dataSeries2 = new XYChart.Series();
+        dataSeries1.setName("consumed Calories");
+        dataSeries2.setName("maximum Calories");
+
+        XYChart.Series dataSeries3 = new XYChart.Series();
+        XYChart.Series dataSeries4 = new XYChart.Series();
+        XYChart.Series dataSeries5 = new XYChart.Series();
+        dataSeries3.setName("Protein");
+        dataSeries4.setName("Carbs");
+        dataSeries5.setName("fat");
 
         SimpleDateFormat outputFormat = new SimpleDateFormat("MM.dd");
         String date;
+
         for (Result result : results) {
             date = outputFormat.format(Date.valueOf(result.getDate()));
             dataSeries1.getData().add(new XYChart.Data(date, result.getCalories()));
             dataSeries2.getData().add(new XYChart.Data(date, DB.user.dailyCaloriesForMaintain));
+
+            dataSeries3.getData().add(new XYChart.Data(date, result.getProtein()));
+            dataSeries4.getData().add(new XYChart.Data(date, result.getCarbs()));
+            dataSeries5.getData().add(new XYChart.Data(date, result.getFat()));
         }
 
         dailyCalorieChart.getData().clear();
         dailyCalorieChart.getData().add(dataSeries1);
         dailyCalorieChart.getData().add(dataSeries2);
+
+        dailyNutritionChart.getData().clear();
+        dailyNutritionChart.getData().addAll(dataSeries3, dataSeries4, dataSeries5);
     }
 
     public void setResults() {
@@ -88,7 +101,7 @@ public class ResultController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        dailyCalorieChart.setLegendVisible(false);
+        dailyCalorieChart.setLegendVisible(true);
         setData();
     }
 }
