@@ -25,7 +25,7 @@ public class ViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-            welcomeText.setText("'Aim for Progress Not Perfection'\nWelcome " + DB.user().firstName + "!");
+        welcomeText.setText("'Aim for Progress Not Perfection'\nWelcome " + DB.user().firstName + "!");
     }
 
     @FXML
@@ -50,8 +50,8 @@ public class ViewController implements Initializable {
 
     @FXML
     private void exit() {
-           Stage stage = (Stage) borderPane.getScene().getWindow();
-           stage.close();
+        Stage stage = (Stage) borderPane.getScene().getWindow();
+        stage.close();
     }
 
     private void loadPane(String fileName) {
@@ -64,6 +64,5 @@ public class ViewController implements Initializable {
         borderPane.setCenter(root);
 
     }
-
 
 }

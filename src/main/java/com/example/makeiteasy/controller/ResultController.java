@@ -5,7 +5,10 @@ import com.example.makeiteasy.database.Result;
 import com.example.makeiteasy.database.pojo.Meal;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.*;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.StackedBarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 
 import java.net.URL;
@@ -22,6 +25,9 @@ public class ResultController implements Initializable {
 
     @FXML
     private StackedBarChart<String, Number> dailyNutritionChart;
+
+    @FXML
+    private NumberAxis nutrientY;
 
     private LocalDate currentDay = LocalDate.now();
     private final ArrayList<Meal> meals = DB.getAllMeals();
@@ -73,22 +79,37 @@ public class ResultController implements Initializable {
         SimpleDateFormat outputFormat = new SimpleDateFormat("MM.dd");
         String date;
 
+        int protein;
+        int carbs;
+        int fat;
+        int max = 0;
+        int sum;
         for (Result result : results) {
             date = outputFormat.format(Date.valueOf(result.getDate()));
             dataSeries1.getData().add(new XYChart.Data(date, result.getCalories()));
             dataSeries2.getData().add(new XYChart.Data(date, DB.user().dailyCaloriesForMaintain));
 
-            dataSeries3.getData().add(new XYChart.Data(date, result.getProtein()));
-            dataSeries4.getData().add(new XYChart.Data(date, result.getCarbs()));
-            dataSeries5.getData().add(new XYChart.Data(date, result.getFat()));
+            protein = result.getProtein();
+            carbs = result.getCarbs();
+            fat = result.getFat();
+            sum = protein + carbs + fat;
+            if (sum > max) max = sum;
+
+            dataSeries3.getData().add(new XYChart.Data(date, protein));
+            dataSeries4.getData().add(new XYChart.Data(date, carbs));
+            dataSeries5.getData().add(new XYChart.Data(date, fat));
         }
 
         dailyCalorieChart.getData().clear();
         dailyCalorieChart.getData().add(dataSeries1);
         dailyCalorieChart.getData().add(dataSeries2);
-
+        int upperBound = (max + 99) / 100 * 100;
+        nutrientY.setUpperBound(upperBound);
+        nutrientY.setTickUnit((double) upperBound / 5);
         dailyNutritionChart.getData().clear();
         dailyNutritionChart.getData().addAll(dataSeries3, dataSeries4, dataSeries5);
+
+
     }
 
     public void setResults() {
@@ -99,9 +120,11 @@ public class ResultController implements Initializable {
             index++;
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dailyCalorieChart.setLegendVisible(true);
+
         setData();
     }
 }
