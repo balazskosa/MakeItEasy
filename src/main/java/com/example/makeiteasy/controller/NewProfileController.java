@@ -5,16 +5,12 @@ import com.example.makeiteasy.database.pojo.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -24,49 +20,80 @@ public class NewProfileController implements Initializable {
     public Stage stage;
 
     //Top buttons
-    @FXML public Button[] topButtons;
-    @FXML private Button nameButton;
-    @FXML private Button weightButton;
-    @FXML private Button genderButton;
-    @FXML private Button birthButton;
-    @FXML private Button heightButton;
-    @FXML private Button activityButton;
+    @FXML
+    public Button[] topButtons;
+    @FXML
+    private Button nameButton;
+    @FXML
+    private Button weightButton;
+    @FXML
+    private Button genderButton;
+    @FXML
+    private Button birthButton;
+    @FXML
+    private Button heightButton;
+    @FXML
+    private Button activityButton;
 
     //Profile creation pages
-    @FXML public Pane[] pages;
-    @FXML private Pane namePage;
-    @FXML private Pane weightPage;
-    @FXML private Pane genderPage;
-    @FXML private Pane birthPage;
-    @FXML private Pane heightPage;
-    @FXML private Pane activityPage;
+    @FXML
+    public Pane[] pages;
+    @FXML
+    private Pane namePage;
+    @FXML
+    private Pane weightPage;
+    @FXML
+    private Pane genderPage;
+    @FXML
+    private Pane birthPage;
+    @FXML
+    private Pane heightPage;
+    @FXML
+    private Pane activityPage;
     public int currentPage;
 
     //Gender buttons
-    @FXML private Button maleButton;
-    @FXML private Button femaleButton;
+    @FXML
+    private Button maleButton;
+    @FXML
+    private Button femaleButton;
 
     //Navigation buttons
-    @FXML public Button nextArrow;
-    @FXML public Button backArrow;
-    @FXML private Button calculateButton;
+    @FXML
+    public Button nextArrow;
+    @FXML
+    public Button backArrow;
+    @FXML
+    private Button calculateButton;
 
     //Alert messages for data type checking
-    @FXML private Text emptyFirstNameMsg;
-    @FXML private Text emptyLastNameMsg;
-    @FXML private Text positiveWeightMsg;
-    @FXML private Text chooseOneGenderMsg;
-    @FXML private Text positiveHeightMsg;
-    @FXML private Text chooseOneActivityMsg;
+    @FXML
+    private Text emptyFirstNameMsg;
+    @FXML
+    private Text emptyLastNameMsg;
+    @FXML
+    private Text positiveWeightMsg;
+    @FXML
+    private Text chooseOneGenderMsg;
+    @FXML
+    private Text positiveHeightMsg;
+    @FXML
+    private Text chooseOneActivityMsg;
 
     //Fields for get profile data
-    @FXML private TextField firstName;
-    @FXML private TextField lastName;
-    @FXML private TextField weight;
+    @FXML
+    private TextField firstName;
+    @FXML
+    private TextField lastName;
+    @FXML
+    private TextField weight;
     private String gender;
-    @FXML private DatePicker birthDate;
-    @FXML private TextField height;
-    @FXML private ToggleGroup activityRadioGroup;
+    @FXML
+    private DatePicker birthDate;
+    @FXML
+    private TextField height;
+    @FXML
+    private ToggleGroup activityRadioGroup;
 
 
     @Override
@@ -79,22 +106,22 @@ public class NewProfileController implements Initializable {
 
     @FXML
     public EventHandler<ActionEvent> onNextArrowAction() {
-        if(checkData(currentPage)) {
+        if (checkData(currentPage)) {
             ++currentPage;
             topButtons[currentPage].setStyle("-fx-background-color: #1b5359;" +
                     "-fx-text-fill: white");
-            topButtons[currentPage-1].setStyle("-fx-background-color: transparent;" +
+            topButtons[currentPage - 1].setStyle("-fx-background-color: transparent;" +
                     "-fx-text-fill: #a3a3a3;");
 
             pages[currentPage].toFront();
 
-            if (currentPage == pages.length-1) {
+            if (currentPage == pages.length - 1) {
                 nextArrow.setVisible(false);
                 calculateButton.setVisible(true);
             }
 
 
-            pages[currentPage-1].setVisible(false);
+            pages[currentPage - 1].setVisible(false);
             pages[currentPage].setVisible(true);
             backArrow.setVisible(true);
         }
@@ -106,15 +133,15 @@ public class NewProfileController implements Initializable {
         --currentPage;
         topButtons[currentPage].setStyle("-fx-background-color: #1b5359;" +
                 "-fx-text-fill: white;");
-        topButtons[currentPage+1].setStyle("-fx-background-color: transparent;" +
+        topButtons[currentPage + 1].setStyle("-fx-background-color: transparent;" +
                 "-fx-text-fill: #a3a3a3;");
 
         pages[currentPage].toFront();
 
-        if(currentPage == 0)
+        if (currentPage == 0)
             backArrow.setVisible(false);
 
-        pages[currentPage+1].setVisible(false);
+        pages[currentPage + 1].setVisible(false);
         pages[currentPage].setVisible(true);
         nextArrow.setVisible(true);
         calculateButton.setVisible(false);
@@ -137,9 +164,9 @@ public class NewProfileController implements Initializable {
 
     private boolean checkData(int currentPage) {
         boolean isCorrect = true;
-        switch(currentPage) {
+        switch (currentPage) {
             case 0:
-                if(firstName.getText().isBlank()) {
+                if (firstName.getText().isBlank()) {
                     emptyFirstNameMsg.setVisible(true);
                     isCorrect = false;
                 } else {
@@ -154,7 +181,7 @@ public class NewProfileController implements Initializable {
                 }
                 break;
             case 1:
-                if(!isNumeric(weight.getText()) || Integer.parseInt(weight.getText().trim()) < 1) {
+                if (!isNumeric(weight.getText()) || Integer.parseInt(weight.getText().trim()) < 1) {
                     positiveWeightMsg.setVisible(true);
                     isCorrect = false;
                 } else {
@@ -162,7 +189,7 @@ public class NewProfileController implements Initializable {
                 }
                 break;
             case 2:
-                if(gender == null) {
+                if (gender == null) {
                     chooseOneGenderMsg.setVisible(true);
                     isCorrect = false;
                 } else {
@@ -170,7 +197,7 @@ public class NewProfileController implements Initializable {
                 }
                 break;
             case 4:
-                if(!isNumeric(height.getText()) || Integer.parseInt(height.getText().trim()) < 1) {
+                if (!isNumeric(height.getText()) || Integer.parseInt(height.getText().trim()) < 1) {
                     positiveHeightMsg.setVisible(true);
                     isCorrect = false;
                 } else {
@@ -178,23 +205,25 @@ public class NewProfileController implements Initializable {
                 }
                 break;
             case 5:
-                if(activityRadioGroup.getSelectedToggle() == null){
+                if (activityRadioGroup.getSelectedToggle() == null) {
                     chooseOneActivityMsg.setVisible(true);
                     isCorrect = false;
                 } else {
                     chooseOneActivityMsg.setVisible(false);
                 }
                 break;
+            default:
+
         }
         return isCorrect;
     }
 
     public boolean isNumeric(String string) {
-        if(string == null || string.equals(""))
+        if (string == null || string.equals(""))
             return false;
 
         try {
-            int intValue = Integer.parseInt(string);
+            Integer.parseInt(string);
             return true;
         } catch (NumberFormatException e) {
             return false;
@@ -203,11 +232,11 @@ public class NewProfileController implements Initializable {
 
     @FXML
     private void calculateAndCreate() {
-        if(checkData(currentPage)) {
+        if (checkData(currentPage)) {
             //int age = LocalDate.now().getYear() - birthDate.getValue().getYear();
             RadioButton selectedActivity = (RadioButton) activityRadioGroup.getSelectedToggle();
 
-            User user = new User (
+            User user = new User(
                     firstName.getText().trim(),
                     lastName.getText().trim(),
                     Integer.parseInt(weight.getText().trim()),
