@@ -28,6 +28,7 @@ jobs:
       run: mvn --no-transfer-progress javadoc:javadoc
 
   pre-release:
+    needs: build
     name: "Pre Release"
     runs-on: "windows-latest"
 
