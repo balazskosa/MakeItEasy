@@ -90,8 +90,9 @@ public class SummaryController implements Initializable {
     public void delIntakeFood() {
         if (selectedMeal != null) {
             DB.deleteMeal(selectedMeal);
+            setCaloriesValues();
         }
-        setCaloriesValues();
+
     }
 
     @FXML
