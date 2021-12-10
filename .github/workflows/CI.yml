@@ -35,7 +35,7 @@ jobs:
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: 1.${{ github.run_number }}
+          automatic_release_tag: 0.1.${{ github.run_number }}
           prerelease: false
           files: |
             target/ExecutableMakeItEasy-jar-with-dependencies.jar
@@ -61,8 +61,18 @@ jobs:
          with:
            java-version: '15'
            distribution: 'adopt'
+
        - name: Update version in pom.xml
-         run: mvn --no-transfer-progress versions:set -DnewVersion=${{ steps.makeiteasy.outputs.tag }} -DgenerateBackupPoms=false
+         run: mvn --no-transfer-progress versions:set -DnewVersion=steps.makeiteasy.outputs.tag -DgenerateBackupPoms=false
+
+       - name: Uses POM Version Bump
+         uses: wlicamele-bw/pom-version-bump@v1.0
+         id: bump
+         with:
+            setVersion: ${{ steps.makeiteasy.outputs.tag }}
+       - name: Get the version number
+         run: echo "The Version Number is ${{ steps.bump.outputs.versionNumber }}"
+
        - name: Build with Maven
          run: mvn --no-transfer-progress package --file pom.xml
        - name: Publish to GitHub Packages Apache Maven
