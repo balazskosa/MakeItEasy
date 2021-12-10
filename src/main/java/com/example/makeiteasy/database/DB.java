@@ -350,9 +350,9 @@ public final class DB {
     //<editor-fold desc="all methods to meal table">
 
     /**
-     *
-     * @param whichMeal
-     * @param date
+     * Set meals based on the date and the part of the day
+     * @param whichMeal part of the day
+     * @param date current Date
      */
     public static void searchMealsByWhichMeal(int whichMeal, LocalDate date) {
         meals.clear();
@@ -362,8 +362,8 @@ public final class DB {
     }
 
     /**
-     *
-     * @param meal
+     * Add meal to the DB
+     * @param meal meal object
      */
     public static void addMeal(Meal meal) {
         PreparedStatement pstm  = null;
@@ -401,8 +401,8 @@ public final class DB {
     }
 
     /**
-     *
-     * @return
+     * Return all meals from to the DB
+     * @return ArrayList with all meal objects
      */
     public static ArrayList<Meal> getAllMeals() {
         String sql = "select * from meal";
@@ -439,6 +439,10 @@ public final class DB {
         return meals;
     }
 
+    /**
+     * Delete the meal from to the DB
+     * @param meal meal object
+     */
     public static void deleteMeal(Meal meal) {
         String sql = "delete from meal where id = " + meal.getId();
 
@@ -452,6 +456,11 @@ public final class DB {
         meals.remove(meal);
     }
 
+    /**
+     * Set new weight of the meal
+     * @param meal meal object
+     * @param weight the weight of the meal
+     */
     public static void updateMeal(Meal meal, int weight) {
         String sql = "update meal set weight = " + weight + " where id = " + meal.getId();
 
@@ -470,8 +479,8 @@ public final class DB {
     }
 
     /**
-     *
-     * @return
+     * Return an observableList with meal objects
+     * @return observableList with meal objects
      */
     public static ObservableList<Meal> getMeals() {
         return meals;
@@ -482,8 +491,8 @@ public final class DB {
     //<editor-fold desc="all methods to user table">
 
     /**
-     *
-     * @param newUser
+     * Refresh the User's data in the DB
+     * @param newUser User object
      */
     public static void addUser(User newUser) {
         String sqlDeleteData = "delete from user2";
@@ -534,7 +543,7 @@ public final class DB {
     }
 
     /**
-     *
+     * Set default user's data in the DB
      */
     private static void setUserTable() {
         String sql = "select count(*) as count from user2";
@@ -569,8 +578,8 @@ public final class DB {
     }
 
     /**
-     *
-     * @return
+     * Reuturn user's data from the DB
+     * @return User object
      */
     public static User getUser() {
         String sql = "select * from user2";

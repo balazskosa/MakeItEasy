@@ -4,6 +4,9 @@ import com.example.makeiteasy.database.DB;
 
 import java.sql.Date;
 
+/**
+ * The class represents the values associated with all meals
+ */
 public class Meal {
 
     private Integer id = 0;

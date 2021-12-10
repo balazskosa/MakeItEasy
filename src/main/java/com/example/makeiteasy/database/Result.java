@@ -6,6 +6,9 @@ import com.example.makeiteasy.database.pojo.Meal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * This class helps to link the food and meal table to process the data
+ */
 public class Result {
     private LocalDate date;
     private Integer calories = 0;
@@ -15,6 +18,10 @@ public class Result {
 
     private ArrayList<Meal> meals = DB.getAllMeals();
 
+    /**
+     * Collects and determines all nutriment values for a given day
+     * @param date Date
+     */
     public Result(LocalDate date) {
         this.date = date;
         meals.removeIf(m -> !(m.getDate().toLocalDate().equals(date)));

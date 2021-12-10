@@ -20,6 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ * Implementing all methods associated with summary page
+ */
 public class SummaryController implements Initializable {
 
 
@@ -60,6 +63,10 @@ public class SummaryController implements Initializable {
 
     Map<String, Integer> mealTime = new HashMap<>();
 
+    /**
+     * Change the amount of intake meal in the DB
+     * Feedback in case of bad value
+     */
     @FXML
     public void changeIntakeFood() {
         int amount;
@@ -79,6 +86,9 @@ public class SummaryController implements Initializable {
 
     }
 
+    /**
+     * Reset all input fields
+     */
     public void clearTextFields() {
         amount.clear();
         amount.setStyle("-fx-background-color: white;");
@@ -86,6 +96,9 @@ public class SummaryController implements Initializable {
         changeAmount.setStyle("-fx-background-color: white;");
     }
 
+    /**
+     * Delete intake food from the DB
+     */
     @FXML
     public void delIntakeFood() {
         if (selectedMeal != null) {
@@ -95,6 +108,9 @@ public class SummaryController implements Initializable {
 
     }
 
+    /**
+     * Set the previous day
+     */
     @FXML
     public void prevDay() {
         this.currentDay = this.currentDay.minusDays(1);
@@ -105,6 +121,9 @@ public class SummaryController implements Initializable {
 
     }
 
+    /**
+     * Set the next day
+     */
     @FXML
     public void nextDay() {
         this.currentDay = this.currentDay.plusDays(1);
@@ -115,6 +134,9 @@ public class SummaryController implements Initializable {
     }
 
 
+    /**
+     * Reset date
+     */
     @FXML
     public void resetDay() {
         this.currentDay = LocalDate.now();
@@ -125,6 +147,9 @@ public class SummaryController implements Initializable {
 
     }
 
+    /**
+     * Set part of the day
+     */
     public void setWhichMeal() {
         mealTime.put("Breakfast", 1);
         mealTime.put("Lunch", 2);
@@ -132,10 +157,16 @@ public class SummaryController implements Initializable {
         mealTime.put("Snacks", 4);
     }
 
+    /**
+     * Displaying the day
+     */
     public void setDayLabel() {
         dayLabel.setText(currentDay.toString());
     }
 
+    /**
+     * Add meal to the DB
+     */
     public void addMeal() {
         int amount;
 //        if(selectedFood == null) return;
@@ -154,6 +185,9 @@ public class SummaryController implements Initializable {
         this.amount.setStyle("-fx-background-color: white;");
     }
 
+    /**
+     * set the list to be displayed based on meals
+     */
     public void setMealList() {
         mealList.getItems().addAll("Breakfast", "Lunch", "Dinner", "Snacks");
 
@@ -172,7 +206,9 @@ public class SummaryController implements Initializable {
             }
         });
     }
-
+    /**
+     * set the list to be displayed based on foods
+     */
     public void setFoodList() {
         foodList.setItems(DB.getFoods());
 
@@ -190,6 +226,9 @@ public class SummaryController implements Initializable {
 
     }
 
+    /**
+     * set the list to be displayed based on intake food
+     */
     public void setFoodIntakeList() {
         foodIntakeList.setItems(DB.getMeals());
 
@@ -206,6 +245,9 @@ public class SummaryController implements Initializable {
         });
     }
 
+    /**
+     * set the chart to be displayed based on nutriment's rate
+     */
     public void setNutrimentChart(Result result) {
         PieChart.Data proteinData = new PieChart.Data("Protein", result.getProtein());
         PieChart.Data carbsData = new PieChart.Data("Carbs", result.getCarbs());
@@ -221,12 +263,20 @@ public class SummaryController implements Initializable {
         }
     }
 
+    /**
+     * Set intake and maximum calories
+     */
     public void setCaloriesValues() {
         Result result = new Result(currentDay);
         consumedCal.setText(String.valueOf(result.getCalories()));
         setNutrimentChart(result);
     }
 
+    /**
+     * Set all data
+     * @param url Url
+     * @param resourceBundle ResourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         maxCal.setText("/" + DB.user().dailyCaloriesForMaintain);
@@ -237,6 +287,5 @@ public class SummaryController implements Initializable {
         setWhichMeal();
         setMealList();
         setFoodList();
-
     }
 }
