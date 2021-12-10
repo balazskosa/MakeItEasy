@@ -6,8 +6,6 @@ name: Java CI with Maven
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
@@ -28,3 +26,18 @@ jobs:
       run: mvn --no-transfer-progress spotbugs:check
     - name: Generate JavaDoc
       run: mvn --no-transfer-progress javadoc:javadoc
+
+  pre-release:
+    name: "Pre Release"
+    runs-on: "windows-latest"
+
+    steps:
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            LICENSE.txt
+            *.jar
