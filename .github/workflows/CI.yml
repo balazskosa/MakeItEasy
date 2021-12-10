@@ -35,7 +35,7 @@ jobs:
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: v0.${{ github.run_number }}
+          automatic_release_tag: 0.${{ github.run_number }}
           prerelease: false
           files: |
             target/ExecutableMakeItEasy-jar-with-dependencies.jar
@@ -48,6 +48,13 @@ jobs:
       contents: read
       packages: write
     steps:
+       - uses: oprypin/find-latest-tag@v1
+         with:
+           repository: balazskosa/MakeItEasy  # The repository to scan.
+           releases-only: true  # We know that all relevant tags have a GitHub release for them.
+         id: makeiteasy  # The step ID to refer to later.
+       - run: echo "MakeItEasy is at version ${{ steps.makeiteasy.outputs.tag }}"
+
        - uses: actions/checkout@v2
        - name: Set up JDK 15
          uses: actions/setup-java@v2
@@ -55,7 +62,7 @@ jobs:
            java-version: '15'
            distribution: 'adopt'
        - name: Update version in pom.xml
-         run: mvn --no-transfer-progress versions:set -DnewVersion=0.${{ github.run_number }} -DgenerateBackupPoms=false
+         run: mvn --no-transfer-progress versions:set -DnewVersion=${{ steps.makeiteasy.outputs.tag }} -DgenerateBackupPoms=false
        - name: Build with Maven
          run: mvn --no-transfer-progress package --file pom.xml
        - name: Publish to GitHub Packages Apache Maven
