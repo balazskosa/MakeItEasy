@@ -101,30 +101,36 @@ public class FoodController implements Initializable {
                 new FileChooser.ExtensionFilter("Text Files", "*.txt"));
         Stage stage = new Stage();
         File selectedFile = fileChooser.showOpenDialog(stage);
-        if(selectedFile != null)  loadDatabase(selectedFile);
+        if (selectedFile != null) loadDatabase(selectedFile);
     }
 
     private void loadDatabase(File file) {
         DB.clearFoodTable();
-        FileReader fileReader = null;
+        //FileReader fileReader = null;
+        InputStream inputStream = null;
+        Reader fileReader = null;
         try {
-            fileReader = new FileReader(file);
-        } catch (FileNotFoundException e) {
-            System.out.println("Something wrong with the reading file");
-            System.out.println("" + e);
+            inputStream = new FileInputStream(file);
+            fileReader = new InputStreamReader(inputStream, "UTF-8");
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
-        assert fileReader != null;
-        BufferedReader reader = new BufferedReader(fileReader);
+        if (fileReader == null) {
+            return;
+        }
+        BufferedReader reader = null;
         try {
+            reader = new BufferedReader(fileReader);
+
             String line;
             String name;
             int calories;
             int protein;
             int carbs;
             int fat;
-            String[] array = new String[5];
+            String[] array;
             Food newFood;
-            while((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 array = line.split("-");
                 name = array[0];
                 calories = Integer.parseInt(array[1]);
@@ -137,9 +143,17 @@ public class FoodController implements Initializable {
         } catch (IOException e) {
             System.out.println("Something wrong with the data");
             System.out.println("" + e);
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-
     }
+
 
     @FXML
     private void clearInputButton(ActionEvent event) {

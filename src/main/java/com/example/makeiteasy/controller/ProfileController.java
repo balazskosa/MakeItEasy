@@ -50,7 +50,7 @@ public class ProfileController implements Initializable {
     }
 
     public void refreshUserData() {
-        setUserLabels(DB.user);
+        setUserLabels(DB.user());
     }
 
     public void setUserLabels(User user) {
@@ -70,6 +70,6 @@ public class ProfileController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         stage.setResizable(false);
-        setUserLabels(DB.user);
+        setUserLabels(DB.user());
     }
 }

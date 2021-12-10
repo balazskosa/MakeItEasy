@@ -4,7 +4,6 @@ import com.example.makeiteasy.database.DB;
 import com.example.makeiteasy.database.Result;
 import com.example.makeiteasy.database.pojo.Food;
 import com.example.makeiteasy.database.pojo.Meal;
-import com.example.makeiteasy.database.pojo.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -20,7 +19,6 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class SummaryController implements Initializable {
 
@@ -62,9 +60,9 @@ public class SummaryController implements Initializable {
     Map<String, Integer> mealTime = new HashMap<>();
 
     @FXML
-    public void  changeIntakeFood() {
+    public void changeIntakeFood() {
         int amount = Integer.parseInt(changeAmount.getText());
-        if(selectedMeal != null) {
+        if (selectedMeal != null) {
             DB.updateMeal(selectedMeal, amount);
             changeAmount.clear();
         }
@@ -74,7 +72,7 @@ public class SummaryController implements Initializable {
 
     @FXML
     public void delIntakeFood() {
-        if(selectedMeal != null) {
+        if (selectedMeal != null) {
             DB.deleteMeal(selectedMeal);
         }
         setCaloriesValues();
@@ -132,7 +130,7 @@ public class SummaryController implements Initializable {
         //set part of the day
         int partOfTheDay = 1;
         whichMeal = partOfTheDay;
-        mealList.getSelectionModel().select(partOfTheDay-1);
+        mealList.getSelectionModel().select(partOfTheDay - 1);
         DB.searchMealsByWhichMeal(partOfTheDay, currentDay);
 
         mealList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -164,7 +162,7 @@ public class SummaryController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Meal> observableValue, Meal meal, Meal t1) {
                 Meal tmp = foodIntakeList.getSelectionModel().getSelectedItem();
-                if(tmp!= null) {
+                if (tmp != null) {
                     selectedMeal = tmp;
                 } else {
                     selectedMeal = null;
@@ -181,7 +179,7 @@ public class SummaryController implements Initializable {
         nutrimentChart.getData().add(proteinData);
         nutrimentChart.getData().add(carbsData);
         nutrimentChart.getData().add(fatData);
-        if(result.getCalories() == 0) {
+        if (result.getCalories() == 0) {
             nutrimentChart.setLabelsVisible(false);
         } else {
             nutrimentChart.setLabelsVisible(true);
@@ -196,7 +194,7 @@ public class SummaryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        maxCal.setText("/" + DB.user.dailyCaloriesForMaintain);
+        maxCal.setText("/" + DB.user().dailyCaloriesForMaintain);
         nutrimentChart.setLegendVisible(false);
         setCaloriesValues();
         setDayLabel();

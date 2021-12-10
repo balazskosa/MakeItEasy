@@ -76,7 +76,7 @@ public class ResultController implements Initializable {
         for (Result result : results) {
             date = outputFormat.format(Date.valueOf(result.getDate()));
             dataSeries1.getData().add(new XYChart.Data(date, result.getCalories()));
-            dataSeries2.getData().add(new XYChart.Data(date, DB.user.dailyCaloriesForMaintain));
+            dataSeries2.getData().add(new XYChart.Data(date, DB.user().dailyCaloriesForMaintain));
 
             dataSeries3.getData().add(new XYChart.Data(date, result.getProtein()));
             dataSeries4.getData().add(new XYChart.Data(date, result.getCarbs()));

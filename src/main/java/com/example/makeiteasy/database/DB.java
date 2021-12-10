@@ -22,7 +22,7 @@ public final class DB {
 
     private static ObservableList<Food> foods = FXCollections.observableArrayList();
     private static ObservableList<Meal> meals = FXCollections.observableArrayList();
-    public static User user;
+    private static User user;
     //</editor-fold">
 
     static {
@@ -32,6 +32,9 @@ public final class DB {
         setUserTable();
         user = getUser();
 
+    }
+    public static User user() {
+        return user;
     }
 
     private DB() {
@@ -55,9 +58,8 @@ public final class DB {
         dmbd = null;
         try {
             dmbd = conn.getMetaData();
-        } catch (SQLException e) {
-            System.out.println("Something wrong with the meta data");
-            System.out.println("" + e);
+        } catch (SQLException | NullPointerException e) {
+           e.printStackTrace();
         }
 
 
@@ -92,13 +94,13 @@ public final class DB {
                         " whichMeal int," +
                         " weight int)");
             }
-        } catch (SQLException e) {
-            System.out.println("Something wrong with the creating of the MEAL table");
-            System.out.println("" + e);
+        } catch (SQLException | NullPointerException e) {
+           e.printStackTrace();
         }
 
         //User table
         try {
+            assert dmbd != null;
             ResultSet rs1 = dmbd.getTables(null, "APP", "USER2", null);
             if (!rs1.next()) {
                 createStatement.execute("create table user2(" +
@@ -122,8 +124,9 @@ public final class DB {
     //<editor-fold desc="all methods to food table">
     public static void addFood(Food food) {
         String sql = "insert into food (name, calories, protein, carbohydrate, fat) values(?, ?, ?, ?, ?)";
+        PreparedStatement pstm = null;
         try {
-            PreparedStatement pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pstm.setString(1, food.getName());
             pstm.setInt(2, food.getCalories());
             pstm.setInt(3, food.getProtein());
@@ -142,6 +145,14 @@ public final class DB {
         } catch (SQLException e) {
             System.out.println("Something wrong with the addFood method");
             System.out.println("" + e);
+        }  finally {
+            if(pstm != null) {
+                try {
+                    pstm.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         foods.add(food);
 
@@ -162,9 +173,18 @@ public final class DB {
                         rs.getInt("carbohydrate"),
                         rs.getInt("fat"));
             }
+
         } catch (SQLException e) {
             System.out.println("Something wrong with te getFoodByNameID method");
             System.out.println("" + e);
+        } finally {
+            if(rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return actualFood;
@@ -174,10 +194,10 @@ public final class DB {
         String sql = "select * from food";
         ArrayList<Food> foods = null;
 
-
+        ResultSet rs = null;
         try {
             foods = new ArrayList<>();
-            ResultSet rs = createStatement.executeQuery(sql);
+            rs = createStatement.executeQuery(sql);
 
             while (rs.next()) {
                 Food actualFood = new Food(
@@ -189,9 +209,17 @@ public final class DB {
                         rs.getInt("fat"));
                 foods.add(actualFood);
             }
+
         } catch (SQLException e) {
-            System.out.println("Something wrong with de getAllFood method");
-            System.out.println("" + e);
+            e.printStackTrace();
+        } finally {
+            if(rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return foods;
@@ -199,8 +227,9 @@ public final class DB {
 
     public static void updateFood(Food food) {
         String sql = "update food set name = ?, calories = ?, protein = ?, carbohydrate = ?, fat = ? where id = ?";
+        PreparedStatement pstm = null;
         try {
-            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm = conn.prepareStatement(sql);
             pstm.setString(1, food.getName());
             pstm.setInt(2, food.getCalories());
             pstm.setInt(3, food.getProtein());
@@ -209,20 +238,50 @@ public final class DB {
             pstm.setInt(6, food.getId());
             pstm.execute();
 
+            pstm.close();
         } catch (SQLException e) {
             System.out.println("Something wrong with the updateFood method");
             System.out.println("" + e);
+        } finally {
+            if(pstm != null) {
+                try {
+                    pstm.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
     public static void clearFoodTable() {
         String sql = "delete from food";
+        String sql2 = "delete from meal";
+        PreparedStatement pstm = null;
+        PreparedStatement pstm2 = null;
         try {
-            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm = conn.prepareStatement(sql);
+            pstm2 = conn.prepareStatement(sql2);
             pstm.execute();
+            pstm2.execute();
+
         } catch (SQLException e) {
             System.out.println("Something wrong with the clearFoodTable method");
             System.out.println("" + e);
+        } finally {
+            if(pstm != null) {
+                try {
+                    pstm.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(pstm2 != null) {
+                try {
+                    pstm2.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         foods.clear();
     }
@@ -253,9 +312,10 @@ public final class DB {
     }
 
     public static void addMeal(Meal meal) {
+        PreparedStatement pstm  = null;
         try {
             String sql = "insert into meal (foodId, date, whichMeal, weight) values(?, ?, ?, ?)";
-            PreparedStatement pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pstm.setInt(1, meal.getFoodId());
             pstm.setDate(2, meal.getDate());
             pstm.setInt(3, meal.getWhichMeal());
@@ -269,9 +329,18 @@ public final class DB {
                     meal.setId(key);
                 }
             }
+
         } catch (SQLException e) {
             System.out.println("Something wrong with the addMeal method");
             System.out.println("" + e);
+        } finally {
+            if(pstm != null) {
+                try {
+                    pstm.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         meals.add(meal);
 
@@ -286,7 +355,6 @@ public final class DB {
         try {
             meals = new ArrayList<>();
             rs = createStatement.executeQuery(sql);
-            rsmd = rs.getMetaData();
             while (rs.next()) {
                 Meal actualMeal = new Meal(
                         rs.getInt("id"),
@@ -296,9 +364,18 @@ public final class DB {
                         rs.getInt("weight"));
                 meals.add(actualMeal);
             }
+            rs.close();
         } catch (SQLException e) {
             System.out.println("Something wrong with the getAllMeals method");
             System.out.println("" + e);
+        } finally {
+            if(rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return meals;
@@ -343,17 +420,27 @@ public final class DB {
     //<editor-fold desc="all methods to user table">
     public static void addUser(User newUser) {
         String sqlDeleteData = "delete from user2";
+        PreparedStatement pstm2 = null;
         try {
-            PreparedStatement pstm2 = conn.prepareStatement(sqlDeleteData);
+            pstm2 = conn.prepareStatement(sqlDeleteData);
             pstm2.execute();
+
         } catch (SQLException e) {
-            System.out.println("Something wrong with the deleting of users");
-            System.out.println("" + e);
+            e.printStackTrace();
+        } finally {
+            if(pstm2 != null) {
+                try {
+                    pstm2.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         String sql = "insert into user2 (firstname, lastname, weight, gender, birthday, height, activityMultiplier) values(?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement pstm = null;
         try {
-            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm = conn.prepareStatement(sql);
             pstm.setString(1, newUser.firstName);
             pstm.setString(2, newUser.lastName);
             pstm.setInt(3, newUser.weight);
@@ -364,9 +451,17 @@ public final class DB {
             pstm.execute();
 
         } catch (SQLException e) {
-            System.out.println("Something wrong with the addUser method");
-            System.out.println("" + e);
+            e.printStackTrace();
+        } finally {
+            if(pstm != null) {
+                try {
+                    pstm.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+
         user = newUser;
 
     }
@@ -380,10 +475,19 @@ public final class DB {
             while (rs.next()) {
                 count = rs.getInt("count");
             }
+            rs.close();
         } catch (SQLException e) {
-            System.out.println("Something wrong with the userTableIsEmpty method");
-            System.out.println("" + e);
+            e.printStackTrace();
+        } finally {
+            if(rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+
 
         if (count != 1) {
             User generalUser = new User("Quest",
@@ -398,7 +502,6 @@ public final class DB {
         String sql = "select * from user2";
         ResultSet rs = null;
         ResultSetMetaData rsmd = null;
-
         User actualUser = null;
         try {
             rs = createStatement.executeQuery(sql);
@@ -414,16 +517,22 @@ public final class DB {
 
                 actualUser = new User(firstName, lastName, weight, gender, date.toLocalDate(), height, activity);
             }
-
+            rs.close();
 
         } catch (SQLException e) {
-            System.out.println("Something wrong with getUser method");
-            System.out.println("" + e);
+            e.printStackTrace();
+        } finally {
+            if(rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return actualUser;
     }
-
 
     //</editor-fold>
 

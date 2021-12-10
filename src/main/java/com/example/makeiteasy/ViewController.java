@@ -25,7 +25,7 @@ public class ViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-            welcomeText.setText("'Aim for Progress Not Perfection'\nWelcome " + DB.user.firstName + "!");
+            welcomeText.setText("'Aim for Progress Not Perfection'\nWelcome " + DB.user().firstName + "!");
     }
 
     @FXML

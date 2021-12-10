@@ -15,7 +15,7 @@ public class Meal {
     public Meal(Integer id, Integer foodId, Date date, Integer whichMeal, Integer weight) {
         this.id = id;
         this.foodId = foodId;
-        this.date = date;
+        this.date = new Date(date.getTime());
         this.whichMeal = whichMeal;
         this.weight = weight;
 
@@ -23,7 +23,7 @@ public class Meal {
 
     public Meal(Integer foodId, Date date, Integer whichMeal, Integer weight) {
         this.foodId = foodId;
-        this.date = date;
+        this.date = new Date(date.getTime());
         this.whichMeal = whichMeal;
         this.weight = weight;
 
@@ -32,7 +32,6 @@ public class Meal {
     public Integer getId() {
         return id;
     }
-
 
     public void setId(int id) {
         this.id = id;
@@ -43,7 +42,7 @@ public class Meal {
     }
 
     public Date getDate() {
-        return date;
+        return new Date(this.date.getTime());
     }
 
     public Integer getWhichMeal() {
