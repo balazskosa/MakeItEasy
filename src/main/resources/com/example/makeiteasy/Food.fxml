@@ -111,7 +111,7 @@
                      </children>
                   </HBox>
                   <TextField id="inputSearchFood" fx:id="inputSearchFood" />
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="300.0" text="Load Data">
+                        <Button id="loadDataBaseButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loadDatabaseButton" prefHeight="300.0" text="Load Data">
                             <cursor>
                                 <Cursor fx:constant="DEFAULT" />
                             </cursor>

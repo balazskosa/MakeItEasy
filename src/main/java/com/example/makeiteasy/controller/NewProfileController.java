@@ -1,5 +1,6 @@
 package com.example.makeiteasy.controller;
 
+import com.example.makeiteasy.database.DB;
 import com.example.makeiteasy.database.pojo.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -66,6 +67,7 @@ public class NewProfileController implements Initializable {
     @FXML private DatePicker birthDate;
     @FXML private TextField height;
     @FXML private ToggleGroup activityRadioGroup;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -215,13 +217,14 @@ public class NewProfileController implements Initializable {
                     getActivityMultiplier(selectedActivity)
             );
 
-            System.out.println(user);
-
-            try {
-                replaceSceneContent();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            DB.addUser(user);
+            //ProfileController.setUserLabels(user);
+//            try {
+//                replaceSceneContent();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+            stage.close();
         }
     }
 
@@ -238,13 +241,13 @@ public class NewProfileController implements Initializable {
         };
     }
 
-    private void replaceSceneContent() throws IOException {
-        URL url = new File("src/main/resources/com/example/makeiteasy/View.fxml").toURI().toURL();
-        Parent page = FXMLLoader.load(url);
-        stage.getScene().setRoot(page);
-        stage.sizeToScene();
-        stage.centerOnScreen();
-    }
+//    private void replaceSceneContent() throws IOException {
+//        URL url = new File("src/main/resources/com/example/makeiteasy/View.fxml").toURI().toURL();
+//        Parent page = FXMLLoader.load(url);
+//        stage.getScene().setRoot(page);
+//        stage.sizeToScene();
+//        stage.centerOnScreen();
+//    }
 
     public void setStage(Stage stage) {
         this.stage = stage;

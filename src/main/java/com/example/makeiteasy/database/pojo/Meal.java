@@ -1,38 +1,40 @@
 package com.example.makeiteasy.database.pojo;
 
-import javafx.beans.property.IntegerProperty;
+import com.example.makeiteasy.database.DB;
 
 import java.sql.Date;
+
 public class Meal {
 
-    private Integer userId = 0;
+    private Integer id = 0;
     private final Integer foodId;
     private final Date date;
     private final Integer whichMeal;
-    private final Integer weight;
+    private Integer weight;
 
+    public Meal(Integer id, Integer foodId, Date date, Integer whichMeal, Integer weight) {
+        this.id = id;
+        this.foodId = foodId;
+        this.date = new Date(date.getTime());
+        this.whichMeal = whichMeal;
+        this.weight = weight;
+
+    }
 
     public Meal(Integer foodId, Date date, Integer whichMeal, Integer weight) {
         this.foodId = foodId;
-        this.date = date;
+        this.date = new Date(date.getTime());
         this.whichMeal = whichMeal;
         this.weight = weight;
+
     }
 
-    public Meal(Integer userId, Integer foodId, Date date, Integer whichMeal, Integer weight) {
-        this.userId = userId;
-        this.foodId = foodId;
-        this.date = date;
-        this.whichMeal = whichMeal;
-        this.weight = weight;
+    public Integer getId() {
+        return id;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Integer getFoodId() {
@@ -40,7 +42,7 @@ public class Meal {
     }
 
     public Date getDate() {
-        return date;
+        return new Date(this.date.getTime());
     }
 
     public Integer getWhichMeal() {
@@ -51,14 +53,13 @@ public class Meal {
         return weight;
     }
 
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
     @Override
     public String toString() {
-        return "Meals{" +
-                "userId=" + userId +
-                ", foodId=" + foodId +
-                ", date=" + date +
-                ", whichMeal=" + whichMeal +
-                ", weight=" + weight +
-                '}';
+        return DB.getFoodByID(foodId).getName() + " | " + weight;
     }
+
 }

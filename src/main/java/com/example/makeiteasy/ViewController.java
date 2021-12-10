@@ -1,9 +1,11 @@
 package com.example.makeiteasy;
 
+import com.example.makeiteasy.database.DB;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -18,10 +20,12 @@ public class ViewController implements Initializable {
     @FXML
     private BorderPane borderPane;
 
+    @FXML
+    Label welcomeText;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+            welcomeText.setText("'Aim for Progress Not Perfection'\nWelcome " + DB.user().firstName + "!");
     }
 
     @FXML
