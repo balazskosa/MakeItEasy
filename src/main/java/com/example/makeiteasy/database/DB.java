@@ -3,7 +3,6 @@ package com.example.makeiteasy.database;
 import com.example.makeiteasy.database.pojo.Food;
 import com.example.makeiteasy.database.pojo.Meal;
 import com.example.makeiteasy.database.pojo.User;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -118,8 +117,6 @@ public final class DB {
             System.out.println("" + e);
         }
     }
-
-
 
 
     //<editor-fold desc="all methods to food table">
@@ -241,6 +238,13 @@ public final class DB {
         foods.addAll(getAllFoods());
     }
 
+    public static ObservableList<Food> getFoods() {
+        return foods;
+    }
+    //</editor-fold">
+
+    //<editor-fold desc="all methods to meal table">
+
     public static void searchMealsByWhichMeal(int whichMeal, LocalDate date) {
         meals.clear();
         meals.addAll(getAllMeals());
@@ -248,45 +252,6 @@ public final class DB {
         meals.removeIf(f -> !(f.getDate().toLocalDate().equals(date)));
     }
 
-
-    public static void getAllFoodsWithMeta() {
-        String sql = "select * from food";
-        ResultSet rs = null;
-        ResultSetMetaData rsmd = null;
-        try {
-            rs = createStatement.executeQuery(sql);
-            rsmd = rs.getMetaData();
-
-            int columnCount = rsmd.getColumnCount();
-            for (int i = 1; i < columnCount + 1; i++) {
-                System.out.print(rsmd.getColumnName(i) + " | ");
-            }
-            System.out.println();
-
-            while (rs.next()) {
-                int foodId = rs.getInt(rsmd.getColumnName(1));
-                String foodName = rs.getString(rsmd.getColumnName(2));
-                int calories = rs.getInt(rsmd.getColumnName(3));
-                int protein = rs.getInt(rsmd.getColumnName(4));
-                int carbs = rs.getInt(rsmd.getColumnName(5));
-                int fat = rs.getInt(rsmd.getColumnName(5));
-                System.out.println(foodId + " | " + foodName + " | " + calories + " | " + protein + " | " + carbs + " |" + fat);
-            }
-
-
-        } catch (SQLException e) {
-            System.out.println("Something wrong with the reading of the data");
-            System.out.println("" + e);
-        }
-    }
-
-
-    public static ObservableList<Food> getFoods() {
-        return foods;
-    }
-    //</editor-fold">
-
-    //<editor-fold desc="all methods to meal table">
     public static void addMeal(Meal meal) {
         try {
             String sql = "insert into meal (foodId, date, whichMeal, weight) values(?, ?, ?, ?)";
@@ -339,62 +304,6 @@ public final class DB {
         return meals;
     }
 
-    public static ArrayList<Meal> getAllMealsByWhichMeal(int whichMeal) {
-        String sql = "select * from meal where whicmeal = " + whichMeal;
-        ResultSet rs = null;
-        ResultSetMetaData rsmd = null;
-        ArrayList<Meal> meals = null;
-
-        try {
-            meals = new ArrayList<>();
-            rs = createStatement.executeQuery(sql);
-            rsmd = rs.getMetaData();
-            while (rs.next()) {
-                Meal actualMeal = new Meal(
-                        rs.getInt("id"),
-                        rs.getInt("foodId"),
-                        rs.getDate("date"),
-                        rs.getInt("whichMeal"),
-                        rs.getInt("weight"));
-                meals.add(actualMeal);
-            }
-        } catch (SQLException e) {
-            System.out.println("Something wrong with the getAllMealsByWhichMeal method");
-            System.out.println("" + e);
-        }
-
-        return meals;
-    }
-
-    public static void getAllMealsWithMeta() {
-        String sql = "select * from meal";
-        ResultSet rs = null;
-        ResultSetMetaData rsmd = null;
-        try {
-            rs = createStatement.executeQuery(sql);
-            rsmd = rs.getMetaData();
-
-            int columnCount = rsmd.getColumnCount();
-            for (int i = 1; i < columnCount + 1; i++) {
-                System.out.print(rsmd.getColumnName(i) + " | ");
-            }
-            System.out.println();
-
-            while (rs.next()) {
-                int id = rs.getInt(rsmd.getColumnName(1));
-                int foodId = rs.getInt(rsmd.getColumnName(2));
-                Date date = rs.getDate(rsmd.getColumnName(3));
-                int whichMeal = rs.getInt(rsmd.getColumnName(4));
-                int weight = rs.getInt(rsmd.getColumnName(5));
-                System.out.println(id + " | " + foodId + " | " + date + " | " + whichMeal + " | " + weight);
-            }
-
-
-        } catch (SQLException e) {
-            System.out.println("Something wrong with the reading of the data");
-            System.out.println("" + e);
-        }
-    }
     public static void deleteMeal(Meal meal) {
         String sql = "delete from meal where id = " + meal.getId();
 
@@ -448,7 +357,7 @@ public final class DB {
             pstm.setString(1, newUser.firstName);
             pstm.setString(2, newUser.lastName);
             pstm.setInt(3, newUser.weight);
-            pstm.setString(4,newUser.gender);
+            pstm.setString(4, newUser.gender);
             pstm.setDate(5, Date.valueOf(newUser.birthday));
             pstm.setInt(6, newUser.height);
             pstm.setDouble(7, newUser.activityMultiplier);
@@ -459,10 +368,6 @@ public final class DB {
             System.out.println("" + e);
         }
         user = newUser;
-
-    }
-
-    public static void updateUser(User user) {
 
     }
 
@@ -481,8 +386,8 @@ public final class DB {
         }
 
         if (count != 1) {
-            User generalUser = new User("firstname",
-                    "lastname",
+            User generalUser = new User("Quest",
+                    "Quest",
                     70,
                     "Male", LocalDate.of(2000, 2, 12), 170, 1.35);
             DB.addUser(generalUser);
@@ -519,36 +424,98 @@ public final class DB {
         return actualUser;
     }
 
-    public static void getAllUserWithMeta() {
-        String sql = "select * from user2";
-        ResultSet rs = null;
-        ResultSetMetaData rsmd = null;
-        try {
-            rs = createStatement.executeQuery(sql);
-            rsmd = rs.getMetaData();
-            int columnCount = rsmd.getColumnCount();
-            for (int i = 1; i < columnCount + 1; i++) {
-                System.out.print(rsmd.getColumnName(i) + " | ");
-            }
-            System.out.println();
-
-            while (rs.next()) {
-                String firstName = rs.getString(rsmd.getColumnName(1));
-                String lastName = rs.getString(rsmd.getColumnName(2));
-                int weight = rs.getInt(rsmd.getColumnName(3));
-                String gender = rs.getString(rsmd.getColumnName(4));
-                Date date = rs.getDate(rsmd.getColumnName(5));
-                int height = rs.getInt(rsmd.getColumnName(6));
-                double activity = rs.getDouble(rsmd.getColumnName(7));
-                System.out.println(firstName + " | " + lastName + " | " + weight + " | " + gender + " | " + date + " | " + height + " | " + activity);
-            }
-
-
-        } catch (SQLException e) {
-            System.out.println("Something wrong with the reading of the data");
-            System.out.println("" + e);
-        }
-    }
 
     //</editor-fold>
+
+//    public static void getAllMealsWithMeta() {
+//        String sql = "select * from meal";
+//        ResultSet rs = null;
+//        ResultSetMetaData rsmd = null;
+//        try {
+//            rs = createStatement.executeQuery(sql);
+//            rsmd = rs.getMetaData();
+//
+//            int columnCount = rsmd.getColumnCount();
+//            for (int i = 1; i < columnCount + 1; i++) {
+//                System.out.print(rsmd.getColumnName(i) + " | ");
+//            }
+//            System.out.println();
+//
+//            while (rs.next()) {
+//                int id = rs.getInt(rsmd.getColumnName(1));
+//                int foodId = rs.getInt(rsmd.getColumnName(2));
+//                Date date = rs.getDate(rsmd.getColumnName(3));
+//                int whichMeal = rs.getInt(rsmd.getColumnName(4));
+//                int weight = rs.getInt(rsmd.getColumnName(5));
+//                System.out.println(id + " | " + foodId + " | " + date + " | " + whichMeal + " | " + weight);
+//            }
+//
+//
+//        } catch (SQLException e) {
+//            System.out.println("Something wrong with the reading of the data");
+//            System.out.println("" + e);
+//        }
+//    }
+//
+//    public static void getAllUserWithMeta() {
+//        String sql = "select * from user2";
+//        ResultSet rs = null;
+//        ResultSetMetaData rsmd = null;
+//        try {
+//            rs = createStatement.executeQuery(sql);
+//            rsmd = rs.getMetaData();
+//            int columnCount = rsmd.getColumnCount();
+//            for (int i = 1; i < columnCount + 1; i++) {
+//                System.out.print(rsmd.getColumnName(i) + " | ");
+//            }
+//            System.out.println();
+//
+//            while (rs.next()) {
+//                String firstName = rs.getString(rsmd.getColumnName(1));
+//                String lastName = rs.getString(rsmd.getColumnName(2));
+//                int weight = rs.getInt(rsmd.getColumnName(3));
+//                String gender = rs.getString(rsmd.getColumnName(4));
+//                Date date = rs.getDate(rsmd.getColumnName(5));
+//                int height = rs.getInt(rsmd.getColumnName(6));
+//                double activity = rs.getDouble(rsmd.getColumnName(7));
+//                System.out.println(firstName + " | " + lastName + " | " + weight + " | " + gender + " | " + date + " | " + height + " | " + activity);
+//            }
+//
+//
+//        } catch (SQLException e) {
+//            System.out.println("Something wrong with the reading of the data");
+//            System.out.println("" + e);
+//        }
+//    }
+//
+//    public static void getAllFoodsWithMeta() {
+//        String sql = "select * from food";
+//        ResultSet rs = null;
+//        ResultSetMetaData rsmd = null;
+//        try {
+//            rs = createStatement.executeQuery(sql);
+//            rsmd = rs.getMetaData();
+//
+//            int columnCount = rsmd.getColumnCount();
+//            for (int i = 1; i < columnCount + 1; i++) {
+//                System.out.print(rsmd.getColumnName(i) + " | ");
+//            }
+//            System.out.println();
+//
+//            while (rs.next()) {
+//                int foodId = rs.getInt(rsmd.getColumnName(1));
+//                String foodName = rs.getString(rsmd.getColumnName(2));
+//                int calories = rs.getInt(rsmd.getColumnName(3));
+//                int protein = rs.getInt(rsmd.getColumnName(4));
+//                int carbs = rs.getInt(rsmd.getColumnName(5));
+//                int fat = rs.getInt(rsmd.getColumnName(5));
+//                System.out.println(foodId + " | " + foodName + " | " + calories + " | " + protein + " | " + carbs + " |" + fat);
+//            }
+//
+//
+//        } catch (SQLException e) {
+//            System.out.println("Something wrong with the reading of the data");
+//            System.out.println("" + e);
+//        }
+//    }
 }

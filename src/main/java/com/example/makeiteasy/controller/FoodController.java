@@ -146,7 +146,6 @@ public class FoodController implements Initializable {
         for (TextField input : inputs) {
             input.clear();
         }
-        DB.getAllFoodsWithMeta();
     }
 
     public void setTable() {

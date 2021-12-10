@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.makeiteasy.ViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.makeiteasy.ViewController">
    <children>
       <SplitPane dividerPositions="0.2223" layoutX="168.0" layoutY="190.0" prefHeight="580.0" prefWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -62,7 +63,14 @@
                <children>
                   <Rectangle arcHeight="100.0" arcWidth="100.0" fill="DODGERBLUE" height="218.0" layoutX="126.0" layoutY="-124.0" opacity="0.5" rotate="30.0" stroke="BLACK" strokeType="INSIDE" width="465.0" />
                   <Rectangle arcHeight="100.0" arcWidth="100.0" fill="DODGERBLUE" height="218.0" layoutX="46.0" layoutY="552.0" opacity="0.5" rotate="30.0" stroke="BLACK" strokeType="INSIDE" width="465.0" />
-                  <BorderPane fx:id="borderPane" prefHeight="578.0" prefWidth="742.0" />
+                  <BorderPane fx:id="borderPane" prefHeight="578.0" prefWidth="742.0">
+                     <center>
+                        <Label id="welcomeText" fx:id="welcomeText" alignment="CENTER" prefHeight="265.0" prefWidth="455.0" wrapText="true" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Label>
+                     </center></BorderPane>
                </children>
             </AnchorPane>
         </items>
