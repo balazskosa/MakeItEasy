@@ -185,6 +185,8 @@ public class NewProfileController implements Initializable {
                     chooseOneActivityMsg.setVisible(false);
                 }
                 break;
+            default:
+                break;
         }
         return isCorrect;
     }
