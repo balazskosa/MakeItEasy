@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     name: "Build & Test & Pre Release"
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -29,7 +29,8 @@ jobs:
       - name: Generate JavaDoc
         run: mvn --no-transfer-progress javadoc:javadoc
 
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Automatic GitHub Release
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
@@ -37,3 +38,11 @@ jobs:
           title: "Development Build"
           files: |
             target/ExecutableMakeItEasy-jar-with-dependencies.jar
+
+      - name: Push Docker Image
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: docker.pkg.github.com/balazskosa/MakeItEasy/build_image
+          registry: docker.pkg.github.com
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
