@@ -2,6 +2,7 @@ package com.example.makeiteasy.database;
 
 import com.example.makeiteasy.database.pojo.Food;
 import com.example.makeiteasy.database.pojo.Meal;
+import com.example.makeiteasy.database.pojo.User;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
@@ -122,9 +123,71 @@ class DBTest {
 
     @Test
     void updateMeal() {
+        DB.clearFoodTable();
+        String name_1 = "testFood_1";
+        int calories_1 = 100;
+        int protein_1 = 20;
+        int carbs_1 = 30;
+        int fat_1= 40;
+
+        String name_2 = "testFood_2";
+        int calories_2 = 500;
+        int protein_2 = 50;
+        int carbs_2 = 15;
+        int fat_2= 10;
+
+        Food food_1 = new Food(name_1, calories_1, protein_1, carbs_1, fat_1);
+        Food food_2 = new Food(name_2, calories_2, protein_2, carbs_2, fat_2);
+        DB.addFood(food_1);
+        DB.addFood(food_2);
+
+        LocalDate currentDay = LocalDate.now();
+
+        Meal meal_1 = new Meal(food_1.getId(), Date.valueOf(currentDay), 1, 200);
+        Meal meal_2 = new Meal(food_2.getId(), Date.valueOf(currentDay), 1, 200);
+        DB.addMeal(meal_1);
+        DB.addMeal(meal_2);
+
+        DB.updateMeal(meal_1, 1000);
+        DB.updateMeal(meal_2, 1);
+
+        assertEquals(DB.getAllMeals().get(0).getWeight(), 1000);
+        assertEquals(DB.getAllMeals().get(1).getWeight(), 1);
+
+        DB.deleteMeal(meal_1);
+        DB.deleteMeal(meal_2);
     }
 
     @Test
     void addUser() {
+        User generalUser = new User("Quest",
+                "Quest",
+                70,
+                "Male", LocalDate.of(2000, 2, 12), 170, 1.35);
+        DB.addUser(generalUser);
+
+        assertNotNull(DB.getUser());
+        assertEquals(DB.getUser().firstName, "Quest");
+        assertEquals(DB.getUser().lastName, "Quest");
+        assertEquals(DB.getUser().weight, 70);
+        assertEquals(DB.getUser().gender, "Male");
+        assertEquals(DB.getUser().age, LocalDate.now().getYear() - DB.getUser().birthday.getYear());
+        assertEquals(DB.getUser().height, 170);
+        assertEquals(DB.getUser().activityMultiplier, 1.35);
+
+        User customUser = new User("Test",
+                "User",
+                110,
+                "Female", LocalDate.of(1970, 1, 1), 175, 1.2);
+        DB.addUser(customUser);
+
+        assertNotNull(DB.getUser());
+        assertEquals(DB.getUser().firstName, "Test");
+        assertEquals(DB.getUser().lastName, "User");
+        assertEquals(DB.getUser().weight, 110);
+        assertEquals(DB.getUser().gender, "Female");
+        assertEquals(DB.getUser().age, LocalDate.now().getYear() - DB.getUser().birthday.getYear());
+        assertEquals(DB.getUser().height, 175);
+        assertEquals(DB.getUser().activityMultiplier, 1.2);
     }
 }
