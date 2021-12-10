@@ -39,8 +39,12 @@ jobs:
           files: |
             target/ExecutableMakeItEasy-jar-with-dependencies.jar
 
-      - name: Push Docker Image
-        uses: mr-smithers-excellent/docker-build-push@v5
+  deploy:
+    name: Push Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: mr-smithers-excellent/docker-build-push@v5
         with:
           image: MakeItEasy/build_image
           registry: docker.pkg.github.com
