@@ -15,11 +15,21 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+/**
+ * This Controller controls the New profile page.
+ */
 public class NewProfileController implements Initializable {
 
+    /**
+     * Stage extends Windows. This class-variable is needed for
+     * opening and closing app-related windows.
+     */
     public Stage stage;
 
     //Top buttons
+    /**
+     * This array contains the Buttons on the top of New Profile Page.
+     */
     @FXML
     public Button[] topButtons;
     @FXML
@@ -37,7 +47,7 @@ public class NewProfileController implements Initializable {
 
     //Profile creation pages
     @FXML
-    public Pane[] pages;
+    private Pane[] pages;
     @FXML
     private Pane namePage;
     @FXML
@@ -50,6 +60,11 @@ public class NewProfileController implements Initializable {
     private Pane heightPage;
     @FXML
     private Pane activityPage;
+
+    /**
+     * This currentPage int value stores the actual page of the New Profile Screen.
+     * This variable helps for hiding and showing elements on New Profile Screen.
+     */
     public int currentPage;
 
     //Gender buttons
@@ -60,9 +75,9 @@ public class NewProfileController implements Initializable {
 
     //Navigation buttons
     @FXML
-    public Button nextArrow;
+    private Button nextArrow;
     @FXML
-    public Button backArrow;
+    private Button backArrow;
     @FXML
     private Button calculateButton;
 
@@ -104,6 +119,10 @@ public class NewProfileController implements Initializable {
         birthDate.setValue(LocalDate.parse("2000-01-01"));
     }
 
+    /**
+     * This method called when the next arrow clicked on the New Profile Screen.
+     * It hides and shows elements related to currentPage variable.
+     */
     @FXML
     public EventHandler<ActionEvent> onNextArrowAction() {
         if (checkData(currentPage)) {
@@ -128,6 +147,10 @@ public class NewProfileController implements Initializable {
         return null;
     }
 
+    /**
+     * This method called when the back arrow clicked on the New Profile Screen.
+     * It hides and shows elements related to currentPage variable.
+     */
     @FXML
     public EventHandler<ActionEvent> onBackArrowAction() {
         --currentPage;
@@ -218,6 +241,12 @@ public class NewProfileController implements Initializable {
         return isCorrect;
     }
 
+    /**
+     * Checks the String value from the method parameter to see if it
+     * can be converted to numeric value.
+     * @param string the String value to be checked
+     * @return false if string cannot be converted, true if can be converted
+     */
     public boolean isNumeric(String string) {
         if (string == null || string.equals(""))
             return false;
@@ -257,6 +286,13 @@ public class NewProfileController implements Initializable {
         }
     }
 
+    /**
+     * This method converts a chosen "radio-button" to doubles. Every "radio-button"
+     * describes an activity level. This activity levels can be turned to doubles.
+     * This conversion is based on researches.
+     * @param selectedButton is the "radio-button" to convert based on it's text.
+     * @return the activity multiplier double
+     */
     public double getActivityMultiplier(RadioButton selectedButton) {
         String buttonText = selectedButton.getText().split(":")[0];
         return switch (buttonText) {
@@ -278,6 +314,10 @@ public class NewProfileController implements Initializable {
 //        stage.centerOnScreen();
 //    }
 
+    /**
+     * This method allows the app to set the main Stage for this class.
+     * @param stage is the app's main stage
+     */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
