@@ -17,7 +17,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
+/**
+ * Implementing all methods associated with result page
+ */
 public class ResultController implements Initializable {
 
     @FXML
@@ -35,34 +37,50 @@ public class ResultController implements Initializable {
     @FXML
     private Label dayLabel;
 
+    /**
+     * Set the previous day
+     */
     @FXML
     private void prevDay() {
         this.currentDay = this.currentDay.minusDays(1);
         setData();
     }
-
+    /**
+     * Reset date
+     */
     @FXML
     private void resetDay() {
         this.currentDay = LocalDate.now();
         setData();
     }
-
+    /**
+     * Set the next day
+     */
     @FXML
     private void nextDay() {
         this.currentDay = this.currentDay.plusDays(1);
         setData();
     }
 
+    /**
+     * Displaying the day
+     */
     public void setDayLabel() {
         dayLabel.setText(currentDay.toString());
     }
 
+    /**
+     * Set Day, Charts and calculating nutriment values to days
+     */
     public void setData() {
         setDayLabel();
         setResults();
         setDailyCalorieChart();
     }
 
+    /**
+     * Set Daily Calorie Intake chart and Daily Nutriment Intake chart
+     */
     public void setDailyCalorieChart() {
         XYChart.Series dataSeries1 = new XYChart.Series();
         XYChart.Series dataSeries2 = new XYChart.Series();
@@ -112,6 +130,9 @@ public class ResultController implements Initializable {
 
     }
 
+    /**
+     * calculating nutriment values to days (only 7 days)
+     */
     public void setResults() {
         int index = 0;
         results.clear();

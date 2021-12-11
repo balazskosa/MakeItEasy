@@ -16,7 +16,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+/**
+ * Implementing all methods associated with profile page
+ */
 public class ProfileController implements Initializable {
 
     @FXML Label firstName;
@@ -36,6 +38,9 @@ public class ProfileController implements Initializable {
     Stage stage = new Stage();
     Scene scene = null;
 
+    /**
+     * Open new profile dialog the change user's data
+     */
     public void openNewProfileDialog() {
         fxmlLoader = new FXMLLoader(MakeItEasy.class.getResource("NewProfile.fxml"));
         try {
@@ -49,6 +54,9 @@ public class ProfileController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Refresh user's data from the DB
+     */
     public void refreshUserData() {
         setUserLabels(DB.user());
     }

@@ -14,7 +14,9 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-
+/**
+ * Implementing all methods associated with view page
+ */
 public class ViewController implements Initializable {
 
     @FXML
@@ -54,6 +56,10 @@ public class ViewController implements Initializable {
         stage.close();
     }
 
+    /**
+     * Load the current fxml based on the current file
+     * @param fileName FileName
+     */
     private void loadPane(String fileName) {
         Parent root = null;
         try {

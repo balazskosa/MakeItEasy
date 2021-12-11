@@ -20,6 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Implementing all methods associated with food page
+ */
+
 public class FoodController implements Initializable {
 
     //<editor-fold desc="object variables">
@@ -66,12 +70,21 @@ public class FoodController implements Initializable {
     //</editor-fold">
 
 
+    /**
+     * Validation of the number
+     * @param number
+     */
     private void checkNumber(int number) {
         if (number < MIN_NUTRIMENT_VALUE || number > MAX_NUTRIMENT_VALUE) {
             throw new NumberFormatException();
         }
     }
 
+    /**
+     * Add food to the DB
+     * Validation the input fields with visual feedback
+     * @param event
+     */
     @FXML
     private void addButton(ActionEvent event) {
         String name = inputName.getText();
@@ -126,22 +139,39 @@ public class FoodController implements Initializable {
 
     }
 
+    /**
+     * Searching food by name
+     * @param event
+     */
     @FXML
     private void searchFood(ActionEvent event) {
         DB.searchFoodByName(inputSearchFood.getText());
     }
 
+    /**
+     * Show all food, reset searching food by name
+     * @param event
+     */
     @FXML
     private void resetSearchFood(ActionEvent event) {
         DB.resetSearchFood();
         inputSearchFood.clear();
     }
 
+    /**
+     * Clear food and meal table
+     * @param event
+     */
     @FXML
     private void clearDatabaseButton(ActionEvent event) {
         DB.clearFoodTable();
     }
 
+    /**
+     * Select the right location of file in another window
+     * And call loadDatabase method to set up the food table
+     * @param event
+     */
     @FXML
     private void loadDatabaseButton(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -153,6 +183,10 @@ public class FoodController implements Initializable {
         if (selectedFile != null) loadDatabase(selectedFile);
     }
 
+    /**
+     * Load all food based on the specified file
+     * @param file File
+     */
     private void loadDatabase(File file) {
         DB.clearFoodTable();
         InputStream inputStream = null;
@@ -204,7 +238,9 @@ public class FoodController implements Initializable {
         }
     }
 
-
+    /**
+     * Reset all input fields
+     */
     @FXML
     private void clearInputButton() {
         for (TextField input : inputs) {
@@ -213,6 +249,9 @@ public class FoodController implements Initializable {
         }
     }
 
+    /**
+     * Set food table and made editable cells
+     */
     public void setTable() {
         nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
         caloriesCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
@@ -272,6 +311,9 @@ public class FoodController implements Initializable {
 
     }
 
+    /**
+     *  Adding input fields to an arraylist for easier handling
+     */
     public void setInputs() {
         inputs.add(inputName);
         inputs.add(inputCalories);
